@@ -1,4 +1,4 @@
-Project Title HERE
+Monash Time Series Forecasting Replication
 ==================
 
 # About this project
