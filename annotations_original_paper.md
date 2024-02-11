@@ -9,6 +9,44 @@
 | smooth                 |  2.6.0         |
 | GluonTS                |  0.8.0         |
 
+# How can we create a virtual environment?
+Conda allows us to create a virtul environment specifying the versions of python and R:
+
+```bash
+conda create -n finm python=3.12 r-base=4.1.0
+```
+
+Afterwards, we can run for Python:
+
+```bash
+pip install -r requirements.tx
+```
+
+And we create the following for R:
+
+```R
+# install_packages.R
+
+# List of required packages
+packages <- c("dplyr", "ggplot2", "tidyr", "readr")
+
+# Function to install missing packages
+install_if_missing <- function(packages) {
+  new_packages <- packages[!(packages %in% installed.packages()[,"Package"])]
+  if(length(new_packages)) install.packages(new_packages)
+}
+
+# Install the packages
+install_if_missing(packages)
+```
+
+The script runs with the following commands:
+
+```
+Rscript install_packages.R
+```
+
+
 # Data
 `utils/data_loader.R`: Data is loaded in to R environment in tsibble format and can be loaded into Pandas dataframe using the same file.
 
