@@ -62,7 +62,7 @@ return (
 )
 ```
 
-In it, there is specification about the frequency of the data, horizon forecast and if the dataframe contains missing data.
+In it, there is specification about the frequency of the data, horizon forecast and if the dataframe contains missing data.  
 
 # Models
 - ETS, ARIMA, Theta, TBATS, SES and DHR-ARIMA
