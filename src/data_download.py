@@ -4,6 +4,7 @@ import os
 import shutil
 from io import BytesIO
 
+<<<<<<< HEAD
 '''
 This code downloads the data from URL provided at (https://forecastingdata.org/) and puts it into data folder for the project.
 
@@ -11,6 +12,8 @@ We will do the similar process for all datasets.
 '''
 
 
+=======
+>>>>>>> origin/config-env
 def download_and_extract_zip(url, destination_dir):
     # Send a GET request to the URL
     response = requests.get(url)
