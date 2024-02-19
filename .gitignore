@@ -14,7 +14,7 @@
 Exclude data folder
 /data/*
 !/data/manual/
-kaggle*.csv
+*.tsf
 */_build/
 
 ###################
