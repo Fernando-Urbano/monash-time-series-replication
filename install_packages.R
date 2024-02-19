@@ -1,11 +1,10 @@
-# Set a CRAN mirror
-options(repos = c(CRAN = "https://cloud.r-project.org"))
+
+options(repos = c(CRAN = "https://mirror.las.iastate.edu/CRAN/"))
 
 # Required packages with their versions specified
 packages_with_versions <- list(
-  forecast = "8.13" # Specified in the original repository
-  # glmnet = "4.0.2", # Specified in the original repository
-  # smooth = "2.6.0" # Specified in the original repository
+  glmnet = "4.1.8",
+  forecast = "8.21.1"
 )
 
 # Function to install specific versions of packages if they are not already installed
@@ -32,5 +31,5 @@ install_if_missing_with_version <- function(packages_with_versions) {
   }
 }
 
-# Install the packages with specified versions
 install_if_missing_with_version(packages_with_versions)
+
