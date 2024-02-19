@@ -3,21 +3,85 @@ Monash Time Series Forecasting Replication
 
 # About this project
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+*[TO DO]*
 
 # Quick Start
+## 1. Install TexLive
+Note that you must have TexLive installed on your computer and available in your path.
 
-To quickest way to run code in this repo is to use the following steps. First, note that you must have TexLive installed on your computer and available in your path.
-You can do this by downloading and installing it from here ([windows](https://tug.org/texlive/windows.html#install) and [mac](https://tug.org/mactex/mactex-download.html) installers).
-Having installed LaTeX, open a terminal and navigate to the root directory of the project and create a conda environment using the following command:
+It can be downloaded in:
+- [Windows installer](https://tug.org/texlive/windows.html#install)
+- [Mac installer](https://tug.org/mactex/mactex-download.html)
+
+## 2. Create virtual environment
+Go to the home directory of the project and type in terminal the following commands:
+
+```bash
+conda deactivate
+conda create -n mtsr -c conda-forge python=3.8.5 r-base=4.0.3
+conda activate mtsr
 ```
-conda create -n blank python=3.12
-conda activate blank
-```
-and then install the dependencies with pip
-```
+
+The versions specified of R and Python are the closest available for `osx-arm64` to the original project (R: 4.0.2; Python: 3.7.4).
+
+After activating the virtual environment
+
+## 3. Install the required packages
+For Python we use `pip` to install the required packages:
+
+### 3.1. Python
+```bash
 pip install -r requirements.txt
 ```
+
+### 3.2. R
+Install homebrew if not installed:
+```bash
+if test ! $(which brew); then
+  echo "Installing homebrew..."
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+fi
+```
+
+Install required tools:
+```bash
+# List of necessary tools and libraries
+tools=(
+  gcc # includes gfortran
+  cmake
+  libomp
+)
+
+# Install necessary tools and libraries if they are not installed
+for tool in "${tools[@]}"; do
+  if brew list $tool &>/dev/null; then
+    echo "$tool is installed."
+  else
+    echo "Installing $tool..."
+    brew install $tool
+  fi
+done
+
+# Check for Xcode Command Line Tools and install if not found
+if ! xcode-select -p &>/dev/null; then
+  echo "Xcode Command Line Tools not found. Installing..."
+  xcode-select --install
+else
+  echo "Xcode Command Line Tools are installed."
+fi
+
+echo "All necessary tools and libraries are checked and installed."
+```
+
+Install R packages:
+```bash
+Rscript install_packages.R
+```
+
+
+
+
+
 You can then navigate to the `src` directory and then run 
 ```
 doit
