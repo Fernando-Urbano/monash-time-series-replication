@@ -2,26 +2,123 @@ Monash Time Series Forecasting Replication
 ==================
 
 # About this project
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+[TODO]
 
 # Quick Start
+## 1. Install TexLive
+Note that you must have TexLive installed on your computer and available in your path.
 
-To quickest way to run code in this repo is to use the following steps. First, note that you must have TexLive installed on your computer and available in your path.
-You can do this by downloading and installing it from here ([windows](https://tug.org/texlive/windows.html#install) and [mac](https://tug.org/mactex/mactex-download.html) installers).
-Having installed LaTeX, open a terminal and navigate to the root directory of the project and create a conda environment using the following command:
+It can be downloaded in:
+- [Windows installer](https://tug.org/texlive/windows.html#install)
+- [Mac installer](https://tug.org/mactex/mactex-download.html)
+
+## 2. Create virtual environment
+Go to the home directory of the project and type in terminal the following commands:
+
+```bash
+conda deactivate
+conda create -n mtsr -c conda-forge python=3.12 r-base=4.3.2
+conda activate mtsr
 ```
-conda create -n blank python=3.12
-conda activate blank
+
+The versions specified of R and Python are the ones that work with most packages for `osx-arm64`. The original project was done using: R: 4.0.2, Python: 3.7.4.
+
+### 3. Install Packages
+Inside command line run:
+```bash
+chmod +x install_packages.sh
+./install_packages.sh
 ```
-and then install the dependencies with pip
+
+### 4. Run dodo
+[TODO]
+
+# Add more Packages to the Virtual Environment
+If needed to add more packages to the environment use the `requirements_py.txt` to add Python packages and `requirements_r.txt` to add R packages.
+
+It is necessary to specify the version used.
+
+R packages have a bigger specification and are harder to add. Before adding an R package, run the the command line:
+
+```bash
+conda search -c conda-forge {package-name} --info
 ```
-pip install -r requirements.txt
+
+It will give you the version of the package that works for the current version of R we have in the virtual environment. Make sure to add the package version that is viasible for the current version of our environment.
+
+For instance, if you want to install tidyverse:
+
+```bash
+conda search -c conda-forge tidyverse --info
 ```
-You can then navigate to the `src` directory and then run 
+
+We see that `v2.0.0` is for `r-base >=4.3,<4.4.0a0`, which is compatible with ours:
+
+```bash
+r-tidyverse 2.0.0 r43h6115d3f_0
+-------------------------------
+file name   : r-tidyverse-2.0.0-r43h6115d3f_0.conda
+name        : r-tidyverse
+version     : 2.0.0
+build       : r43h6115d3f_0
+build number: 0
+size        : 414 KB
+license     : MIT
+subdir      : noarch
+url         : https://repo.anaconda.com/pkgs/r/noarch/r-tidyverse-2.0.0-r43h6115d3f_0.conda
+md5         : 19659846ac7b0101a848f53b392b833c
+timestamp   : 2023-09-26 19:23:00 UTC
+dependencies: 
+  - r-base >=4.3,<4.4.0a0
+  - r-broom >=1.0.3
+  - r-cli >=3.6.0
+  - r-conflicted >=1.2.0
+  - r-dbplyr >=2.3.0
+  - r-dplyr >=1.1.0
+  - r-dtplyr >=1.2.2
+  - r-forcats >=1.0.0
+  - r-ggplot2 >=3.4.1
+  - r-googledrive >=2.0.0
+  - r-googlesheets4 >=1.0.1
+  - r-haven >=2.5.1
+  - r-hms >=1.1.2
+  - r-httr >=1.4.4
+  - r-jsonlite >=1.8.4
+  - r-lubridate >=1.9.2
+  - r-magrittr >=2.0.3
+  - r-modelr >=0.1.10
+  - r-pillar >=1.8.1
+  - r-purrr >=1.0.1
+  - r-ragg >=1.2.5
+  - r-readr >=2.1.4
+  - r-readxl >=1.4.2
+  - r-reprex >=2.0.2
+  - r-rlang >=1.0.6
+  - r-rstudioapi >=0.14
+  - r-rvest >=1.0.3
+  - r-stringr >=1.5.0
+  - r-tibble >=3.1.8
+  - r-tidyr >=1.3.0
+  - r-xml2 >=1.3.3
+  - _r-mutex 1.* anacondar_1
 ```
-doit
+
+Therefore, we install it:
+
+```bash
+conda install -c conda-forge r-tidyverse=2.0.0
 ```
+
+As we can see above, we change the space between the package and its version to a `=` sign.
+
+An alternative to running R packages using conda is to use Rscript and download the packages from CRAN. It is not the recommended path.
+
+```bash
+Rscript install_packages.R
+``` 
+
+When running it, make sure to add all the necessary packages that are also in `requirements_r.txt`.
+
 # General Directory Structure
 
  - The `assets` folder is used for things like hand-drawn figures or other pictures that were not generated from code. These things cannot be easily recreated if they are deleted.
@@ -32,86 +129,3 @@ doit
 
  - I'm using the `.env` file as a container for absolute paths that are private to each collaborator in the project. You can also use it for private credentials, if needed. It should not be tracked in Git.
 
-# Data and Output Storage
-
-I'll often use a separate folder for storing data. I usually write code that will pull the data and save it to a directory in the data folder called "pulled"  to let the reader know that anything in the "pulled" folder could hypothetically be deleted and recreated by rerunning the PyDoit command (the pulls are in the dodo.py file).
-
-I'll usually store manually created data in the "assets" folder if the data is small enough. Because of the risk of manually data getting changed or lost, I prefer to keep it under version control if I can.
-
-Output is stored in the "output" directory. This includes tables, charts, and rendered notebooks. When the output is small enough, I'll keep this under version control. I like this because I can keep track of how tables change as my analysis progresses, for example.
-
-Of course, the data directory and output directory can be kept elsewhere on the machine. To make this easy, I always include the ability to customize these locations by defining the path to these directories in environment variables, which I intend to be defined in the `.env` file, though they can also simply be defined on the command line or elsewhere. The `config.py` is reponsible for loading these environment variables and doing some like preprocessing on them. The `config.py` file is the entry point for all other scripts to these definitions. That is, all code that references these variables and others are loading by importing `config`.
-
-
-# Dependencies and Virtual Environments
-
-## Working with `pip` requirements
-
-`conda` allows for a lot of flexibility, but can often be slow. `pip`, however, is fast for what it does.  You can install the requirements for this project using the `requirements.txt` file specified here. Do this with the following command:
-```
-pip install -r requirements.txt
-```
-
-The requirements file can be created like this:
-```
-pip list --format=freeze
-```
-
-## Working with `conda` environments
-
-The dependencies used in this environment (along with many other environments commonly used in data science) are stored in the conda environment called `blank` which is saved in the file called `environment.yml`. To create the environment from the file (as a prerequisite to loading the environment), use the following command:
-
-```
-conda env create -f environment.yml
-```
-
-Now, to load the environment, use
-
-```
-conda activate blank
-```
-
-Note that an environment file can be created with the following command:
-
-```
-conda env export > environment.yml
-```
-
-However, it's often preferable to create an environment file manually, as was done with the file in this project.
-
-Also, these dependencies are also saved in `requirements.txt` for those that would rather use pip. Also, GitHub actions work better with pip, so it's nice to also have the dependencies listed here. This file is created with the following command:
-
-```
-pip freeze > requirements.txt
-```
-
-### Alternative Quickstart using Conda
-Another way to  run code in this repo is to use the following steps.
-First, open a terminal and navigate to the root directory of the project and create a conda environment using the following command:
-```
-conda env create -f environment.yml
-```
-Now, load the environment with
-```
-conda activate blank
-```
-Now, navigate to the directory called `src`
-and run
-```
-doit
-```
-That should be it!
-
-
-
-**Other helpful `conda` commands**
-
-- Create conda environment from file: `conda env create -f environment.yml`
-- Activate environment for this project: `conda activate blank`
-- Remove conda environment: `conda remove --name myenv --all`
-- Create blank conda environment: `conda create --name myenv --no-default-packages`
-- Create blank conda environment with different version of Python: `conda create --name myenv --no-default-packages python` Note that the addition of "python" will install the most up-to-date version of Python. Without this, it may use the system version of Python, which will likely have some packages installed already.
-
-## `mamba` and `conda` performance issues
-
-Since `conda` has so many performance issues, it's recommended to use `mamba` instead. I recommend installing the `miniforge` distribution. See here: https://github.com/conda-forge/miniforge

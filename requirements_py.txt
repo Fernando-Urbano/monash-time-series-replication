@@ -43,3 +43,4 @@ wrds==3.1.6
 xbbg==0.7.7
 xlrd==2.0.1
 zstandard==0.22.0
+gluonts==0.14.4 # Added afterwards - Version was 0.8.0 in the original project
