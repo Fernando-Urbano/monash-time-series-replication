@@ -159,15 +159,15 @@ def convert_tsf_to_dataframe(
         )
 
 
-# Example of usage
-loaded_data, frequency, forecast_horizon, contain_missing_values, contain_equal_length = convert_tsf_to_dataframe("data/kaggle_web_traffic_dataset_with_missing_values.tsf")
-
-print(loaded_data)
-print(frequency)
-print(forecast_horizon)
-print(contain_missing_values)
-print(contain_equal_length)
-loaded_data['len_series'] = loaded_data['series_value'].apply(lambda x: len(x))
-print(loaded_data['len_series'].min())
-print(loaded_data['len_series'].max())
+if __name__ == "__main__":
+    # Example of usage
+    loaded_data, frequency, forecast_horizon, contain_missing_values, contain_equal_length = convert_tsf_to_dataframe("data/kaggle_web_traffic_dataset_with_missing_values.tsf")
+    print(loaded_data)
+    print(frequency)
+    print(forecast_horizon)
+    print(contain_missing_values)
+    print(contain_equal_length)
+    loaded_data['len_series'] = loaded_data['series_value'].apply(lambda x: len(x))
+    print(loaded_data['len_series'].min())
+    print(loaded_data['len_series'].max())
 
