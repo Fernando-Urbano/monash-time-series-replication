@@ -8,6 +8,8 @@ sys.path.insert(1, './src/')
 import config
 from pathlib import Path
 from doit.tools import run_once
+from src.data_download import download_and_extract_zip
+from src.data_download import URLS
 
 
 OUTPUT_DIR = Path(config.OUTPUT_DIR)
@@ -33,19 +35,13 @@ def jupyter_clear_output(notebook):
     return f"jupyter nbconvert --ClearOutputPreprocessor.enabled=True --ClearMetadataPreprocessor.enabled=True --inplace ./src/{notebook}.ipynb"
 
 
-def task_pull_fred():
-    """ """
-    file_dep = ["./src/load_fred.py"]
-    file_output = ["fred.parquet"]
-    targets = [DATA_DIR / "pulled" / file for file in file_output]
 
-    return {
-        "actions": [
-            "ipython ./src/load_fred.py",
-        ],
-        "targets": targets,
-        "file_dep": file_dep,
-        "clean": True,
-    }
-
-
+def task_download_data():
+    for file, url in URLS.items():
+        yield {
+            'name': file,
+            'actions': [(download_and_extract_zip, [url, DATA_DIR])],
+            'targets': [DATA_DIR / file],  # Adjust as necessary
+            'uptodate': [False],  # Force re-download every time, or adjust as necessary
+            'clean': True,
+        }
