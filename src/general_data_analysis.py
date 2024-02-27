@@ -89,6 +89,28 @@ def transform_dataset(dataset_raw, frequency):
         yield partial_dataset
 
 
+def transform_entire_dataset(dataset_raw, frequency):
+    delta_frequency = relative_time_func(frequency)
+    dataset = dataset_raw.copy()
+    dataset = (
+        dataset
+        .assign(timestamp=lambda df: df.apply(
+            lambda row: [
+                (row.start_timestamp + delta_frequency(i)) for i in range(0, len(row.series_value))
+            ], axis=1
+        ))
+        .drop('start_timestamp', axis=1)
+        .assign(timestamp_series_value=lambda df: df.apply(
+            lambda row: list(zip(row['series_value'], row['timestamp'])), axis=1
+        ))
+        .explode('timestamp_series_value')
+        .assign(series_value=lambda df: df.apply(lambda row: row.timestamp_series_value[0], axis=1))
+        .assign(timestamp=lambda df: df.apply(lambda row: row.timestamp_series_value[1], axis=1))
+        .drop('timestamp_series_value', axis=1)
+    )
+    yield dataset
+
+
 def calc_summary_statistics(dataset):
     summary_statistics_dataset = (
         dataset
