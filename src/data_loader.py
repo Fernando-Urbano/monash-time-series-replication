@@ -2,6 +2,12 @@ from datetime import datetime
 from distutils.util import strtobool
 
 import pandas as pd
+import os
+import config
+from pathlib import Path
+
+OUTPUT_DIR = Path(config.OUTPUT_DIR)
+DATA_DIR = Path(config.DATA_DIR)
 
 '''
 This file is taken from https://github.com/rakshitha123/TSForecasting
@@ -23,6 +29,7 @@ def convert_tsf_to_dataframe(
     col_types = []
     all_data = {}
     line_count = 0
+    competition_dataset = False
     frequency = None
     forecast_horizon = None
     contain_missing_values = None
@@ -37,6 +44,10 @@ def convert_tsf_to_dataframe(
             line = line.strip()
 
             if line:
+                if line.startswith("#"):
+                    if 'competition' in line or 'Competition' in line:
+                        competition_dataset=True
+
                 if line.startswith("@"):  # Read meta-data
                     if not line.startswith("@data"):
                         line_content = line.split(" ")
@@ -156,18 +167,24 @@ def convert_tsf_to_dataframe(
             forecast_horizon,
             contain_missing_values,
             contain_equal_length,
+            competition_dataset,
         )
 
 
 if __name__ == "__main__":
-    # Example of usage
-    loaded_data, frequency, forecast_horizon, contain_missing_values, contain_equal_length = convert_tsf_to_dataframe("data/kaggle_web_traffic_dataset_with_missing_values.tsf")
-    print(loaded_data)
-    print(frequency)
-    print(forecast_horizon)
-    print(contain_missing_values)
-    print(contain_equal_length)
-    loaded_data['len_series'] = loaded_data['series_value'].apply(lambda x: len(x))
-    print(loaded_data['len_series'].min())
-    print(loaded_data['len_series'].max())
 
+    # Get a list of all files in the data directory
+    all_files = os.listdir(DATA_DIR)
+    
+    # Filter files with the '.tsf' extension using list comprehension
+    files_with_extension = [file for file in all_files if file.endswith('.tsf')]
+
+    df_table1 = pd.DataFrame(columns=['Dataset','Frequency','Forecast_horizon','Missing_values','Equal_length','Min_Length','Max_Length'])
+    # Example of usage
+    for f1 in files_with_extension:
+        loaded_data, frequency, forecast_horizon, contain_missing_values, contain_equal_length, competition_dataset = convert_tsf_to_dataframe(str(DATA_DIR) + '/' + f1)
+        loaded_data['len_series'] = loaded_data['series_value'].apply(lambda x: len(x))
+        df_append = pd.DataFrame([{'Dataset':f1.split('.')[0], '# of Series':loaded_data.shape[0],'Frequency':frequency,'Forecast_horizon':forecast_horizon,'Missing_values':contain_missing_values,'Equal_length':contain_equal_length,'Min_Length':loaded_data['len_series'].min(),'Max_Length':loaded_data['len_series'].max(),'Competition':competition_dataset}])
+        df_table1 = pd.concat([df_table1,df_append], axis=0)
+
+    print(df_table1)
