@@ -10,8 +10,10 @@ from pathlib import Path
 from doit.tools import run_once
 from src.data_download import download_and_extract_zip
 from src.data_download import URLS
+from src.data_loader import convert_tsf_to_dataframe
+from src.data_loader import generate_table1_dataframe
 
-
+BASE_DIR = Path(config.BASE_DIR)
 OUTPUT_DIR = Path(config.OUTPUT_DIR)
 DATA_DIR = Path(config.DATA_DIR)
 
@@ -45,3 +47,12 @@ def task_download_data():
             'uptodate': [False],  # Force re-download every time, or adjust as necessary
             'clean': True,
         }
+
+def task_generate_table1():
+    yield {
+        'name': 'Generate Table 1',
+        'actions': [(generate_table1_dataframe, [DATA_DIR])],
+        'targets': [BASE_DIR / 'results' / 'Table1.csv'],  # Adjust as necessary
+        'uptodate': [False],  # Force re-download every time, or adjust as necessary
+        'clean': True,
+    }
