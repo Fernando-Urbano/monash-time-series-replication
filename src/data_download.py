@@ -11,7 +11,6 @@ from doit.tools import run_once
 OUTPUT_DIR = Path(config.OUTPUT_DIR)
 DATA_DIR = Path(config.DATA_DIR)
 
-
 URLS = {
     'm1_yearly_dataset.tsf': 'https://zenodo.org/records/4656193/files/m1_yearly_dataset.zip?download=1',
     'm1_quarterly_dataset.tsf': 'https://zenodo.org/records/4656154/files/m1_quarterly_dataset.zip?download=1',
@@ -95,14 +94,14 @@ def download_and_extract_zip(url, destination_dir):
     
 
 
-if __name__ == '__main__':
-    # Example usage
-    for key, url_v in URLS.items():
-        # url = "https://zenodo.org/records/4656080/files/kaggle_web_traffic_dataset_with_missing_values.zip?download=1"
-        print('---')
-        print('Starting the download for {}'.format(key))
-        url = url_v
-        os.makedirs(DATA_DIR, exist_ok=True)
-        extracted_file_path = download_and_extract_zip(url, DATA_DIR)
-        print('Done')
-        print('---\n')
+# if __name__ == '__main__':
+#     # Example usage
+#     for key, url_v in URLS.items():
+#         # url = "https://zenodo.org/records/4656080/files/kaggle_web_traffic_dataset_with_missing_values.zip?download=1"
+#         print('---')
+#         print('Starting the download for {}'.format(key))
+#         url = url_v
+#         os.makedirs(DATA_DIR, exist_ok=True)
+#         extracted_file_path = download_and_extract_zip(url, DATA_DIR)
+#         print('Done')
+#         print('---\n')

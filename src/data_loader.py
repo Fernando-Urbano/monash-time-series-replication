@@ -6,6 +6,7 @@ import os
 import config
 from pathlib import Path
 
+BASE_DIR = Path(config.BASE_DIR)
 OUTPUT_DIR = Path(config.OUTPUT_DIR)
 DATA_DIR = Path(config.DATA_DIR)
 
@@ -171,7 +172,7 @@ def convert_tsf_to_dataframe(
         )
 
 
-if __name__ == "__main__":
+def generate_table1_dataframe(DATA_DIR):
 
     # Get a list of all files in the data directory
     all_files = os.listdir(DATA_DIR)
@@ -187,4 +188,5 @@ if __name__ == "__main__":
         df_append = pd.DataFrame([{'Dataset':f1.split('.')[0], '# of Series':loaded_data.shape[0],'Frequency':frequency,'Forecast_horizon':forecast_horizon,'Missing_values':contain_missing_values,'Equal_length':contain_equal_length,'Min_Length':loaded_data['len_series'].min(),'Max_Length':loaded_data['len_series'].max(),'Competition':competition_dataset}])
         df_table1 = pd.concat([df_table1,df_append], axis=0)
 
-    print(df_table1)
+    df_table1.to_csv(str(BASE_DIR) + '/results/' + 'Table1.csv')
+    return df_table1
