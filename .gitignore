@@ -15,6 +15,7 @@ Exclude data folder
 /data/*
 !/data/manual/
 *.tsf
+*.csv
 */_build/
 
 ###################
