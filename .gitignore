@@ -15,6 +15,7 @@ Exclude data folder
 /data/*
 !/data/manual/
 *.tsf
+*.csv
 */_build/
 
 ###################
@@ -147,6 +148,7 @@ target/
 ################
 *.hdf5
 *.npz
+*.csv
 
 
 ###################################
@@ -247,5 +249,6 @@ src/data/temp\.csv
 drafts/draft_bp.pdf
 
 *.vrb
+*.csv
 
 data/manual/cps.csv
