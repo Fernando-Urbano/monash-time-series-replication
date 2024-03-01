@@ -13,8 +13,10 @@ import subprocess
 import numpy as np
 import pandas as pd
 import utils.data_loader as loader
+import config
+from pathlib import Path
 
-BASE_DIR = "TSForecasting"
+BASE_DIR = Path(config.BASE_DIR)
 
 # The name of the column containing time series values after loading data from the .tsf file into a dataframe
 VALUE_COL_NAME = "series_value"
@@ -59,7 +61,7 @@ FREQUENCY_MAP = {
 def get_deep_nn_forecasts(dataset_name, lag, input_file_name, method, external_forecast_horizon = None, integer_conversion = False):
     print("Started loading " + dataset_name)
 
-    df, frequency, forecast_horizon, contain_missing_values, contain_equal_length = loader.convert_tsf_to_dataframe(BASE_DIR + "/tsf_data/" + input_file_name, 'NaN', VALUE_COL_NAME)
+    df, frequency, forecast_horizon, contain_missing_values, contain_equal_length = loader.convert_tsf_to_dataframe(BASE_DIR + "/data/" + input_file_name, 'NaN', VALUE_COL_NAME)
 
     train_series_list = []
     test_series_list = []
