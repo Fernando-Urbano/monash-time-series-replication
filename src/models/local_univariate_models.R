@@ -113,3 +113,4 @@ get_dhr_arima_forecasts <- function(time_series, forecast_horizon, model = NULL)
 # Calculate snaive forecasts
 get_snaive_forecasts <- function(time_series, forecast_horizon){
   forecast:::snaive(time_series, h = forecast_horizon)$mean
+}

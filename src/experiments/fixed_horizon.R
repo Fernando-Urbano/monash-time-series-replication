@@ -8,7 +8,7 @@ current_file_path <- here()
 
 BASE_DIR <- normalizePath(file.path((current_file_path)))
 
-source(file.path(BASE_DIR, "experiments", "fixed_horizon_functions.R", fsep = "/")) # nolint: line_length_linter.
+source(file.path(BASE_DIR, "src", "experiments", "fixed_horizon_functions.R", fsep = "/")) # nolint: line_length_linter.
 
 # Download the .tsf files from https://zenodo.org/communities/forecasting and put them into "tsf_data" folder, before trying the following examples
 
