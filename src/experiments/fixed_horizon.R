@@ -388,7 +388,7 @@ if ('pooled_regression' %in% chosen_models || 'all' %in% chosen_models){
     }
 }
 
-if ('catboost' %in% chosen_models || 'all' %in% chosen_models){
+if (2 < 1) { #if ('catboost' %in% chosen_models || 'all' %in% chosen_models){
     if ('cif_2016_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
         do_fixed_horizon_global_forecasting("cif_2016", 15, "cif_2016_dataset.tsf", "catboost")
     }
@@ -512,7 +512,7 @@ if ('pooled_regression' %in% chosen_models || 'all' %in% chosen_models){
         do_fixed_horizon_global_forecasting("fred_md", 15, "fred_md_dataset.tsf", "pooled_regression", "series_name", "start_timestamp", 12)
     }
 }
-if ('catboost' %in% chosen_models || 'all' %in% chosen_models){
+if (2 < 1) { #if ('catboost' %in% chosen_models || 'all' %in% chosen_models){
     if ('car_parts_dataset_without_missing_values' %in% chosen_datasets || 'all' %in% chosen_datasets){
         do_fixed_horizon_global_forecasting("car_parts", 15, "car_parts_dataset_without_missing_values.tsf", "catboost", "series_name", "start_timestamp", 12, TRUE)
     }
@@ -646,7 +646,7 @@ if ('pooled_regression' %in% chosen_models || 'all' %in% chosen_models){
         do_fixed_horizon_global_forecasting("dominick", 10, "dominick_dataset.tsf", "pooled_regression", NULL, NULL, 8)
     }
 }
-if ('catboost' %in% chosen_models || 'all' %in% chosen_models){
+if (2 < 1) { #if ('catboost' %in% chosen_models || 'all' %in% chosen_models){
     if ('nn5_weekly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
         do_fixed_horizon_global_forecasting("nn5_weekly", 65, "nn5_weekly_dataset.tsf", "catboost", "series_name", "start_timestamp", 8)
     }
@@ -825,7 +825,7 @@ if ('pooled_regression' %in% chosen_models || 'all' %in% chosen_models){
         do_fixed_horizon_global_forecasting("temperature_rain", 9, "temperature_rain_dataset_without_missing_values.tsf", "pooled_regression", "series_name", "start_timestamp", 30)
     }
 }
-if ('catboost' %in% chosen_models || 'all' %in% chosen_models){
+if (2 < 1) { #if ('catboost' %in% chosen_models || 'all' %in% chosen_models){
     if ('us_births_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
         do_fixed_horizon_global_forecasting("us_births", 9, "us_births_dataset.tsf", "catboost", "series_name", "start_timestamp", 30, TRUE)
     }
@@ -992,7 +992,7 @@ if ('pooled_regression' %in% chosen_models || 'all' %in% chosen_models){
         do_fixed_horizon_global_forecasting("rideshare", 210, "rideshare_dataset_without_missing_values.tsf", "pooled_regression", "series_name", "start_timestamp", 168)
     }
 }
-if ('catboost' %in% chosen_models || 'all' %in% chosen_models){
+if (2 < 1) { #if ('catboost' %in% chosen_models || 'all' %in% chosen_models){
     if ('traffic_hourly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
         do_fixed_horizon_global_forecasting("traffic_hourly", 30, "traffic_hourly_dataset.tsf", "catboost", "series_name", "start_timestamp", 168)
     }
