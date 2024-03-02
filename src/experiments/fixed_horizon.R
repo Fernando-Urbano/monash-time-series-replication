@@ -8,19 +8,19 @@ current_file_path <- here()
 
 BASE_DIR <- normalizePath(file.path((current_file_path)))
 
-source(file.path(BASE_DIR, "experiments", "fixed_horizon_functions.R", fsep = "/"))
+source(file.path(BASE_DIR, "src", "experiments", "fixed_horizon_functions.R", fsep = "/")) # nolint: line_length_linter.
 
 # Download the .tsf files from https://zenodo.org/communities/forecasting and put them into "tsf_data" folder, before trying the following examples
 
 # Competition datasets - the same horizons expected in the competitons are used
 # For global models, lag is chosen as (1.25 * seasonality)
 # Due to high space and computational requirements, the lag is chosen as 50 for solar 10 minutes dataset and 10 (1.25 * forecast_horizon) for kaggle web traffic weekly dataset
-# Due to short series length, lag is chosen as 10 for dominick dataset and 6 for solar weekly dataset (1.25 * forecast_horizon)
+# Due to short series length, lag is chosen as 10 for dominick dataset and 6 for solar weekly dataset (1.25 * forecast_horizon) # nolint: line_length_linter.
 # For multi-seasonal datasets, the seasonality corresponding with the weekly frequency is chosen for lag calculation
 # If it was not possible due to computational complexity or short series length, then we consider the seasonality corresponding with daily freqency for lag calculation
 
 do_fixed_horizon_local_forecasting("cif_2016", "tbats", "cif_2016_dataset.tsf")
-do_fixed_horizon_local_forecasting("nn5_daily", "tbats", "nn5_daily_dataset_without_missing_values.tsf", "series_name", "start_timestamp")
+do_fixed_horizon_local_forecasting("nn5_daily", "tbats", "nn5_daily_dataset_without_missing_values.tsf", "series_name", "start_timestamp") # nolint: line_length_linter.
 do_fixed_horizon_local_forecasting("tourism_yearly", "tbats", "tourism_yearly_dataset.tsf", "series_name", "start_timestamp")
 do_fixed_horizon_local_forecasting("tourism_quarterly", "tbats", "tourism_quarterly_dataset.tsf", "series_name", "start_timestamp")
 do_fixed_horizon_local_forecasting("tourism_monthly", "tbats", "tourism_monthly_dataset.tsf", "series_name", "start_timestamp")

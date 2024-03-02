@@ -196,10 +196,10 @@ calculate_features <- function(dataset_name, input_file_name, key = NULL, index 
 # uncomment to try
 
 ## tsfeatures
-calculate_features("sample", "sample.tsf", "series_name", "start_timestamp")
+# calculate_features("sample", "sample.tsf", "series_name", "start_timestamp")
 
 ## catch22 features
-calculate_features("sample", "sample.tsf", "series_name", "start_timestamp", "catch22")
+# calculate_features("sample", "sample.tsf", "series_name", "start_timestamp", "catch22")
 
 ## BoxCox lambdas
-calculate_features("sample", "sample.tsf", "series_name", "start_timestamp", "lambdas")
+# calculate_features("sample", "sample.tsf", "series_name", "start_timestamp", "lambdas")

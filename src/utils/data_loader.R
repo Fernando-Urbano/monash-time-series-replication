@@ -194,10 +194,10 @@ convert_tsf_to_tsibble <-   function(file, value_column_name = "series_value", k
 
 
 # Example of usage
-loaded_data <- convert_tsf_to_tsibble(file.path("data", "sample.tsf", fsep = "/"), "series_value", "series_name", "start_timestamp")
-tsibble_data <- loaded_data[[1]]
-frequency <- loaded_data[[2]]
-forecast_horizon <- loaded_data[[3]]
-contain_missing_values <- loaded_data[[4]]
-contain_equal_length <- loaded_data[[5]]
+# loaded_data <- convert_tsf_to_tsibble(file.path("data", "sample.tsf", fsep = "/"), "series_value", "series_name", "start_timestamp")
+# tsibble_data <- loaded_data[[1]]
+# frequency <- loaded_data[[2]]
+# forecast_horizon <- loaded_data[[3]]
+# contain_missing_values <- loaded_data[[4]]
+# contain_equal_length <- loaded_data[[5]]
 
