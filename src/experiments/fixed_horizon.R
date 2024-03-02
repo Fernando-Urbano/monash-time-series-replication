@@ -5,6 +5,12 @@ install.packages("here")
 install.packages("smooth")
 install.packages("tsibble")
 install.packages("glmnet")
+# Have to run brew install cmake for successful package installations
+
+options(repos = c(CRAN = "https://mirror.las.iastate.edu/CRAN/"))
+# install.packages("here")
+# install.packages("smooth")
+# install.packages("tsibble")
 library(here)
 
 # Get the path to the directory containing the current script
@@ -91,245 +97,85 @@ if ('tbats' %in% chosen_models || 'all' %in% chosen_models){
     }
 }
 
-if ('ses' %in% chosen_models || 'all' %in% chosen_models){
-    if ('cif_2016_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("cif_2016", "ses", "cif_2016_dataset.tsf")
-    }
-    if ('nn5_daily_dataset_without_missing_values' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("nn5_daily", "ses", "nn5_daily_dataset_without_missing_values.tsf", "series_name", "start_timestamp")
-    }
-    if ('tourism_yearly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("tourism_yearly", "ses", "tourism_yearly_dataset.tsf", "series_name", "start_timestamp")
-    }
-    if ('tourism_quarterly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("tourism_quarterly", "ses", "tourism_quarterly_dataset.tsf", "series_name", "start_timestamp")
-    }
-    if ('tourism_monthly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("tourism_monthly", "ses", "tourism_monthly_dataset.tsf", "series_name", "start_timestamp")
-    }
-    if ('m1_yearly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("m1_yearly", "ses", "m1_yearly_dataset.tsf", "series_name", "start_timestamp")
-    }
-    if ('m1_quarterly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("m1_quarterly", "ses", "m1_quarterly_dataset.tsf", "series_name", "start_timestamp")
-    }
-    if ('m1_monthly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("m1_monthly", "ses", "m1_monthly_dataset.tsf", "series_name", "start_timestamp")
-    }
-    if ('m3_yearly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("m3_yearly", "ses", "m3_yearly_dataset.tsf", "series_name", "start_timestamp")
-    }
-    if ('m3_quarterly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("m3_quarterly", "ses", "m3_quarterly_dataset.tsf", "series_name", "start_timestamp")
-    }
-    if ('m3_monthly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("m3_monthly", "ses", "m3_monthly_dataset.tsf", "series_name", "start_timestamp")
-    }
-    if ('m3_other_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("m3_other", "ses", "m3_other_dataset.tsf")
-    }
-    if ('m4_yearly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("m4_yearly", "ses", "m4_yearly_dataset.tsf", "series_name", "start_timestamp")
-    }
-    if ('m4_quarterly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("m4_quarterly", "ses", "m4_quarterly_dataset.tsf", "series_name", "start_timestamp")
-    }
-    if ('m4_monthly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("m4_monthly", "ses", "m4_monthly_dataset.tsf", "series_name", "start_timestamp")
-    }
-    if ('m4_weekly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("m4_weekly", "ses", "m4_weekly_dataset.tsf", "series_name", "start_timestamp")
-    }
-    if ('m4_daily_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("m4_daily", "ses", "m4_daily_dataset.tsf", "series_name", "start_timestamp")
-    }
-    if ('m4_hourly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("m4_hourly", "ses", "m4_hourly_dataset.tsf", "series_name", "start_timestamp")
-    }
-    if ('kaggle_web_traffic_dataset_without_missing_values' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("kaggle_web_traffic_daily", "ses", "kaggle_web_traffic_dataset_without_missing_values.tsf", "series_name", "start_timestamp", NULL, TRUE)
-    }
-}
+do_fixed_horizon_local_forecasting("cif_2016", "ses", "cif_2016_dataset.tsf")
+do_fixed_horizon_local_forecasting("nn5_daily", "ses", "nn5_daily_dataset_without_missing_values.tsf", "series_name", "start_timestamp")
+do_fixed_horizon_local_forecasting("tourism_yearly", "ses", "tourism_yearly_dataset.tsf", "series_name", "start_timestamp")
+do_fixed_horizon_local_forecasting("tourism_quarterly", "ses", "tourism_quarterly_dataset.tsf", "series_name", "start_timestamp")
+do_fixed_horizon_local_forecasting("tourism_monthly", "ses", "tourism_monthly_dataset.tsf", "series_name", "start_timestamp")
+do_fixed_horizon_local_forecasting("m1_yearly", "ses", "m1_yearly_dataset.tsf", "series_name", "start_timestamp")
+do_fixed_horizon_local_forecasting("m1_quarterly", "ses", "m1_quarterly_dataset.tsf", "series_name", "start_timestamp")
+do_fixed_horizon_local_forecasting("m1_monthly", "ses", "m1_monthly_dataset.tsf", "series_name", "start_timestamp")
+do_fixed_horizon_local_forecasting("m3_yearly", "ses", "m3_yearly_dataset.tsf", "series_name", "start_timestamp")
+do_fixed_horizon_local_forecasting("m3_quarterly", "ses", "m3_quarterly_dataset.tsf", "series_name", "start_timestamp")
+do_fixed_horizon_local_forecasting("m3_monthly", "ses", "m3_monthly_dataset.tsf", "series_name", "start_timestamp")
+do_fixed_horizon_local_forecasting("m3_other", "ses", "m3_other_dataset.tsf")
+do_fixed_horizon_local_forecasting("m4_yearly", "ses", "m4_yearly_dataset.tsf", "series_name", "start_timestamp")
+do_fixed_horizon_local_forecasting("m4_quarterly", "ses", "m4_quarterly_dataset.tsf", "series_name", "start_timestamp")
+do_fixed_horizon_local_forecasting("m4_monthly", "ses", "m4_monthly_dataset.tsf", "series_name", "start_timestamp")
+do_fixed_horizon_local_forecasting("m4_weekly", "ses", "m4_weekly_dataset.tsf", "series_name", "start_timestamp")
+do_fixed_horizon_local_forecasting("m4_daily", "ses", "m4_daily_dataset.tsf", "series_name", "start_timestamp")
+do_fixed_horizon_local_forecasting("m4_hourly", "ses", "m4_hourly_dataset.tsf", "series_name", "start_timestamp")
+do_fixed_horizon_local_forecasting("kaggle_web_traffic_daily", "ses", "kaggle_web_traffic_dataset_without_missing_values.tsf", "series_name", "start_timestamp", NULL, TRUE)
 
-if ('theta' %in% chosen_models || 'all' %in% chosen_models){
-    if ('cif_2016_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("cif_2016", "theta", "cif_2016_dataset.tsf")
-    }
-    if ('nn5_daily_dataset_without_missing_values' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("nn5_daily", "theta", "nn5_daily_dataset_without_missing_values.tsf", "series_name", "start_timestamp")
-    }
-    if ('tourism_yearly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("tourism_yearly", "theta", "tourism_yearly_dataset.tsf", "series_name", "start_timestamp")
-    }
-    if ('tourism_quarterly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("tourism_quarterly", "theta", "tourism_quarterly_dataset.tsf", "series_name", "start_timestamp")
-    }
-    if ('tourism_monthly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("tourism_monthly", "theta", "tourism_monthly_dataset.tsf", "series_name", "start_timestamp")
-    }
-    if ('m1_yearly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("m1_yearly", "theta", "m1_yearly_dataset.tsf", "series_name", "start_timestamp")
-    }
-    if ('m1_quarterly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("m1_quarterly", "theta", "m1_quarterly_dataset.tsf", "series_name", "start_timestamp")
-    }
-    if ('m1_monthly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("m1_monthly", "theta", "m1_monthly_dataset.tsf", "series_name", "start_timestamp")
-    }
-    if ('m3_yearly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("m3_yearly", "theta", "m3_yearly_dataset.tsf", "series_name", "start_timestamp")
-    }
-    if ('m3_quarterly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("m3_quarterly", "theta", "m3_quarterly_dataset.tsf", "series_name", "start_timestamp")
-    }
-    if ('m3_monthly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("m3_monthly", "theta", "m3_monthly_dataset.tsf", "series_name", "start_timestamp")
-    }
-    if ('m3_other_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("m3_other", "theta", "m3_other_dataset.tsf")
-    }
-    if ('m4_yearly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("m4_yearly", "theta", "m4_yearly_dataset.tsf", "series_name", "start_timestamp")
-    }
-    if ('m4_quarterly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("m4_quarterly", "theta", "m4_quarterly_dataset.tsf", "series_name", "start_timestamp")
-    }
-    if ('m4_monthly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("m4_monthly", "theta", "m4_monthly_dataset.tsf", "series_name", "start_timestamp")
-    }
-    if ('m4_weekly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("m4_weekly", "theta", "m4_weekly_dataset.tsf", "series_name", "start_timestamp")
-    }
-    if ('m4_daily_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("m4_daily", "theta", "m4_daily_dataset.tsf", "series_name", "start_timestamp")
-    }
-    if ('m4_hourly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("m4_hourly", "theta", "m4_hourly_dataset.tsf", "series_name", "start_timestamp")
-    }
-    if ('kaggle_web_traffic_dataset_without_missing_values' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("kaggle_web_traffic_daily", "theta", "kaggle_web_traffic_dataset_without_missing_values.tsf", "series_name", "start_timestamp", NULL, TRUE)
-    }
-}
+do_fixed_horizon_local_forecasting("cif_2016", "theta", "cif_2016_dataset.tsf")
+do_fixed_horizon_local_forecasting("nn5_daily", "theta", "nn5_daily_dataset_without_missing_values.tsf", "series_name", "start_timestamp")
+do_fixed_horizon_local_forecasting("tourism_yearly", "theta", "tourism_yearly_dataset.tsf", "series_name", "start_timestamp")
+do_fixed_horizon_local_forecasting("tourism_quarterly", "theta", "tourism_quarterly_dataset.tsf", "series_name", "start_timestamp")
+do_fixed_horizon_local_forecasting("tourism_monthly", "theta", "tourism_monthly_dataset.tsf", "series_name", "start_timestamp")
+do_fixed_horizon_local_forecasting("m1_yearly", "theta", "m1_yearly_dataset.tsf", "series_name", "start_timestamp")
+do_fixed_horizon_local_forecasting("m1_quarterly", "theta", "m1_quarterly_dataset.tsf", "series_name", "start_timestamp")
+do_fixed_horizon_local_forecasting("m1_monthly", "theta", "m1_monthly_dataset.tsf", "series_name", "start_timestamp")
+do_fixed_horizon_local_forecasting("m3_yearly", "theta", "m3_yearly_dataset.tsf", "series_name", "start_timestamp")
+do_fixed_horizon_local_forecasting("m3_quarterly", "theta", "m3_quarterly_dataset.tsf", "series_name", "start_timestamp")
+do_fixed_horizon_local_forecasting("m3_monthly", "theta", "m3_monthly_dataset.tsf", "series_name", "start_timestamp")
+do_fixed_horizon_local_forecasting("m3_other", "theta", "m3_other_dataset.tsf")
+do_fixed_horizon_local_forecasting("m4_yearly", "theta", "m4_yearly_dataset.tsf", "series_name", "start_timestamp")
+do_fixed_horizon_local_forecasting("m4_quarterly", "theta", "m4_quarterly_dataset.tsf", "series_name", "start_timestamp")
+do_fixed_horizon_local_forecasting("m4_monthly", "theta", "m4_monthly_dataset.tsf", "series_name", "start_timestamp")
+do_fixed_horizon_local_forecasting("m4_weekly", "theta", "m4_weekly_dataset.tsf", "series_name", "start_timestamp")
+do_fixed_horizon_local_forecasting("m4_daily", "theta", "m4_daily_dataset.tsf", "series_name", "start_timestamp")
+do_fixed_horizon_local_forecasting("m4_hourly", "theta", "m4_hourly_dataset.tsf", "series_name", "start_timestamp")
+do_fixed_horizon_local_forecasting("kaggle_web_traffic_daily", "theta", "kaggle_web_traffic_dataset_without_missing_values.tsf", "series_name", "start_timestamp", NULL, TRUE)
 
-if ('arima' %in% chosen_models || 'all' %in% chosen_models){
-    if ('cif_2016_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("cif_2016", "arima", "cif_2016_dataset.tsf")
-    }
-    if ('nn5_daily_dataset_without_missing_values' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("nn5_daily", "arima", "nn5_daily_dataset_without_missing_values.tsf", "series_name", "start_timestamp")
-    }
-    if ('tourism_yearly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("tourism_yearly", "arima", "tourism_yearly_dataset.tsf", "series_name", "start_timestamp")
-    }
-    if ('tourism_quarterly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("tourism_quarterly", "arima", "tourism_quarterly_dataset.tsf", "series_name", "start_timestamp")
-    }
-    if ('tourism_monthly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("tourism_monthly", "arima", "tourism_monthly_dataset.tsf", "series_name", "start_timestamp")
-    }
-    if ('m1_yearly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("m1_yearly", "arima", "m1_yearly_dataset.tsf", "series_name", "start_timestamp")
-    }
-    if ('m1_quarterly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("m1_quarterly", "arima", "m1_quarterly_dataset.tsf", "series_name", "start_timestamp")
-    }
-    if ('m1_monthly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("m1_monthly", "arima", "m1_monthly_dataset.tsf", "series_name", "start_timestamp")
-    }
-    if ('m3_yearly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("m3_yearly", "arima", "m3_yearly_dataset.tsf", "series_name", "start_timestamp")
-    }
-    if ('m3_quarterly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("m3_quarterly", "arima", "m3_quarterly_dataset.tsf", "series_name", "start_timestamp")
-    }
-    if ('m3_monthly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("m3_monthly", "arima", "m3_monthly_dataset.tsf", "series_name", "start_timestamp")
-    }
-    if ('m3_other_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("m3_other", "arima", "m3_other_dataset.tsf")
-    }
-    if ('m4_yearly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("m4_yearly", "arima", "m4_yearly_dataset.tsf", "series_name", "start_timestamp")
-    }
-    if ('m4_quarterly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("m4_quarterly", "arima", "m4_quarterly_dataset.tsf", "series_name", "start_timestamp")
-    }
-    if ('m4_monthly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("m4_monthly", "arima", "m4_monthly_dataset.tsf", "series_name", "start_timestamp")
-    }
-    if ('m4_weekly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("m4_weekly", "dhr_arima", "m4_weekly_dataset.tsf", "series_name", "start_timestamp")
-    }
-    if ('m4_daily_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("m4_daily", "arima", "m4_daily_dataset.tsf", "series_name", "start_timestamp")
-    }
-    if ('m4_hourly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("m4_hourly", "dhr_arima", "m4_hourly_dataset.tsf", "series_name", "start_timestamp")
-    }
-    if ('kaggle_web_traffic_dataset_without_missing_values' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("kaggle_web_traffic_daily", "arima", "kaggle_web_traffic_dataset_without_missing_values.tsf", "series_name", "start_timestamp", NULL, TRUE)
-    }
-}
+do_fixed_horizon_local_forecasting("cif_2016", "arima", "cif_2016_dataset.tsf")
+do_fixed_horizon_local_forecasting("nn5_daily", "arima", "nn5_daily_dataset_without_missing_values.tsf", "series_name", "start_timestamp")
+do_fixed_horizon_local_forecasting("tourism_yearly", "arima", "tourism_yearly_dataset.tsf", "series_name", "start_timestamp")
+do_fixed_horizon_local_forecasting("tourism_quarterly", "arima", "tourism_quarterly_dataset.tsf", "series_name", "start_timestamp")
+do_fixed_horizon_local_forecasting("tourism_monthly", "arima", "tourism_monthly_dataset.tsf", "series_name", "start_timestamp")
+do_fixed_horizon_local_forecasting("m1_yearly", "arima", "m1_yearly_dataset.tsf", "series_name", "start_timestamp")
+do_fixed_horizon_local_forecasting("m1_quarterly", "arima", "m1_quarterly_dataset.tsf", "series_name", "start_timestamp")
+do_fixed_horizon_local_forecasting("m1_monthly", "arima", "m1_monthly_dataset.tsf", "series_name", "start_timestamp")
+do_fixed_horizon_local_forecasting("m3_yearly", "arima", "m3_yearly_dataset.tsf", "series_name", "start_timestamp")
+do_fixed_horizon_local_forecasting("m3_quarterly", "arima", "m3_quarterly_dataset.tsf", "series_name", "start_timestamp")
+do_fixed_horizon_local_forecasting("m3_monthly", "arima", "m3_monthly_dataset.tsf", "series_name", "start_timestamp")
+do_fixed_horizon_local_forecasting("m3_other", "arima", "m3_other_dataset.tsf")
+do_fixed_horizon_local_forecasting("m4_yearly", "arima", "m4_yearly_dataset.tsf", "series_name", "start_timestamp")
+do_fixed_horizon_local_forecasting("m4_quarterly", "arima", "m4_quarterly_dataset.tsf", "series_name", "start_timestamp")
+do_fixed_horizon_local_forecasting("m4_monthly", "arima", "m4_monthly_dataset.tsf", "series_name", "start_timestamp")
+do_fixed_horizon_local_forecasting("m4_weekly", "dhr_arima", "m4_weekly_dataset.tsf", "series_name", "start_timestamp")
+do_fixed_horizon_local_forecasting("m4_daily", "arima", "m4_daily_dataset.tsf", "series_name", "start_timestamp")
+do_fixed_horizon_local_forecasting("m4_hourly", "dhr_arima", "m4_hourly_dataset.tsf", "series_name", "start_timestamp")
+do_fixed_horizon_local_forecasting("kaggle_web_traffic_daily", "arima", "kaggle_web_traffic_dataset_without_missing_values.tsf", "series_name", "start_timestamp", NULL, TRUE)
 
-if ('ets' %in% chosen_models || 'all' %in% chosen_models){
-    if ('cif_2016_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("cif_2016", "ets", "cif_2016_dataset.tsf")
-    }
-    if ('nn5_daily_dataset_without_missing_values' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("nn5_daily", "ets", "nn5_daily_dataset_without_missing_values.tsf", "series_name", "start_timestamp")
-    }
-    if ('tourism_yearly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("tourism_yearly", "ets", "tourism_yearly_dataset.tsf", "series_name", "start_timestamp")
-    }
-    if ('tourism_quarterly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("tourism_quarterly", "ets", "tourism_quarterly_dataset.tsf", "series_name", "start_timestamp")
-    }
-    if ('tourism_monthly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("tourism_monthly", "ets", "tourism_monthly_dataset.tsf", "series_name", "start_timestamp")
-    }
-    if ('m1_yearly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("m1_yearly", "ets", "m1_yearly_dataset.tsf", "series_name", "start_timestamp")
-    }
-    if ('m1_quarterly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("m1_quarterly", "ets", "m1_quarterly_dataset.tsf", "series_name", "start_timestamp")
-    }
-    if ('m1_monthly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("m1_monthly", "ets", "m1_monthly_dataset.tsf", "series_name", "start_timestamp")
-    }
-    if ('m3_yearly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("m3_yearly", "ets", "m3_yearly_dataset.tsf", "series_name", "start_timestamp")
-    }
-    if ('m3_quarterly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("m3_quarterly", "ets", "m3_quarterly_dataset.tsf", "series_name", "start_timestamp")
-    }
-    if ('m3_monthly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("m3_monthly", "ets", "m3_monthly_dataset.tsf", "series_name", "start_timestamp")
-    }
-    if ('m3_other_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("m3_other", "ets", "m3_other_dataset.tsf")
-    }
-    if ('m4_yem4_yearly_datasetarly' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("m4_yearly", "ets", "m4_yearly_dataset.tsf", "series_name", "start_timestamp")
-    }
-    if ('m4_quarterly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("m4_quarterly", "ets", "m4_quarterly_dataset.tsf", "series_name", "start_timestamp")
-    }
-    if ('m4_monthly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("m4_monthly", "ets", "m4_monthly_dataset.tsf", "series_name", "start_timestamp")
-    }
-    if ('m4_weekly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("m4_weekly", "ets", "m4_weekly_dataset.tsf", "series_name", "start_timestamp")
-    }
-    if ('m4_daily_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("m4_daily", "ets", "m4_daily_dataset.tsf", "series_name", "start_timestamp")
-    }
-    if ('m4_hourly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("m4_hourly", "ets", "m4_hourly_dataset.tsf", "series_name", "start_timestamp")
-    }
-    if ('kaggle_web_traffic_dataset_without_missing_values' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("kaggle_web_traffic_daily", "ets", "kaggle_web_traffic_dataset_without_missing_values.tsf", "series_name", "start_timestamp", NULL, TRUE)
-    }
-}
+do_fixed_horizon_local_forecasting("cif_2016", "ets", "cif_2016_dataset.tsf")
+do_fixed_horizon_local_forecasting("nn5_daily", "ets", "nn5_daily_dataset_without_missing_values.tsf", "series_name", "start_timestamp")
+do_fixed_horizon_local_forecasting("tourism_yearly", "ets", "tourism_yearly_dataset.tsf", "series_name", "start_timestamp")
+do_fixed_horizon_local_forecasting("tourism_quarterly", "ets", "tourism_quarterly_dataset.tsf", "series_name", "start_timestamp")
+do_fixed_horizon_local_forecasting("tourism_monthly", "ets", "tourism_monthly_dataset.tsf", "series_name", "start_timestamp")
+do_fixed_horizon_local_forecasting("m1_yearly", "ets", "m1_yearly_dataset.tsf", "series_name", "start_timestamp")
+do_fixed_horizon_local_forecasting("m1_quarterly", "ets", "m1_quarterly_dataset.tsf", "series_name", "start_timestamp")
+do_fixed_horizon_local_forecasting("m1_monthly", "ets", "m1_monthly_dataset.tsf", "series_name", "start_timestamp")
+do_fixed_horizon_local_forecasting("m3_yearly", "ets", "m3_yearly_dataset.tsf", "series_name", "start_timestamp")
+do_fixed_horizon_local_forecasting("m3_quarterly", "ets", "m3_quarterly_dataset.tsf", "series_name", "start_timestamp")
+do_fixed_horizon_local_forecasting("m3_monthly", "ets", "m3_monthly_dataset.tsf", "series_name", "start_timestamp")
+do_fixed_horizon_local_forecasting("m3_other", "ets", "m3_other_dataset.tsf")
+do_fixed_horizon_local_forecasting("m4_yearly", "ets", "m4_yearly_dataset.tsf", "series_name", "start_timestamp")
+do_fixed_horizon_local_forecasting("m4_quarterly", "ets", "m4_quarterly_dataset.tsf", "series_name", "start_timestamp")
+do_fixed_horizon_local_forecasting("m4_monthly", "ets", "m4_monthly_dataset.tsf", "series_name", "start_timestamp")
+do_fixed_horizon_local_forecasting("m4_weekly", "ets", "m4_weekly_dataset.tsf", "series_name", "start_timestamp")
+do_fixed_horizon_local_forecasting("m4_daily", "ets", "m4_daily_dataset.tsf", "series_name", "start_timestamp")
+do_fixed_horizon_local_forecasting("m4_hourly", "ets", "m4_hourly_dataset.tsf", "series_name", "start_timestamp")
+do_fixed_horizon_local_forecasting("kaggle_web_traffic_daily", "ets", "kaggle_web_traffic_dataset_without_missing_values.tsf", "series_name", "start_timestamp", NULL, TRUE)
 
 if ('pooled_regression' %in% chosen_models || 'all' %in% chosen_models){
     if ('cif_2016_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
@@ -526,146 +372,54 @@ if ('catboost' %in% chosen_models || 'all' %in% chosen_models){
 
 
 # Weekly datasets - 5 - 8 weeks forecast horizon
-if ('tbats' %in% chosen_models || 'all' %in% chosen_models){
-    if ('nn5_weekly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("nn5_weekly", "tbats", "nn5_weekly_dataset.tsf", "series_name", "start_timestamp", 8)
-    }
-    if ('traffic_weekly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("traffic_weekly", "tbats", "traffic_weekly_dataset.tsf", "series_name", "start_timestamp", 8)
-    }
-    if ('electricity_weekly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("electricity_weekly", "tbats", "electricity_weekly_dataset.tsf", "series_name", "start_timestamp", 8, TRUE)
-    }
-    if ('solar_weekly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("solar_weekly", "tbats", "solar_weekly_dataset.tsf", "series_name", "start_timestamp", 5)
-    }
-    if ('kaggle_web_traffic_weekly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("kaggle_web_traffic_weekly", "tbats", "kaggle_web_traffic_weekly_dataset.tsf", "series_name", "start_timestamp", 8, TRUE)
-    }
-    if ('dominick_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("dominick", "tbats", "dominick_dataset.tsf", NULL, NULL, 8)
-    }
-}
-if ('ses' %in% chosen_models || 'all' %in% chosen_models){
-    if ('nn5_weekly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("nn5_weekly", "ses", "nn5_weekly_dataset.tsf", "series_name", "start_timestamp", 8)
-    }
-    if ('traffic_weekly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("traffic_weekly", "ses", "traffic_weekly_dataset.tsf", "series_name", "start_timestamp", 8)
-    }
-    if ('electricity_weekly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("electricity_weekly", "ses", "electricity_weekly_dataset.tsf", "series_name", "start_timestamp", 8, TRUE)
-    }
-    if ('solar_weekly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("solar_weekly", "ses", "solar_weekly_dataset.tsf", "series_name", "start_timestamp", 5)
-    }
-    if ('kaggle_web_traffic_weekly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("kaggle_web_traffic_weekly", "ses", "kaggle_web_traffic_weekly_dataset.tsf", "series_name", "start_timestamp", 8, TRUE)
-    }
-    if ('dominick_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("dominick", "ses", "dominick_dataset.tsf", NULL, NULL, 8)
-    }
-}
-if ('theta' %in% chosen_models || 'all' %in% chosen_models){
-    if ('nn5_weekly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("nn5_weekly", "theta", "nn5_weekly_dataset.tsf", "series_name", "start_timestamp", 8)
-    }
-    if ('traffic_weekly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("traffic_weekly", "theta", "traffic_weekly_dataset.tsf", "series_name", "start_timestamp", 8)
-    }
-    if ('electricity_weekly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("electricity_weekly", "theta", "electricity_weekly_dataset.tsf", "series_name", "start_timestamp", 8, TRUE)
-    }
-    if ('solar_weekly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("solar_weekly", "theta", "solar_weekly_dataset.tsf", "series_name", "start_timestamp", 5)
-    }
-    if ('kaggle_web_traffic_weekly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("kaggle_web_traffic_weekly", "theta", "kaggle_web_traffic_weekly_dataset.tsf", "series_name", "start_timestamp", 8, TRUE)
-    }
-    if ('dominick_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("dominick", "theta", "dominick_dataset.tsf", NULL, NULL, 8)
-    }
-}
-if ('dhr_arima' %in% chosen_models || 'all' %in% chosen_models){
-    if ('nn5_weekly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("nn5_weekly", "dhr_arima", "nn5_weekly_dataset.tsf", "series_name", "start_timestamp", 8)
-    }
-    if ('traffic_weekly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("traffic_weekly", "dhr_arima", "traffic_weekly_dataset.tsf", "series_name", "start_timestamp", 8)
-    }
-    if ('electricity_weekly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("electricity_weekly", "dhr_arima", "electricity_weekly_dataset.tsf", "series_name", "start_timestamp", 8, TRUE)
-    }
-    if ('solar_weekly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("solar_weekly", "dhr_arima", "solar_weekly_dataset.tsf", "series_name", "start_timestamp", 5)
-    }
-    if ('kaggle_web_traffic_weekly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("kaggle_web_traffic_weekly", "dhr_arima", "kaggle_web_traffic_weekly_dataset.tsf", "series_name", "start_timestamp", 8, TRUE)
-    }
-    if ('dominick_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("dominick", "dhr_arima", "dominick_dataset.tsf", NULL, NULL, 8)
-    }
-}
-if ('ets' %in% chosen_models || 'all' %in% chosen_models){
-    if ('nn5_weekly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("nn5_weekly", "ets", "nn5_weekly_dataset.tsf", "series_name", "start_timestamp", 8)
-    }
-    if ('traffic_weekly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("traffic_weekly", "ets", "traffic_weekly_dataset.tsf", "series_name", "start_timestamp", 8)
-    }
-    if ('electricity_weekly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("electricity_weekly", "ets", "electricity_weekly_dataset.tsf", "series_name", "start_timestamp", 8, TRUE)
-    }
-    if ('solar_weekly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("solar_weekly", "ets", "solar_weekly_dataset.tsf", "series_name", "start_timestamp", 5)
-    }
-    if ('kaggle_web_traffic_weekly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("kaggle_web_traffic_weekly", "ets", "kaggle_web_traffic_weekly_dataset.tsf", "series_name", "start_timestamp", 8, TRUE)
-    }
-    if ('dominick_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_local_forecasting("dominick", "ets", "dominick_dataset.tsf", NULL, NULL, 8)
-    }
-}
-if ('pooled_regression' %in% chosen_models || 'all' %in% chosen_models){
-    if ('nn5_weekly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_global_forecasting("nn5_weekly", 65, "nn5_weekly_dataset.tsf", "pooled_regression", "series_name", "start_timestamp", 8)
-    }
-    if ('traffic_weekly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_global_forecasting("traffic_weekly", 65, "traffic_weekly_dataset.tsf", "pooled_regression", "series_name", "start_timestamp", 8)
-    }
-    if ('electricity_weekly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_global_forecasting("electricity_weekly", 65, "electricity_weekly_dataset.tsf", "pooled_regression", "series_name", "start_timestamp", 8, TRUE)
-    }
-    if ('solar_weekly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_global_forecasting("solar_weekly", 6, "solar_weekly_dataset.tsf", "pooled_regression", "series_name", "start_timestamp", 5)
-    }
-    if ('kaggle_web_traffic_weekly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_global_forecasting("kaggle_web_traffic_weekly", 10, "kaggle_web_traffic_weekly_dataset.tsf", "pooled_regression", "series_name", "start_timestamp", 8, TRUE)
-    }
-    if ('dominick_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_global_forecasting("dominick", 10, "dominick_dataset.tsf", "pooled_regression", NULL, NULL, 8)
-    }
-}
-if ('catboost' %in% chosen_models || 'all' %in% chosen_models){
-    if ('nn5_weekly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_global_forecasting("nn5_weekly", 65, "nn5_weekly_dataset.tsf", "catboost", "series_name", "start_timestamp", 8)
-    }
-    if ('traffic_weekly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_global_forecasting("traffic_weekly", 65, "traffic_weekly_dataset.tsf", "catboost", "series_name", "start_timestamp", 8)
-    }
-    if ('electricity_weekly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_global_forecasting("electricity_weekly", 65, "electricity_weekly_dataset.tsf", "catboost", "series_name", "start_timestamp", 8, TRUE)
-    }
-    if ('solar_weekly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_global_forecasting("solar_weekly", 6, "solar_weekly_dataset.tsf", "catboost", "series_name", "start_timestamp", 5)
-    }
-    if ('kaggle_web_traffic_weekly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_global_forecasting("kaggle_web_traffic_weekly", 10, "kaggle_web_traffic_weekly_dataset.tsf", "catboost", "series_name", "start_timestamp", 8, TRUE)
-    }
-    if ('dominick_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
-        do_fixed_horizon_global_forecasting("dominick", 10, "dominick_dataset.tsf", "catboost", NULL, NULL, 8)
-    }
-}
+do_fixed_horizon_local_forecasting("nn5_weekly", "tbats", "nn5_weekly_dataset.tsf", "series_name", "start_timestamp", 8)
+do_fixed_horizon_local_forecasting("traffic_weekly", "tbats", "traffic_weekly_dataset.tsf", "series_name", "start_timestamp", 8)
+do_fixed_horizon_local_forecasting("electricity_weekly", "tbats", "electricity_weekly_dataset.tsf", "series_name", "start_timestamp", 8, TRUE)
+do_fixed_horizon_local_forecasting("solar_weekly", "tbats", "solar_weekly_dataset.tsf", "series_name", "start_timestamp", 5)
+do_fixed_horizon_local_forecasting("kaggle_web_traffic_weekly", "tbats", "kaggle_web_traffic_weekly_dataset.tsf", "series_name", "start_timestamp", 8, TRUE)
+do_fixed_horizon_local_forecasting("dominick", "tbats", "dominick_dataset.tsf", NULL, NULL, 8)
+
+do_fixed_horizon_local_forecasting("nn5_weekly", "ses", "nn5_weekly_dataset.tsf", "series_name", "start_timestamp", 8)
+do_fixed_horizon_local_forecasting("traffic_weekly", "ses", "traffic_weekly_dataset.tsf", "series_name", "start_timestamp", 8)
+do_fixed_horizon_local_forecasting("electricity_weekly", "ses", "electricity_weekly_dataset.tsf", "series_name", "start_timestamp", 8, TRUE)
+do_fixed_horizon_local_forecasting("solar_weekly", "ses", "solar_weekly_dataset.tsf", "series_name", "start_timestamp", 5)
+do_fixed_horizon_local_forecasting("kaggle_web_traffic_weekly", "ses", "kaggle_web_traffic_weekly_dataset.tsf", "series_name", "start_timestamp", 8, TRUE)
+do_fixed_horizon_local_forecasting("dominick", "ses", "dominick_dataset.tsf", NULL, NULL, 8)
+
+do_fixed_horizon_local_forecasting("nn5_weekly", "theta", "nn5_weekly_dataset.tsf", "series_name", "start_timestamp", 8)
+do_fixed_horizon_local_forecasting("traffic_weekly", "theta", "traffic_weekly_dataset.tsf", "series_name", "start_timestamp", 8)
+do_fixed_horizon_local_forecasting("electricity_weekly", "theta", "electricity_weekly_dataset.tsf", "series_name", "start_timestamp", 8, TRUE)
+do_fixed_horizon_local_forecasting("solar_weekly", "theta", "solar_weekly_dataset.tsf", "series_name", "start_timestamp", 5)
+do_fixed_horizon_local_forecasting("kaggle_web_traffic_weekly", "theta", "kaggle_web_traffic_weekly_dataset.tsf", "series_name", "start_timestamp", 8, TRUE)
+do_fixed_horizon_local_forecasting("dominick", "theta", "dominick_dataset.tsf", NULL, NULL, 8)
+
+do_fixed_horizon_local_forecasting("nn5_weekly", "dhr_arima", "nn5_weekly_dataset.tsf", "series_name", "start_timestamp", 8)
+do_fixed_horizon_local_forecasting("traffic_weekly", "dhr_arima", "traffic_weekly_dataset.tsf", "series_name", "start_timestamp", 8)
+do_fixed_horizon_local_forecasting("electricity_weekly", "dhr_arima", "electricity_weekly_dataset.tsf", "series_name", "start_timestamp", 8, TRUE)
+do_fixed_horizon_local_forecasting("solar_weekly", "dhr_arima", "solar_weekly_dataset.tsf", "series_name", "start_timestamp", 5)
+do_fixed_horizon_local_forecasting("kaggle_web_traffic_weekly", "dhr_arima", "kaggle_web_traffic_weekly_dataset.tsf", "series_name", "start_timestamp", 8, TRUE)
+do_fixed_horizon_local_forecasting("dominick", "dhr_arima", "dominick_dataset.tsf", NULL, NULL, 8)
+
+do_fixed_horizon_local_forecasting("nn5_weekly", "ets", "nn5_weekly_dataset.tsf", "series_name", "start_timestamp", 8)
+do_fixed_horizon_local_forecasting("traffic_weekly", "ets", "traffic_weekly_dataset.tsf", "series_name", "start_timestamp", 8)
+do_fixed_horizon_local_forecasting("electricity_weekly", "ets", "electricity_weekly_dataset.tsf", "series_name", "start_timestamp", 8, TRUE)
+do_fixed_horizon_local_forecasting("solar_weekly", "ets", "solar_weekly_dataset.tsf", "series_name", "start_timestamp", 5)
+do_fixed_horizon_local_forecasting("kaggle_web_traffic_weekly", "ets", "kaggle_web_traffic_weekly_dataset.tsf", "series_name", "start_timestamp", 8, TRUE)
+do_fixed_horizon_local_forecasting("dominick", "ets", "dominick_dataset.tsf", NULL, NULL, 8)
+
+do_fixed_horizon_global_forecasting("nn5_weekly", 65, "nn5_weekly_dataset.tsf", "pooled_regression", "series_name", "start_timestamp", 8)
+do_fixed_horizon_global_forecasting("traffic_weekly", 65, "traffic_weekly_dataset.tsf", "pooled_regression", "series_name", "start_timestamp", 8)
+do_fixed_horizon_global_forecasting("electricity_weekly", 65, "electricity_weekly_dataset.tsf", "pooled_regression", "series_name", "start_timestamp", 8, TRUE)
+do_fixed_horizon_global_forecasting("solar_weekly", 6, "solar_weekly_dataset.tsf", "pooled_regression", "series_name", "start_timestamp", 5)
+do_fixed_horizon_global_forecasting("kaggle_web_traffic_weekly", 10, "kaggle_web_traffic_weekly_dataset.tsf", "pooled_regression", "series_name", "start_timestamp", 8, TRUE)
+do_fixed_horizon_global_forecasting("dominick", 10, "dominick_dataset.tsf", "pooled_regression", NULL, NULL, 8)
+
+do_fixed_horizon_global_forecasting("nn5_weekly", 65, "nn5_weekly_dataset.tsf", "catboost", "series_name", "start_timestamp", 8)
+do_fixed_horizon_global_forecasting("traffic_weekly", 65, "traffic_weekly_dataset.tsf", "catboost", "series_name", "start_timestamp", 8)
+do_fixed_horizon_global_forecasting("electricity_weekly", 65, "electricity_weekly_dataset.tsf", "catboost", "series_name", "start_timestamp", 8, TRUE)
+do_fixed_horizon_global_forecasting("solar_weekly", 6, "solar_weekly_dataset.tsf", "catboost", "series_name", "start_timestamp", 5)
+do_fixed_horizon_global_forecasting("kaggle_web_traffic_weekly", 10, "kaggle_web_traffic_weekly_dataset.tsf", "catboost", "series_name", "start_timestamp", 8, TRUE)
+do_fixed_horizon_global_forecasting("dominick", 10, "dominick_dataset.tsf", "catboost", NULL, NULL, 8)
 
 
 # Daily datasets - 1 month forecast horizon (30 days)

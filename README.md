@@ -17,7 +17,7 @@ Go to the home directory of the project and type in terminal the following comma
 
 ```bash
 conda deactivate
-conda create -n mtsr -c conda-forge python=3.12 r-base=4.3.2
+conda create -n mtsr -c conda-forge python=3.11.8 r-base=4.3.2
 conda activate mtsr
 ```
 
