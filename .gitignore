@@ -223,7 +223,7 @@ vignettes/*.pdf
 ########
 # MISC.
 ########
-# *.zip
+*.zip
 # *.tar.gz
 *.ini
 *.xdv
