@@ -41,7 +41,7 @@ if ('tbats' %in% chosen_models || 'all' %in% chosen_models){
     if ('tourism_yearly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
         do_fixed_horizon_local_forecasting("tourism_yearly", "tbats", "tourism_yearly_dataset.tsf", "series_name", "start_timestamp")
     }
-    if ('tourism_quatourism_quarterly_datasetrterly' %in% chosen_datasets || 'all' %in% chosen_datasets){
+    if ('tourism_quarterly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
         do_fixed_horizon_local_forecasting("tourism_quarterly", "tbats", "tourism_quarterly_dataset.tsf", "series_name", "start_timestamp")
     }
     if ('tourism_monthly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
