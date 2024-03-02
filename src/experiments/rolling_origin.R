@@ -84,7 +84,7 @@ do_rolling_origin_forecating <- function(dataset_name, method, input_file_name, 
   output_file_name <- paste0(dataset_name, "_", method, ".txt")
   
   # Loading data from the .tsf file
-  loaded_data <- convert_tsf_to_tsibble(file.path(BASE_DIR, "tsf_data", input_file_name, fsep = "/"), VALUE_COL_NAME, key, index)
+  loaded_data <- convert_tsf_to_tsibble(file.path(BASE_DIR, "data", input_file_name, fsep = "/"), VALUE_COL_NAME, key, index)
   dataset <- loaded_data[[1]]
   frequency <- loaded_data[[2]]
   contain_equal_length <- loaded_data[[5]]
@@ -199,7 +199,7 @@ do_rolling_origin_forecating <- function(dataset_name, method, input_file_name, 
 
 
 # Example of usage
-do_rolling_origin_forecating("sample", "theta", "sample.tsf", "series_name", "start_timestamp")
-do_rolling_origin_forecating("sample", "ses", "sample.tsf", "series_name", "start_timestamp")
-do_rolling_origin_forecating("sample", "tbats", "sample.tsf", "series_name", "start_timestamp")
-do_rolling_origin_forecating("sample", "dhr_arima", "sample.tsf", "series_name", "start_timestamp")
+# do_rolling_origin_forecating("sample", "theta", "sample.tsf", "series_name", "start_timestamp")
+# do_rolling_origin_forecating("sample", "ses", "sample.tsf", "series_name", "start_timestamp")
+# do_rolling_origin_forecating("sample", "tbats", "sample.tsf", "series_name", "start_timestamp")
+# do_rolling_origin_forecating("sample", "dhr_arima", "sample.tsf", "series_name", "start_timestamp")
