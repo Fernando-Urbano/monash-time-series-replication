@@ -251,5 +251,6 @@ drafts/draft_bp.pdf
 *.vrb
 *.csv
 results/*.txt
+results/**/*.txt
 
 data/manual/cps.csv
