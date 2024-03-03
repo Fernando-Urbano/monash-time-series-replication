@@ -1,8 +1,8 @@
-source(file.path(BASE_DIR, "utils", "data_loader.R", fsep = "/"))
-source(file.path(BASE_DIR, "utils", "error_calculator.R", fsep = "/"))
-source(file.path(BASE_DIR, "utils", "global_model_helper.R", fsep = "/"))
-source(file.path(BASE_DIR, "models", "local_univariate_models.R", fsep = "/"))
-source(file.path(BASE_DIR, "models", "global_models.R", fsep = "/"))
+source(file.path(BASE_DIR, "src", "utils", "data_loader.R", fsep = "/"))
+source(file.path(BASE_DIR, "src", "utils", "error_calculator.R", fsep = "/"))
+source(file.path(BASE_DIR, "src", "utils", "global_model_helper.R", fsep = "/"))
+source(file.path(BASE_DIR, "src", "models", "local_univariate_models.R", fsep = "/"))
+source(file.path(BASE_DIR, "src", "models", "global_models.R", fsep = "/"))
 
 # The name of the column containing time series values after loading data from the .tsf file into a tsibble
 VALUE_COL_NAME <- "series_value"
@@ -45,7 +45,7 @@ do_fixed_horizon_local_forecasting <- function(dataset_name, method, input_file_
   print(paste0("Started loading ", dataset_name))
   
   # Loading data from the .tsf file
-  loaded_data <- convert_tsf_to_tsibble(file.path(BASE_DIR, "tsf_data", input_file_name, fsep = "/"), VALUE_COL_NAME, key, index)
+  loaded_data <- convert_tsf_to_tsibble(file.path(BASE_DIR, "data", input_file_name, fsep = "/"), VALUE_COL_NAME, key, index)
   dataset <- loaded_data[[1]]
   frequency <- loaded_data[[2]]
   forecast_horizon <- loaded_data[[3]]
@@ -161,7 +161,7 @@ do_fixed_horizon_global_forecasting <- function(dataset_name, lag, input_file_na
   print(paste0("Started loading ", dataset_name))
   
   # Loading data from the .tsf file
-  loaded_data <- convert_tsf_to_tsibble(file.path(BASE_DIR, "tsf_data", input_file_name, fsep = "/"), VALUE_COL_NAME, key, index)
+  loaded_data <- convert_tsf_to_tsibble(file.path(BASE_DIR, "data", input_file_name, fsep = "/"), VALUE_COL_NAME, key, index)
   dataset <- loaded_data[[1]]
   frequency <- loaded_data[[2]]
   forecast_horizon <- loaded_data[[3]]
