@@ -202,7 +202,7 @@ def generate_table1_dataframe(DATA_DIR):
         os.makedirs(results_folder)
         
     df_table1.to_csv(csv_file_path)
-    return df_table1
+    # return df_table1
 
 # if __name__=='__main__':
 #     print(generate_table1_dataframe(DATA_DIR=DATA_DIR))
