@@ -12,6 +12,7 @@ from src.data_download import download_and_extract_zip
 from src.data_download import URLS
 from src.data_loader import convert_tsf_to_dataframe
 from src.data_loader import generate_table1_dataframe
+from src.test_data_download import test_data_download
 
 BASE_DIR = Path(config.BASE_DIR)
 OUTPUT_DIR = Path(config.OUTPUT_DIR)
@@ -45,9 +46,18 @@ def task_download_data():
             'name': file,
             'actions': [(download_and_extract_zip, [url, DATA_DIR])],
             'targets': [DATA_DIR / file],  # Adjust as necessary
-            'uptodate': [False],  # Force re-download every time, or adjust as necessary
+            'uptodate': [True],  # Force re-download every time, or adjust as necessary
             'clean': True,
         }
+
+def task_test_data_download():
+    yield {
+        'name': 'Verify data downloaded',
+        'actions': [(test_data_download)],
+        # 'targets': [BASE_DIR / 'results' / 'Table1.csv'],  # Adjust as necessary
+        # 'uptodate': [False],  # Force re-download every time, or adjust as necessary
+        'clean': True,
+    }
 
 def task_generate_table1():
     yield {
