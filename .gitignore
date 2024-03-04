@@ -16,6 +16,13 @@ Exclude data folder
 !/data/manual/
 *.tsf
 *.csv
+*_arima*
+*_pooled_reg*
+*_dhr*
+*_ses*
+*_tbats*
+*_ets*
+*_theta*
 */_build/
 
 ###################
