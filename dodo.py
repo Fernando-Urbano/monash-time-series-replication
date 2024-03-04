@@ -52,7 +52,7 @@ def task_download_data():
 
 def task_test_data_download():
     yield {
-        'name': 'Verify data downloaded',
+        'name': 'Verified data downloaded',
         'actions': [(test_data_download)],
         # 'targets': [BASE_DIR / 'results' / 'Table1.csv'],  # Adjust as necessary
         # 'uptodate': [False],  # Force re-download every time, or adjust as necessary
