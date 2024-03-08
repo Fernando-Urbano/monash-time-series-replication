@@ -15,4 +15,5 @@ def test_data_download():
 
 
 if __name__ == '__main__':
+    # Test
     test_data_download()

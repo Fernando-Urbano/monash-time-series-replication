@@ -16,6 +16,13 @@ Exclude data folder
 !/data/manual/
 *.tsf
 *.csv
+*_arima*
+*_pooled_reg*
+*_dhr*
+*_ses*
+*_tbats*
+*_ets*
+*_theta*
 */_build/
 
 ###################
@@ -223,7 +230,7 @@ vignettes/*.pdf
 ########
 # MISC.
 ########
-# *.zip
+*.zip
 # *.tar.gz
 *.ini
 *.xdv
@@ -250,5 +257,7 @@ drafts/draft_bp.pdf
 
 *.vrb
 *.csv
+results/*.txt
+results/**/*.txt
 
 data/manual/cps.csv
