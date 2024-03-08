@@ -12,10 +12,13 @@ from src.data_download import download_and_extract_zip
 from src.data_download import URLS
 from src.data_loader import convert_tsf_to_dataframe
 from src.data_loader import generate_table1_dataframe
+from src.test_data_download import test_data_download
+from src.test_table1_csv import test_table1_results 
 
 BASE_DIR = Path(config.BASE_DIR)
 OUTPUT_DIR = Path(config.OUTPUT_DIR)
 DATA_DIR = Path(config.DATA_DIR)
+
 
 # fmt: off
 ## Helper functions for automatic execution of Jupyter notebooks
@@ -55,4 +58,5 @@ def task_generate_table1():
         'targets': [BASE_DIR / 'results' / 'Table1.csv'],  # Adjust as necessary
         'uptodate': [False],  # Force re-download every time, or adjust as necessary
         'clean': True,
+        'verbosity':0
     }

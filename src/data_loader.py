@@ -180,13 +180,29 @@ def generate_table1_dataframe(DATA_DIR):
     # Filter files with the '.tsf' extension using list comprehension
     files_with_extension = [file for file in all_files if file.endswith('.tsf')]
 
-    df_table1 = pd.DataFrame(columns=['Dataset','Frequency','Forecast_horizon','Missing_values','Equal_length','Min_Length','Max_Length'])
+    df_table1 = pd.DataFrame(columns=['Dataset','# of Series','Frequency','Forecast_horizon','Missing_values','Equal_length','Min_Length','Max_Length','Competition'])
+    df_table1['Missing_values'] = df_table1['Missing_values'].astype(bool)
+    df_table1['Equal_length'] = df_table1['Equal_length'].astype(bool)
+    df_table1['Competition'] = df_table1['Competition'].astype(bool)
     # Example of usage
     for f1 in files_with_extension:
         loaded_data, frequency, forecast_horizon, contain_missing_values, contain_equal_length, competition_dataset = convert_tsf_to_dataframe(str(DATA_DIR) + '/' + f1)
         loaded_data['len_series'] = loaded_data['series_value'].apply(lambda x: len(x))
         df_append = pd.DataFrame([{'Dataset':f1.split('.')[0], '# of Series':loaded_data.shape[0],'Frequency':frequency,'Forecast_horizon':forecast_horizon,'Missing_values':contain_missing_values,'Equal_length':contain_equal_length,'Min_Length':loaded_data['len_series'].min(),'Max_Length':loaded_data['len_series'].max(),'Competition':competition_dataset}])
+        df_append = pd.DataFrame([{'Dataset':f1.split('.')[0], '# of Series':loaded_data.shape[0],'Frequency':frequency,'Forecast_horizon':forecast_horizon,'Missing_values':contain_missing_values,'Equal_length':contain_equal_length,'Min_Length':loaded_data['len_series'].min(),'Max_Length':loaded_data['len_series'].max(),'Competition':competition_dataset}])
+        
         df_table1 = pd.concat([df_table1,df_append], axis=0)
 
-    df_table1.to_csv(str(BASE_DIR) + '/results/' + 'Table1.csv')
-    return df_table1
+    # Define the path to the CSV file
+    csv_file_path = os.path.join(BASE_DIR, 'results', 'Table1.csv')
+
+    # Create the results folder if it doesn't exist
+    results_folder = os.path.join(BASE_DIR, 'results')
+    if not os.path.exists(results_folder):
+        os.makedirs(results_folder)
+        
+    df_table1.to_csv(csv_file_path)
+    # return df_table1
+
+# if __name__=='__main__':
+#     print(generate_table1_dataframe(DATA_DIR=DATA_DIR))
