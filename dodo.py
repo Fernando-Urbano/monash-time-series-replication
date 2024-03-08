@@ -51,15 +51,6 @@ def task_download_data():
             'clean': True,
         }
 
-def task_test_data_download():
-    yield {
-        'name': 'Data is downloaded',
-        'actions': [(test_data_download)],
-        # 'targets': [BASE_DIR / 'results' / 'Table1.csv'],  # Adjust as necessary
-        # 'uptodate': [False],  # Force re-download every time, or adjust as necessary
-        'clean': True,
-    }
-
 def task_generate_table1():
     yield {
         'name': 'Generate Table 1',
@@ -68,11 +59,4 @@ def task_generate_table1():
         'uptodate': [False],  # Force re-download every time, or adjust as necessary
         'clean': True,
         'verbosity':0
-    }
-
-def task_table1_results():
-    yield {
-        'name': 'Table 1 Results',
-        'actions': [(test_table1_results)],
-        'clean': True,
     }
