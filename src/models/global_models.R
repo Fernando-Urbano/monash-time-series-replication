@@ -1,6 +1,7 @@
 # Implementation of global models: pooled regression and CatBoost
 
 library(glmnet)
+library(catboost)
 
 failed_loading_catboost = FALSE
 tryCatch(library(catboost), error = function(err) {failed_loading_catboost<<-TRUE})
