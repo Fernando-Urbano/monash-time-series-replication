@@ -4,8 +4,9 @@ options(repos = c(CRAN = "https://mirror.las.iastate.edu/CRAN/"))
 # install.packages("here")
 # install.packages("smooth")
 # install.packages("tsibble")
-install.packages('remotes')
-remotes::install_url('https://github.com/catboost/catboost/releases/download/v1.2.3/catboost-R-darwin-universal2-1.2.3.tgz', INSTALL_opts = c("--no-multiarch", "--no-test-load"))
+# install.packages('remotes')
+# remotes::install_url('https://github.com/catboost/catboost/releases/download/v1.2.3/catboost-R-darwin-universal2-1.2.3.tgz', INSTALL_opts = c("--no-multiarch", "--no-test-load")) 
+# remotes::install_url('https://github.com/catboost/catboost/releases/download/v1.2.3/catboost-R-windows-x86_64-1.2.3.tgz', INSTALL_opts = c("--no-multiarch", "--no-test-load"))
 library(here)
 
 # Get the path to the directory containing the current script
@@ -147,7 +148,7 @@ source(file.path(BASE_DIR, "src", "experiments", "fixed_horizon_functions.R", fs
 # do_fixed_horizon_global_forecasting("m4_hourly", 210, "m4_hourly_dataset.tsf", "pooled_regression", "series_name", "start_timestamp")
 
 # do_fixed_horizon_global_forecasting("cif_2016", 15, "cif_2016_dataset.tsf", "catboost")
-do_fixed_horizon_global_forecasting("nn5_daily", 9, "nn5_daily_dataset_without_missing_values.tsf", "catboost", "series_name", "start_timestamp")
+# do_fixed_horizon_global_forecasting("nn5_daily", 9, "nn5_daily_dataset_without_missing_values.tsf", "catboost", "series_name", "start_timestamp")
 # do_fixed_horizon_global_forecasting("tourism_yearly", 2, "tourism_yearly_dataset.tsf", "catboost", "series_name", "start_timestamp")
 # do_fixed_horizon_global_forecasting("tourism_quarterly", 5, "tourism_quarterly_dataset.tsf", "catboost", "series_name", "start_timestamp")
 # do_fixed_horizon_global_forecasting("tourism_monthly", 15, "tourism_monthly_dataset.tsf", "catboost", "series_name", "start_timestamp")
