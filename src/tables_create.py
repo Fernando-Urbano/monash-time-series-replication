@@ -544,7 +544,7 @@ def pivot_selected_error_measure_results(selected_error_measure_results):
     return selected_error_measure_results_pivoted
 
 
-def generate_table2_dataframe(selected_error_measure='Mean MASE'):
+def generate_table2_dataframe(selected_error_measure='Mean MASE', table_name='table2'):
     fixed_horizon_errors = os.listdir('results/fixed_horizon_errors')
     fixed_horizon_errors = [
         f for f in fixed_horizon_errors
@@ -570,7 +570,7 @@ def generate_table2_dataframe(selected_error_measure='Mean MASE'):
         + [c for c in list(pivoted_results.index) if c not in ORDER_DATASETS]
     )
     pivoted_results = pivoted_results.loc[ordered_databases]
-    csv_file_path = os.path.join(BASE_DIR, 'output', 'tables', 'table2.csv')
+    csv_file_path = os.path.join(BASE_DIR, 'output', 'tables', f'{table_name}.csv')
     results_folder = os.path.join(BASE_DIR, 'output', 'tables')
     if not os.path.exists(results_folder):
         os.makedirs(results_folder)
@@ -580,5 +580,5 @@ def generate_table2_dataframe(selected_error_measure='Mean MASE'):
         
 
 if __name__== '__main__':
+    generate_table1_dataframe(print_dataset_name=True)
     generate_table2_dataframe()
-    # generate_table1_dataframe(print_dataset_name=True)
