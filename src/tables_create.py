@@ -494,15 +494,18 @@ def get_model_name(name):
         raise Exception('Unrecognized model name: add it to "MODEL_PATTERN_TO_NAME" dictionary')
 
 def get_database_name(name):
-    for pattern, model in MODEL_PATTERN_TO_NAME.items():
+    for pattern in MODEL_PATTERN_TO_NAME.keys():
         if re.search(pattern, name):
-            return model
-    else:
-        raise Exception('Unrecognized model name: add it to "MODEL_PATTERN_TO_NAME" dictionary')
+            database_pattern = name.split(pattern)[0]
+    database_title = database_pattern.replace('_', ' ').title()
+    uppercase_word = ['M1', 'M3', 'M4', 'CIF', 'NN5', 'KDD', 'FRED-MD', 'US', 'COVID']
+    uppercase_word = " ".join()[w.upper() if w.upper() in uppercase_word else w for w in database_title.split(' ')]
 
 def pivot_selected_error_measure_results(selected_error_measure_results):
     selected_error_measure_results.reset_index(inplace=True)
     selected_error_measure_results = selected_error_measure_results.rename({'index': 'name'}, axis=1)
+    selected_error_measure_results['model'] = selected_error_measure_results['name'].apply(lambda x: get_model_name(x))
+    selected_error_measure_results['database'] = selected_error_measure_results['name'].apply(lambda x: get_database_name(x))
 
 
 
