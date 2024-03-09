@@ -25,12 +25,13 @@ def test_format_table1():
     ]
 
 
-def test_content_table1():
+def test_logic_table1():
     file_path = os.path.join(BASE_DIR, 'results', 'table1.csv')
     df = pd.read_csv(file_path)
     assert all(df['Min. Length'] <= df['Max. Length'])
     assert all(df['No: of Freq'] > 0)
     assert all(df['No: of Series'] > 0)
+
 
 if __name__ == '__main__':
     test_generate_table1()
