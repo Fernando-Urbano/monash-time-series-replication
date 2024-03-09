@@ -335,19 +335,19 @@ DATASETS_TO_INFO = {
     'Temperature Rain': {
         'Domain': 'Nature',
         'Datasets': [
-            'temperature_rain_dataset.tsf'
+            'temperature_rain_dataset_with_missing_values.tsf'
         ]
     },
     'Sunspot': {
         'Domain': 'Nature',
         'Datasets': [
-            'sunspot_dataset.tsf'
+            'sunspot_dataset_with_missing_values.tsf'
         ]
     },
     'Saugeen River Flow': {
         'Domain': 'Nature',
         'Datasets': [
-            'saugeen_river_flow_dataset.tsf'
+            'saugeenday_dataset.tsf'
         ]
     },
     'US Births': {
@@ -359,69 +359,69 @@ DATASETS_TO_INFO = {
     'Solar Power': {
         'Domain': 'Energy',
         'Datasets': [
-            'solar_power_dataset.tsf'
+            'solar_weekly_dataset.tsf'
         ]
     },
     'Wind Power': {
         'Domain': 'Energy',
         'Datasets': [
-            'wind_power_dataset.tsf'
+            'wind_4_seconds_dataset.tsf'
         ]
     },
 }
 
 
-def generate_table1_dataframe(DATA_DIR):
-
-    # Get a list of all files in the data directory
-    all_files = os.listdir(DATA_DIR)
-    
-    # Filter files with the '.tsf' extension using list comprehension
-    files_with_extension = [file for file in all_files if file.endswith('.tsf')][:4]
-
-    df_table1 = pd.DataFrame(columns=[
-        'Dataset','# of Series', 'Frequency', 'Forecast_horizon', 'Missing_values', 'Equal_length', 'Min_Length', 'Max_Length', 'Competition'
-    ])
-    df_table1['Missing_values'] = df_table1['Missing_values'].astype(bool)
-    df_table1['Equal_length'] = df_table1['Equal_length'].astype(bool)
-    df_table1['Competition'] = df_table1['Competition'].astype(bool)
-    # Example of usage
-    for f1 in files_with_extension:
-        loaded_data, frequency, forecast_horizon, contain_missing_values, contain_equal_length, competition_dataset = convert_tsf_to_dataframe(str(DATA_DIR) + '/' + f1)
+def generate_single_dataset_info(dataset_name, dataset_information):
+    dataset_statistics = {
+        'Domain': dataset_information['Domain'],
+        'No: of Series': 0,
+        'Min. Length': 1e10,
+        'Max. Length': 0,
+        'No: of Freq': len(dataset_information['Datasets']),
+        'Missing': None,
+        'Competition': None,
+        'Multivariate': False if 'Multivariate' not in list(dataset_information.keys()) else True
+    }
+    for dataset in dataset_information['Datasets']:
+        loaded_data, frequency, forecast_horizon, contain_missing_values, contain_equal_length, competition_dataset = convert_tsf_to_dataframe(str(DATA_DIR) + '/' + dataset)
         loaded_data['len_series'] = loaded_data['series_value'].apply(lambda x: len(x))
-        df_append = pd.DataFrame([{
-            'Dataset': f1.split('.')[0], '# of Series': loaded_data.shape[0],
-            'Frequency': frequency,'Forecast_horizon': forecast_horizon,
-            'Missing_values': contain_missing_values,
-            'Equal_length': contain_equal_length,'Min_Length':loaded_data['len_series'].min(),
-            'Max_Length': loaded_data['len_series'].max(),
-            'Competition': competition_dataset
-        }])
-        df_append = pd.DataFrame([{
-            'Dataset': f1.split('.')[0],
-            '# of Series': loaded_data.shape[0],
-            'Frequency': frequency,
-            'Forecast_horizon': forecast_horizon,
-            'Missing_values': contain_missing_values,
-            'Equal_length': contain_equal_length,
-            'Min_Length': loaded_data['len_series'].min(),
-            'Max_Length': loaded_data['len_series'].max(),
-            'Competition': competition_dataset
-        }])
-        
-        df_table1 = pd.concat([df_table1, df_append], axis=0)
+        min_len = loaded_data['len_series'].min()
+        max_len = loaded_data['len_series'].max()
+        dataset_statistics['Min. Length'] = min_len if min_len < dataset_statistics['Min. Length'] else dataset_statistics['Min. Length']
+        dataset_statistics['Max. Length'] = max_len if max_len > dataset_statistics['Max. Length'] else dataset_statistics['Max. Length']
+        dataset_statistics['No: of Series'] += loaded_data.shape[0]
+        if dataset_statistics['Missing'] is None:
+            dataset_statistics['Missing'] = contain_missing_values
+        if dataset_statistics['Competition'] is None:
+            dataset_statistics['Competition'] = competition_dataset
+    return dataset_statistics
 
-    # Define the path to the CSV file
+
+def generate_table1_dataframe():
+    datasets_statistics = {}
+    for dataset_name, dataset_info in DATASETS_TO_INFO.items():
+        print(dataset_name)
+        try:
+            datasets_statistics[dataset_name] = generate_single_dataset_info(dataset_name, dataset_info)
+        except Exception as e:
+            e = str(e) if len(str(e)) < 100 else str(e)[:50] + "... [truncated]"
+            print(f'Error in {dataset_name}: {e}')
+    df_table1 = (
+        pd.DataFrame(datasets_statistics)
+        .transpose()
+        .reset_index()
+        .rename({'index': 'Dataset'}, axis=1)
+    )
+    bool_columns = ['Missing', 'Competition', 'Multivariate']
+    df_table1[bool_columns] = df_table1[bool_columns].map(lambda x: 'Yes' if x else 'No')
     csv_file_path = os.path.join(BASE_DIR, 'output', 'tables', 'table1.csv')
-
-    # Create the results folder if it doesn't exist
     results_folder = os.path.join(BASE_DIR, 'output', 'tables')
     if not os.path.exists(results_folder):
         os.makedirs(results_folder)
-        
     df_table1.reset_index(drop=True, inplace=True)
     df_table1.to_csv(csv_file_path, index=False)
     return True
 
+
 if __name__== '__main__':
-    generate_table1_dataframe(DATA_DIR=DATA_DIR)
+    generate_table1_dataframe()
