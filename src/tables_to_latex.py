@@ -48,7 +48,10 @@ def convert_table_to_latex(
     if highlight_min_row:
         min_columns = {}
         for i in range(len(df.index)):
-            min_columns[i] = df.iloc[i].loc[number_columns].idxmin()
+            try:
+                min_columns[i] = df.iloc[i].loc[number_columns].idxmin()
+            except:
+                pass
     if specific_columns_func:
         for column, func in specific_columns_func.items():
             df[column] = df[column].apply(func)
@@ -59,8 +62,10 @@ def convert_table_to_latex(
     df[pct_columns] = df[pct_columns].map(ptc_format_func)
     if highlight_min_row:
         for i in range(len(df.index)):
-            df[min_columns[i]].iloc[i] = '\\textbf{' + df.iloc[i].loc[min_columns[i]] + '}'
-    df = df.map(lambda x: x.replace('nan', ''))
+            if i in min_columns.keys():
+                if str(min_columns[i]) != 'nan':
+                    df[min_columns[i]].iloc[i] = '\\textbf{' + df.iloc[i].loc[min_columns[i]] + '}'
+    df = df.map(lambda x: x.replace('nan', '-'))
     return df.to_latex()
 
 
@@ -83,6 +88,7 @@ def upload_table_download_latex(
 
 if __name__ == '__main__':
     # Example Generate Table 1
-    upload_table_download_latex('output/tables/table2.csv', 'table2', highlight_min_row=True)
+    upload_table_download_latex('output/tables/table_median_smape.csv', 'table_median_smape', highlight_min_row=True)
+    # upload_table_download_latex('output/tables/table2.csv', 'table2', highlight_min_row=True)
     # upload_table_download_latex('output/tables/table1.csv', 'table1')
 
