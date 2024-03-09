@@ -1,0 +1,37 @@
+% !TeX root = report_example.tex
+\newcommand*{\MyHeaderPath}{.}% This path definition is also passed to inside the header files.
+\newcommand*{\PathToAssets}{../assets}%
+\newcommand*{\PathToOutput}{../output/}%
+\newcommand*{\PathToOutputTables}{../output/tables}%
+% \newcommand*{\PathToBibFile}{bibliography.bib}%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% This file is compiled with XeLaTex.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{\MyHeaderPath/_article_header.tex}
+\input{\MyHeaderPath/_lean_header.tex}
+
+
+\begin{document}
+
+\begin{titlepage}
+\title{Monash Time-Series Forecasting Archive Replication}
+\author{
+    Fernando Urbano\footnote{fernandourbano@uchicago.edu} \and
+    Shrey Jain\footnote{shreyjain@uchicago.edu} \and
+    Aben Carrington\footnote{acarrington@uchicago.edu} \and
+    Mukund Maheshwari\footnote{mukundmaheshwari@uchicago.edu}
+}
+\maketitle
+
+\doublespacing
+\begin{abstract}
+The "Monash Time Series Forecasting Archive" significantly enhances research in time series forecasting, unveiling a meticulously selected assortment of 25 datasets across diverse sectors like energy, banking, and tourism.
+
+This initiative tackles the pressing need for diverse, comprehensive datasets to benchmark a broad spectrum of forecasting models, spanning from conventional univariate to modern global and multivariate methodologies.
+\end{abstract}
+\end{titlepage}
+
+\end{document}
