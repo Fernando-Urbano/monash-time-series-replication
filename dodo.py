@@ -57,7 +57,7 @@ def task_generate_table1():
     return {
         'actions': [(generate_table1_dataframe, [DATA_DIR])],
         'targets': [BASE_DIR / 'results' / 'tables' / 'table1.csv'],
-        'uptodate': [True],  # Force re-download every time if equals to False
+        'uptodate': [False],  # Force re-download every time if equals to False
         'clean': True,
     }
 
@@ -67,7 +67,7 @@ def task_generate_table2():
     return {
         'actions': [(generate_table2_dataframe, ['Mean MASE'])],
         'targets': [BASE_DIR / 'results' / 'tables' / 'table2.csv'],
-        'uptodate': [True],  # Force re-download every time if equals to False
+        'uptodate': [False],  # Force re-download every time if equals to False
         'clean': True,
         'verbosity': 0
     }
@@ -76,7 +76,7 @@ def task_generate_table2():
 def task_transform_table1_to_latex():
     """Generate table1.csv from the downloaded data."""
     return {
-        'actions': [(upload_table_download_latex, ['output/tables/table1.csv', 'table1'])],
+        'actions': [(upload_table_download_latex, ['output/tables/table1.csv', 'table1', lambda x: '{:.0f}'.format(x)])],
         "file_dep": [BASE_DIR / 'output' / 'tables' / 'table1.csv'],
         'targets': [BASE_DIR / 'output' / 'tables' / 'table1.tex'],
         'uptodate': [False],  # Force to generate table1 every time
@@ -87,11 +87,12 @@ def task_transform_table1_to_latex():
 
 def task_transform_table2_to_latex():
     """Generate table1.csv from the downloaded data."""
+    upload_table_download_latex_action = lambda x: upload_table_download_latex()
     return {
-        'actions': [(upload_table_download_latex, ['output/tables/table2.csv', 'table2'])],
+        'actions': [(upload_table_download_latex, ['output/tables/table2.csv', 'table2', lambda x: '{:.3f}'.format(x)])],
         "file_dep": [BASE_DIR / 'output' / 'tables' / 'table2.csv'],
         'targets': [BASE_DIR / 'output' / 'tables' / 'table2.tex'],
-        'uptodate': [False],  # Force to generate table1 every time
+        'uptodate': [False],  # Force to generate table2 every time
         'clean': True,
         'verbosity': 0
     }
