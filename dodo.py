@@ -12,6 +12,7 @@ from src.data_download import download_and_extract_zip
 from src.data_download import URLS
 from src.data_loader import convert_tsf_to_dataframe
 from src.data_loader import generate_table1_dataframe
+from src.tables_to_latex import upload_table_download_latex
 from src.test_data_download import test_data_download
 from src.test_table1_csv import test_table1_results 
 
@@ -40,23 +41,49 @@ def jupyter_clear_output(notebook):
     return f"jupyter nbconvert --ClearOutputPreprocessor.enabled=True --ClearMetadataPreprocessor.enabled=True --inplace ./src/{notebook}.ipynb"
 
 
-
 def task_download_data():
+    """Download the data from the source."""
     for file, url in URLS.items():
         yield {
             'name': file,
             'actions': [(download_and_extract_zip, [url, DATA_DIR])],
-            'targets': [DATA_DIR / file],  # Adjust as necessary
-            'uptodate': [False],  # Force re-download every time, or adjust as necessary
+            'targets': [DATA_DIR / file],
+            'uptodate': [True],  # Force re-download every time if equals to False
             'clean': True,
         }
 
+
 def task_generate_table1():
-    yield {
-        'name': 'Generate Table 1',
+    """Generate table1.csv from the downloaded data."""
+    return {
         'actions': [(generate_table1_dataframe, [DATA_DIR])],
-        'targets': [BASE_DIR / 'results' / 'Table1.csv'],  # Adjust as necessary
-        'uptodate': [False],  # Force re-download every time, or adjust as necessary
+        'targets': [BASE_DIR / 'results' / 'tables' / 'table1.csv'],
+        'uptodate': [True],  # Force to generate table1 every time
         'clean': True,
-        'verbosity':0
+        'verbosity': 0
+    }
+
+
+def task_transform_table1_to_latex():
+    """Generate table1.csv from the downloaded data."""
+    return {
+        'actions': [(upload_table_download_latex, ['output/tables/table1.csv', 'table1'])],
+        "file_dep": ["./reports/report.tex"],
+        'targets': [BASE_DIR / 'results' / 'tables' / 'table1.tex'],
+        'uptodate': [False],  # Force to generate table1 every time
+        'clean': True,
+        'verbosity': 0
+    }
+
+
+def task_compile_latex_docs():
+    """Compiling the latex report"""
+    return {
+        "actions": [
+            "latexmk -xelatex -cd ./reports/report.tex",  # Compile
+            "latexmk -xelatex -c -cd ./reports/report.tex",  # Clean
+        ],
+        "targets": ["./reports/report.pdf"],
+        "file_dep": ["./reports/report.tex"],
+        "clean": True,
     }
