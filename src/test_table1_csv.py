@@ -8,16 +8,30 @@ from pathlib import Path
 DATA_DIR = config.DATA_DIR
 BASE_DIR = config.BASE_DIR
 
-def test_table1_results():
+def test_generate_table1():
     file_path = os.path.join(BASE_DIR, 'results', 'table1.csv')
+    assert os.path.exists(file_path)
 
-    if os.path.exists(file_path):
-        print('----Check results folder for Table1.csv file----')
-        assert True
-    else:
-        assert False
 
+def test_format_table1():
+    file_path = os.path.join(BASE_DIR, 'results', 'table1.csv')
+    df = pd.read_csv(file_path)
+    assert df.shape[0] == 30
+    assert df.shape[1] == 9
+    assert df.columns.tolist() == [
+        'Domain', 'No: of Series', 'Min. Length',
+        'Max. Length', 'No: of Freq',
+        'Missing', 'Competition', 'Multivariate'
+    ]
+
+
+def test_content_table1():
+    file_path = os.path.join(BASE_DIR, 'results', 'table1.csv')
+    df = pd.read_csv(file_path)
+    assert all(df['Min. Length'] <= df['Max. Length'])
+    assert all(df['No: of Freq'] > 0)
+    assert all(df['No: of Series'] > 0)
 
 if __name__ == '__main__':
-    # Test
-    test_table1_results()
+    test_generate_table1()
+    test_format_table1()
