@@ -474,14 +474,32 @@ def transform_string_results_to_dict(results_list):
     return results_dict
 
 
+ORDER_MODELS = [
+    'SES', 'Theta', 'ETS', '(DHR-) ARIMA', 'PR',
+    'Cat Boost', 'FFNN', 'Deep AR', 'N-BEATS', 'Wave Net', 'Transformer'
+]
+
+ORDER_DATASETS = [
+    'M1 Yearly', 'M1 Quarterly', 'M1 Monthly', 'M3 Quarterly',
+    'M3 Monthly', 'M3 Other', 'M4 Yearly', 'M4 Quarterly',
+    'M4 Monthly', 'M4 Weekly', 'M4 Daily', 'M4 Hourly', 'Tourism Yearly',
+    'Tourism Quarterly', 'Tourism Monthly', 'Aus. Elecdemand', 'Dominick',
+    ' Bitcoin', 'Pedestrians', 'Vehicle Trips', 'Weather', 'NN5 Daily',
+    'NN5 Weekly', 'Kaggle Daily', 'Kaggle Weekly', 'Solar 10 Mins',
+    'Solar Weekly', 'Electricity Hourly', 'Electricity Weekly', 'Carparts',
+    'FRED-MD', 'Traffic Hourly', 'Traffic Weekly', 'Rideshare', 'Hospital',
+    'COVID', 'Temp. Rain', 'Sunspot', 'Saugeen', 'Births'
+]
+
+
 MODEL_PATTERN_TO_NAME = {
-    '_pooled_regression': 'Pooled Regression',
-    '_catboost': 'Catboost',
+    '_pooled_regression': 'PR',
+    '_catboost': 'Cat Boost',
     '_theta[.]': 'Theta',
     '_ets[.]': 'ETS',
     '_tbats[.]': 'TBATS',
     '_ses[.]': 'SES',
-    '_dhr_arima': 'DHR-ARIMA',
+    '_dhr_arima': '(DHR-) ARIMA',
     '_arima[.]': 'ARIMA',
 }
 
@@ -521,11 +539,9 @@ def pivot_selected_error_measure_results(selected_error_measure_results):
     selected_error_measure_results.drop('name', axis=1, inplace=True)
     selected_error_measure_results_pivoted = (
         selected_error_measure_results
-        .pivot(index='database', columns='model', values='selected_error_measure_name')
+        .pivot(index='database', columns='model', values='selected_error_measure')
     )
     return selected_error_measure_results_pivoted
-
-
 
 
 def generate_table2_dataframe(selected_error_measure='Mean MASE'):
@@ -543,7 +559,24 @@ def generate_table2_dataframe(selected_error_measure='Mean MASE'):
         f: transform_string_results_to_dict(r) for f, r in fixed_horizon_error_results.items()
     }
     selected_error_measure_results = pd.DataFrame(fixed_horizon_error_results).transpose()[[selected_error_measure]]
-    pivot_selected_error_measure_results(selected_error_measure_results)
+    pivoted_results = pivot_selected_error_measure_results(selected_error_measure_results)
+    ordered_models = (
+        [c for c in ORDER_MODELS if c in list(pivoted_results.columns)]
+        + [c for c in list(pivoted_results.columns) if c not in ORDER_MODELS]
+    )
+    pivoted_results = pivoted_results[ordered_models]
+    ordered_databases = (
+        [c for c in ORDER_DATASETS if c in list(pivoted_results.index)]
+        + [c for c in list(pivoted_results.index) if c not in ORDER_DATASETS]
+    )
+    pivoted_results = pivoted_results.loc[ordered_databases]
+    csv_file_path = os.path.join(BASE_DIR, 'output', 'tables', 'table2.csv')
+    results_folder = os.path.join(BASE_DIR, 'output', 'tables')
+    if not os.path.exists(results_folder):
+        os.makedirs(results_folder)
+    pivoted_results = pivoted_results.reset_index().rename({'database': 'Dataset'}, axis=1)
+    pivoted_results.to_csv(csv_file_path, index=False)
+    pivoted_results.to_excel(csv_file_path.replace('.csv', '.xlsx'), index=False)
         
 
 if __name__== '__main__':
