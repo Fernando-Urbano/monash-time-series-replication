@@ -127,6 +127,7 @@ target/
 *.bbl
 *.blg
 *.fdb_latexmk
+*.xlsx
 *.fls
 *.log
 *.out
