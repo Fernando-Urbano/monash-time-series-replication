@@ -1,11 +1,11 @@
 # Have to run brew install cmake for successful package installations
 
 options(repos = c(CRAN = "https://mirror.las.iastate.edu/CRAN/"))
-# install.packages("here")
-# install.packages("smooth")
-# install.packages("tsibble")
-# install.packages('remotes')
-# remotes::install_url('https://github.com/catboost/catboost/releases/download/v1.2.3/catboost-R-darwin-universal2-1.2.3.tgz', INSTALL_opts = c("--no-multiarch", "--no-test-load")) 
+install.packages("here")
+install.packages("smooth")
+install.packages("tsibble")
+install.packages('remotes')
+remotes::install_url('https://github.com/catboost/catboost/releases/download/v1.2.3/catboost-R-darwin-universal2-1.2.3.tgz', INSTALL_opts = c("--no-multiarch", "--no-test-load")) 
 # remotes::install_url('https://github.com/catboost/catboost/releases/download/v1.2.3/catboost-R-windows-x86_64-1.2.3.tgz', INSTALL_opts = c("--no-multiarch", "--no-test-load"))
 library(here)
 
@@ -147,17 +147,17 @@ source(file.path(BASE_DIR, "src", "experiments", "fixed_horizon_functions.R", fs
 # do_fixed_horizon_global_forecasting("m4_daily", 9, "m4_daily_dataset.tsf", "pooled_regression", "series_name", "start_timestamp")
 # do_fixed_horizon_global_forecasting("m4_hourly", 210, "m4_hourly_dataset.tsf", "pooled_regression", "series_name", "start_timestamp")
 
-# do_fixed_horizon_global_forecasting("cif_2016", 15, "cif_2016_dataset.tsf", "catboost")
+do_fixed_horizon_global_forecasting("cif_2016", 15, "cif_2016_dataset.tsf", "catboost")
 # do_fixed_horizon_global_forecasting("nn5_daily", 9, "nn5_daily_dataset_without_missing_values.tsf", "catboost", "series_name", "start_timestamp")
-# do_fixed_horizon_global_forecasting("tourism_yearly", 2, "tourism_yearly_dataset.tsf", "catboost", "series_name", "start_timestamp")
-# do_fixed_horizon_global_forecasting("tourism_quarterly", 5, "tourism_quarterly_dataset.tsf", "catboost", "series_name", "start_timestamp")
-# do_fixed_horizon_global_forecasting("tourism_monthly", 15, "tourism_monthly_dataset.tsf", "catboost", "series_name", "start_timestamp")
-# do_fixed_horizon_global_forecasting("m1_yearly", 2, "m1_yearly_dataset.tsf", "catboost", "series_name", "start_timestamp")
-# do_fixed_horizon_global_forecasting("m1_quarterly", 5, "m1_quarterly_dataset.tsf", "catboost", "series_name", "start_timestamp")
-# do_fixed_horizon_global_forecasting("m1_monthly", 15, "m1_monthly_dataset.tsf", "catboost", "series_name", "start_timestamp")
-# do_fixed_horizon_global_forecasting("m3_yearly", 2, "m3_yearly_dataset.tsf", "catboost", "series_name", "start_timestamp")
-# do_fixed_horizon_global_forecasting("m3_quarterly", 5, "m3_quarterly_dataset.tsf", "catboost", "series_name", "start_timestamp")
-# do_fixed_horizon_global_forecasting("m3_monthly", 15, "m3_monthly_dataset.tsf", "catboost", "series_name", "start_timestamp")
+do_fixed_horizon_global_forecasting("tourism_yearly", 2, "tourism_yearly_dataset.tsf", "catboost", "series_name", "start_timestamp")
+do_fixed_horizon_global_forecasting("tourism_quarterly", 5, "tourism_quarterly_dataset.tsf", "catboost", "series_name", "start_timestamp")
+do_fixed_horizon_global_forecasting("tourism_monthly", 15, "tourism_monthly_dataset.tsf", "catboost", "series_name", "start_timestamp")
+do_fixed_horizon_global_forecasting("m1_yearly", 2, "m1_yearly_dataset.tsf", "catboost", "series_name", "start_timestamp")
+do_fixed_horizon_global_forecasting("m1_quarterly", 5, "m1_quarterly_dataset.tsf", "catboost", "series_name", "start_timestamp")
+do_fixed_horizon_global_forecasting("m1_monthly", 15, "m1_monthly_dataset.tsf", "catboost", "series_name", "start_timestamp")
+do_fixed_horizon_global_forecasting("m3_yearly", 2, "m3_yearly_dataset.tsf", "catboost", "series_name", "start_timestamp")
+do_fixed_horizon_global_forecasting("m3_quarterly", 5, "m3_quarterly_dataset.tsf", "catboost", "series_name", "start_timestamp")
+do_fixed_horizon_global_forecasting("m3_monthly", 15, "m3_monthly_dataset.tsf", "catboost", "series_name", "start_timestamp")
 # # do_fixed_horizon_global_forecasting("m3_other", 2, "m3_other_dataset.tsf", "catboost")
 # do_fixed_horizon_global_forecasting("m4_yearly", 2, "m4_yearly_dataset.tsf", "catboost", "series_name", "start_timestamp")
 # do_fixed_horizon_global_forecasting("m4_quarterly", 5, "m4_quarterly_dataset.tsf", "catboost", "series_name", "start_timestamp")
@@ -192,9 +192,9 @@ source(file.path(BASE_DIR, "src", "experiments", "fixed_horizon_functions.R", fs
 # do_fixed_horizon_global_forecasting("hospital", 15, "hospital_dataset.tsf", "pooled_regression", "series_name", "start_timestamp", 12, TRUE)
 # do_fixed_horizon_global_forecasting("fred_md", 15, "fred_md_dataset.tsf", "pooled_regression", "series_name", "start_timestamp", 12)
 
-# do_fixed_horizon_global_forecasting("car_parts", 15, "car_parts_dataset_without_missing_values.tsf", "catboost", "series_name", "start_timestamp", 12, TRUE)
-# do_fixed_horizon_global_forecasting("hospital", 15, "hospital_dataset.tsf", "catboost", "series_name", "start_timestamp", 12, TRUE)
-# do_fixed_horizon_global_forecasting("fred_md", 15, "fred_md_dataset.tsf", "catboost", "series_name", "start_timestamp", 12)
+do_fixed_horizon_global_forecasting("car_parts", 15, "car_parts_dataset_without_missing_values.tsf", "catboost", "series_name", "start_timestamp", 12, TRUE)
+do_fixed_horizon_global_forecasting("hospital", 15, "hospital_dataset.tsf", "catboost", "series_name", "start_timestamp", 12, TRUE)
+do_fixed_horizon_global_forecasting("fred_md", 15, "fred_md_dataset.tsf", "catboost", "series_name", "start_timestamp", 12)
 
 
 # # Weekly datasets - 5 - 8 weeks forecast horizon
@@ -240,10 +240,10 @@ source(file.path(BASE_DIR, "src", "experiments", "fixed_horizon_functions.R", fs
 # # do_fixed_horizon_global_forecasting("kaggle_web_traffic_weekly", 10, "kaggle_web_traffic_weekly_dataset.tsf", "pooled_regression", "series_name", "start_timestamp", 8, TRUE)
 # do_fixed_horizon_global_forecasting("dominick", 10, "dominick_dataset.tsf", "pooled_regression", NULL, NULL, 8)
 
-# do_fixed_horizon_global_forecasting("nn5_weekly", 65, "nn5_weekly_dataset.tsf", "catboost", "series_name", "start_timestamp", 8)
-# do_fixed_horizon_global_forecasting("traffic_weekly", 65, "traffic_weekly_dataset.tsf", "catboost", "series_name", "start_timestamp", 8)
-# do_fixed_horizon_global_forecasting("electricity_weekly", 65, "electricity_weekly_dataset.tsf", "catboost", "series_name", "start_timestamp", 8, TRUE)
-# do_fixed_horizon_global_forecasting("solar_weekly", 6, "solar_weekly_dataset.tsf", "catboost", "series_name", "start_timestamp", 5)
+do_fixed_horizon_global_forecasting("nn5_weekly", 65, "nn5_weekly_dataset.tsf", "catboost", "series_name", "start_timestamp", 8)
+do_fixed_horizon_global_forecasting("traffic_weekly", 65, "traffic_weekly_dataset.tsf", "catboost", "series_name", "start_timestamp", 8)
+do_fixed_horizon_global_forecasting("electricity_weekly", 65, "electricity_weekly_dataset.tsf", "catboost", "series_name", "start_timestamp", 8, TRUE)
+do_fixed_horizon_global_forecasting("solar_weekly", 6, "solar_weekly_dataset.tsf", "catboost", "series_name", "start_timestamp", 5)
 # # do_fixed_horizon_global_forecasting("kaggle_web_traffic_weekly", 10, "kaggle_web_traffic_weekly_dataset.tsf", "catboost", "series_name", "start_timestamp", 8, TRUE)
 # do_fixed_horizon_global_forecasting("dominick", 10, "dominick_dataset.tsf", "catboost", NULL, NULL, 8)
 
@@ -303,13 +303,13 @@ source(file.path(BASE_DIR, "src", "experiments", "fixed_horizon_functions.R", fs
 # do_fixed_horizon_global_forecasting("vehicle_trips", 9, "vehicle_trips_dataset_without_missing_values.tsf", "pooled_regression", "series_name", "start_timestamp", 30, TRUE)
 # do_fixed_horizon_global_forecasting("temperature_rain", 9, "temperature_rain_dataset_without_missing_values.tsf", "pooled_regression", "series_name", "start_timestamp", 30)
 
-# do_fixed_horizon_global_forecasting("us_births", 9, "us_births_dataset.tsf", "catboost", "series_name", "start_timestamp", 30, TRUE)
-# do_fixed_horizon_global_forecasting("saugeen_river_flow", 9, "saugeenday_dataset.tsf", "catboost", "series_name", "start_timestamp", 30)
-# do_fixed_horizon_global_forecasting("sunspot", 9, "sunspot_dataset_without_missing_values.tsf", "catboost", "series_name", "start_timestamp", 30, TRUE)
-# do_fixed_horizon_global_forecasting("covid_deaths", 9, "covid_deaths_dataset.tsf", "catboost", "series_name", "start_timestamp", 30, TRUE)
+do_fixed_horizon_global_forecasting("us_births", 9, "us_births_dataset.tsf", "catboost", "series_name", "start_timestamp", 30, TRUE)
+do_fixed_horizon_global_forecasting("saugeen_river_flow", 9, "saugeenday_dataset.tsf", "catboost", "series_name", "start_timestamp", 30)
+do_fixed_horizon_global_forecasting("sunspot", 9, "sunspot_dataset_without_missing_values.tsf", "catboost", "series_name", "start_timestamp", 30, TRUE)
+do_fixed_horizon_global_forecasting("covid_deaths", 9, "covid_deaths_dataset.tsf", "catboost", "series_name", "start_timestamp", 30, TRUE)
 # do_fixed_horizon_global_forecasting("weather", 9, "weather_dataset.tsf", "catboost", NULL, NULL, 30)
-# do_fixed_horizon_global_forecasting("bitcoin", 9, "bitcoin_dataset_without_missing_values.tsf", "catboost", "series_name", "start_timestamp", 30)
-# do_fixed_horizon_global_forecasting("vehicle_trips", 9, "vehicle_trips_dataset_without_missing_values.tsf", "catboost", "series_name", "start_timestamp", 30, TRUE)
+do_fixed_horizon_global_forecasting("bitcoin", 9, "bitcoin_dataset_without_missing_values.tsf", "catboost", "series_name", "start_timestamp", 30)
+do_fixed_horizon_global_forecasting("vehicle_trips", 9, "vehicle_trips_dataset_without_missing_values.tsf", "catboost", "series_name", "start_timestamp", 30, TRUE)
 # do_fixed_horizon_global_forecasting("temperature_rain", 9, "temperature_rain_dataset_without_missing_values.tsf", "catboost", "series_name", "start_timestamp", 30)
 
 
