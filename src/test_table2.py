@@ -41,5 +41,6 @@ def test_logic_table2():
 
 
 if __name__ == '__main__':
+    '''test'''
     test_generate_table2()
     test_logic_table2()
