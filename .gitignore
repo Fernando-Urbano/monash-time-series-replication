@@ -260,5 +260,6 @@ drafts/draft_bp.pdf
 *.csv
 results/*.txt
 results/**/*.txt
+output/tables/*.tex
 
 data/manual/cps.csv
