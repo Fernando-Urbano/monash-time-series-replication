@@ -18,6 +18,7 @@ URLS = {
     'm3_yearly_dataset.tsf': 'https://zenodo.org/records/4656222/files/m3_yearly_dataset.zip?download=1',
     'm3_quarterly_dataset.tsf': 'https://zenodo.org/records/4656262/files/m3_quarterly_dataset.zip?download=1',
     'm3_monthly_dataset.tsf': 'https://zenodo.org/records/4656298/files/m3_monthly_dataset.zip?download=1',
+    'm3_other_dataset.tsf': 'https://zenodo.org/records/4656335/files/m3_other_dataset.zip?download=1',
     'm4_yearly_dataset.tsf': 'https://zenodo.org/records/4656379/files/m4_yearly_dataset.zip?download=1',
     'm4_weekly_dataset.tsf': 'https://zenodo.org/records/4656522/files/m4_weekly_dataset.zip?download=1',
     'm4_quarterly_dataset.tsf': 'https://zenodo.org/records/4656410/files/m4_quarterly_dataset.zip?download=1',
