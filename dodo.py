@@ -20,6 +20,18 @@ OUTPUT_DIR = Path(config.OUTPUT_DIR)
 DATA_DIR = Path(config.DATA_DIR)
 
 
+OTHER_ERROR_TABLES = {
+    'table_mean_smape': 'Mean SMAPE',
+    'table_median_smape': 'Median SMAPE',
+    'table_mean_smape': 'Mean mSMAPE',
+    'table_median_mase': 'Median mSMAPE',
+    'table_median_mase': 'Median MASE',
+    'table_mean_mae': 'Mean MAE',
+    'table_median_mae': 'Median MAE',
+    'table_mean_rmse': 'Mean RMSE',
+    'table_median_rmse': 'Median RMSE',
+}
+
 # fmt: off
 ## Helper functions for automatic execution of Jupyter notebooks
 def jupyter_execute_notebook(notebook):
@@ -73,6 +85,19 @@ def task_generate_table2():
     }
 
 
+def task_generate_other_error_tables():
+    """Generate table2.csv from the downloaded data."""
+    for name, error_metric in OTHER_ERROR_TABLES.items():
+        yield {
+            'name': name,
+            'actions': [(generate_table2_dataframe, [error_metric, name])],
+            'targets': [BASE_DIR / 'results' / 'tables' / f'{name}.csv'],
+            'uptodate': [False],  # Force re-download every time if equals to False
+            'clean': True,
+            'verbosity': 0
+        }
+
+
 def task_transform_table1_to_latex():
     """Generate table1.csv from the downloaded data."""
     return {
@@ -85,11 +110,30 @@ def task_transform_table1_to_latex():
     }
 
 
+def task_transform_other_error_tables_to_latex():
+    """Generate table1.csv from the downloaded data."""
+    for name in OTHER_ERROR_TABLES.keys():
+        yield {
+            'name': name,
+            'actions': [(
+                upload_table_download_latex,
+                [f'output/tables/{name}.csv', name, lambda x: '{:.3f}'.format(x), lambda x: '{:.2%}'.format(x), True]
+            )],
+            "file_dep": [BASE_DIR / 'output' / 'tables' / f'{name}.csv'],
+            'targets': [BASE_DIR / 'output' / 'tables' / f'{name}.tex'],
+            'uptodate': [False],  # Force to generate table2 every time
+            'clean': True,
+            'verbosity': 0
+        }
+
+
 def task_transform_table2_to_latex():
     """Generate table1.csv from the downloaded data."""
-    upload_table_download_latex_action = lambda x: upload_table_download_latex()
     return {
-        'actions': [(upload_table_download_latex, ['output/tables/table2.csv', 'table2', lambda x: '{:.3f}'.format(x)])],
+        'actions': [(
+            upload_table_download_latex,
+            ['output/tables/table2.csv', 'table2', lambda x: '{:.3f}'.format(x), lambda x: '{:.2%}'.format(x), True]
+        )],
         "file_dep": [BASE_DIR / 'output' / 'tables' / 'table2.csv'],
         'targets': [BASE_DIR / 'output' / 'tables' / 'table2.tex'],
         'uptodate': [False],  # Force to generate table2 every time
