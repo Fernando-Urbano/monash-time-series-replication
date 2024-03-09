@@ -36,3 +36,4 @@ def test_logic_table1():
 if __name__ == '__main__':
     test_generate_table1()
     test_format_table1()
+    test_logic_table1()
