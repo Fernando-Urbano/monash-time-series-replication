@@ -9,12 +9,12 @@ DATA_DIR = config.DATA_DIR
 BASE_DIR = config.BASE_DIR
 
 def test_generate_table1():
-    file_path = os.path.join(BASE_DIR, 'results', 'table1.csv')
+    file_path = os.path.join(BASE_DIR, 'output', 'tables', 'table1.csv')
     assert os.path.exists(file_path)
 
 
 def test_format_table1():
-    file_path = os.path.join(BASE_DIR, 'results', 'table1.csv')
+    file_path = os.path.join(BASE_DIR, 'output', 'tables', 'table1.csv')
     df = pd.read_csv(file_path)
     assert df.shape[0] == 30
     assert df.shape[1] == 9
