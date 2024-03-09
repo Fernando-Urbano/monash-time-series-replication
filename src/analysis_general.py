@@ -12,9 +12,9 @@ warnings.filterwarnings("ignore", message="divide by zero encountered in log")
 import matplotlib.pyplot as plt
 from arch import arch_model
 try:
-    from src.data_loader import convert_tsf_to_dataframe
+    from src.tables_create import convert_tsf_to_dataframe
 except:
-    from data_loader import convert_tsf_to_dataframe
+    from tables_create import convert_tsf_to_dataframe
 import seaborn as sns
 sns.set_style("whitegrid")
 
@@ -26,6 +26,9 @@ EASY_FREQUENCY_TO_RELATIVEDELTA = {
     'monthly': 'months',
     'yearly': 'years'
 }
+
+
+ONLY_SELECTED_DATASETS = []
 
 
 def relative_time_func(frequency):
@@ -192,8 +195,9 @@ def calc_advanced_statistics(dataset):
 
 
 if __name__ == '__main__':
-    # Get databases
     tsf_databases = [tsf_file for tsf_file in os.listdir('data') if tsf_file.endswith('.tsf')]
+    if ONLY_SELECTED_DATASETS:
+        tsf_databases = [tsf_file for tsf_file in tsf_databases if tsf_file in ONLY_SELECTED_DATASETS]
     for tsf_file in tsf_databases:
         print(f'Processing {tsf_file}...')
         dataset_list = convert_tsf_to_dataframe(f'data/{tsf_file}')
@@ -207,4 +211,4 @@ if __name__ == '__main__':
             adv_statistics_part = calc_advanced_statistics(dataset_part)
             statistics_part = pd.merge(sum_statistics_part, adv_statistics_part, on='series_name')
             statistics = pd.concat([statistics,  statistics_part])
-        statistics.reset_index(drop=True).to_csv(f'results/summary_statistics/{dataset_name}.csv', index=False)
+        statistics.reset_index(drop=True).to_csv(f'results/summary_statistics/{dataset_name}.xlsx', index=False)
