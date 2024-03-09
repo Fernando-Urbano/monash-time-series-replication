@@ -1,12 +1,12 @@
 # Have to run brew install cmake for successful package installations
 
 options(repos = c(CRAN = "https://mirror.las.iastate.edu/CRAN/"))
-# install.packages("here")
-# install.packages("smooth")
-# install.packages("tsibble")
-# install.packages('remotes')
-# remotes::install_url('https://github.com/catboost/catboost/releases/download/v1.2.3/catboost-R-darwin-universal2-1.2.3.tgz', INSTALL_opts = c("--no-multiarch", "--no-test-load")) 
-# remotes::install_url('https://github.com/catboost/catboost/releases/download/v1.2.3/catboost-R-windows-x86_64-1.2.3.tgz', INSTALL_opts = c("--no-multiarch", "--no-test-load"))
+install.packages("here")
+install.packages("smooth")
+install.packages("tsibble")
+install.packages('remotes')
+remotes::install_url('https://github.com/catboost/catboost/releases/download/v1.2.3/catboost-R-darwin-universal2-1.2.3.tgz', INSTALL_opts = c("--no-multiarch", "--no-test-load")) 
+remotes::install_url('https://github.com/catboost/catboost/releases/download/v1.2.3/catboost-R-windows-x86_64-1.2.3.tgz', INSTALL_opts = c("--no-multiarch", "--no-test-load"))
 library(here)
 
 # Get the path to the directory containing the current script
