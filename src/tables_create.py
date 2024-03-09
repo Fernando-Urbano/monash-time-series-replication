@@ -481,8 +481,13 @@ MODEL_PATTERN_TO_NAME = {
     '_ets[.]': 'ETS',
     '_tbats[.]': 'TBATS',
     '_ses[.]': 'SES',
-    '_arima[.]': 'ARIMA',
     '_dhr_arima': 'DHR-ARIMA',
+    '_arima[.]': 'ARIMA',
+}
+
+
+DATABASE_NAMES_EXCEPTIONS = {
+    'covid_deaths': 'covid',
 }
 
 
@@ -496,16 +501,29 @@ def get_model_name(name):
 def get_database_name(name):
     for pattern in MODEL_PATTERN_TO_NAME.keys():
         if re.search(pattern, name):
+            pattern = pattern.replace('[.]', '.')
             database_pattern = name.split(pattern)[0]
+            break
+    pattern = DATABASE_NAMES_EXCEPTIONS[pattern] if pattern in DATABASE_NAMES_EXCEPTIONS else pattern
     database_title = database_pattern.replace('_', ' ').title()
     uppercase_word = ['M1', 'M3', 'M4', 'CIF', 'NN5', 'KDD', 'FRED-MD', 'US', 'COVID']
-    uppercase_word = " ".join()[w.upper() if w.upper() in uppercase_word else w for w in database_title.split(' ')]
+    database_title = " ".join([w.upper() if w.upper() in uppercase_word else w for w in database_title.split(' ')])
+    return database_title
+
 
 def pivot_selected_error_measure_results(selected_error_measure_results):
+    selected_error_measure_results = selected_error_measure_results.copy()
+    selected_error_measure_results.columns = ['selected_error_measure']
     selected_error_measure_results.reset_index(inplace=True)
     selected_error_measure_results = selected_error_measure_results.rename({'index': 'name'}, axis=1)
     selected_error_measure_results['model'] = selected_error_measure_results['name'].apply(lambda x: get_model_name(x))
     selected_error_measure_results['database'] = selected_error_measure_results['name'].apply(lambda x: get_database_name(x))
+    selected_error_measure_results.drop('name', axis=1, inplace=True)
+    selected_error_measure_results_pivoted = (
+        selected_error_measure_results
+        .pivot(index='database', columns='model', values='selected_error_measure_name')
+    )
+    return selected_error_measure_results_pivoted
 
 
 
@@ -527,8 +545,6 @@ def generate_table2_dataframe(selected_error_measure='Mean MASE'):
     selected_error_measure_results = pd.DataFrame(fixed_horizon_error_results).transpose()[[selected_error_measure]]
     pivot_selected_error_measure_results(selected_error_measure_results)
         
-
-
 
 if __name__== '__main__':
     generate_table2_dataframe()
