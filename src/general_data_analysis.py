@@ -207,4 +207,4 @@ if __name__ == '__main__':
             adv_statistics_part = calc_advanced_statistics(dataset_part)
             statistics_part = pd.merge(sum_statistics_part, adv_statistics_part, on='series_name')
             statistics = pd.concat([statistics,  statistics_part])
-        statistics.reset_index(drop=True).to_csv(f'output/summary_statistics/{dataset_name}.csv', index=False)
+        statistics.reset_index(drop=True).to_csv(f'results/summary_statistics/{dataset_name}.csv', index=False)

@@ -1,6 +1,8 @@
 # Install R packages from requirements_r.txt
 
-source ~/.bashrc
+if [ -f ~/.bashrc ]; then
+    source ~/.bashrc
+fi
 
 while IFS= read -r line; do
     conda install -c conda-forge $line -y

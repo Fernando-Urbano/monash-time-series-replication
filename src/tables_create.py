@@ -170,3 +170,258 @@ def convert_tsf_to_dataframe(
             contain_equal_length,
             competition_dataset,
         )
+
+DATASETS_TO_INFO = {
+    'M1': {
+        'Domain': 'Multiple',
+        'Datasets': [
+            'm1_monthly_dataset.tsf',
+            'm1_quarterly_dataset.tsf',
+            'm1_quarterly_dataset.tsf'
+        ]
+    },
+    'M3': {
+        'Domain': 'Multiple',
+        'Datasets': [
+            'm3_monthly_dataset.tsf',
+            'm3_quarterly_dataset.tsf',
+            'm3_yearly_dataset.tsf',
+            'm3_other_dataset.tsf'
+        ]
+    },
+    'M4': {
+        'Domain': 'Multiple',
+        'Datasets': [
+            'm4_monthly_dataset.tsf',
+            'm4_quarterly_dataset.tsf',
+            'm4_yearly_dataset.tsf',
+            'm4_weekly_dataset.tsf',
+            'm4_daily_dataset.tsf',
+            'm4_hourly_dataset.tsf'
+        ]
+    },
+    'Tourism': {
+        'Domain': 'Tourism',
+        'Datasets': [
+            'tourism_monthly_dataset.tsf',
+            'tourism_quarterly_dataset.tsf',
+            'tourism_yearly_dataset.tsf'
+        ]
+    },
+    'CIF 2016': {
+        'Domain': 'Banking',
+        'Datasets': [
+            'cif_2016_dataset.tsf'
+        ]
+    },
+    'London Smart Meters': {
+        'Domain': 'Energy',
+        'Datasets': [
+            'london_smart_meters_dataset_with_missing_values.tsf',
+        ]
+    },
+    'Aus. Electricity Demand': {
+        'Domain': 'Energy',
+        'Datasets': [
+            'australian_electricity_demand_dataset.tsf'
+        ]
+    },
+    'Wind Farms': {
+        'Domain': 'Energy',
+        'Datasets': [
+            'wind_farms_minutely_dataset_with_missing_values.tsf',
+        ]
+    },
+    'Dominick': {
+        'Domain': 'Sales',
+        'Datasets': [
+            'dominick_dataset.tsf'
+        ]
+    },
+    'Bitcoin': {
+        'Domain': 'Economic',
+        'Datasets': [
+            'bitcoin_dataset_with_missing_values.tsf'
+        ]
+    },
+    'Pedestrian Counts': {
+        'Domain': 'Transport',
+        'Datasets': [
+            'pedestrian_counts_dataset.tsf'
+        ]
+    },
+    'Vehicle Trips': {
+        'Domain': 'Transport',
+        'Datasets': [
+            'vehicle_trips_dataset_with_missing_values.tsf'
+        ]
+    },
+    'KDD Cup 2018': {
+        'Domain': 'Transport',
+        'Datasets': [
+            'kdd_cup_2018_dataset_with_missing_values.tsf'
+        ]
+    },
+    'Weather': {
+        'Domain': 'Weather',
+        'Datasets': [
+            'weather_dataset.tsf'
+        ]
+    },
+    'NN5': {
+        'Domain': 'Banking',
+        'Datasets': [
+            'nn5_daily_dataset_with_missing_values.tsf',
+            'nn5_weekly_dataset.tsf'
+        ]
+    },
+    'Kaggle Web Traffic': {
+        'Domain': 'Web Traffic',
+        'Datasets': [
+            'kaggle_web_traffic_dataset_with_missing_values.tsf'
+        ]
+    },
+    'Solar': {
+        'Domain': 'Energy',
+        'Datasets': [
+            'solar_10_minutes_dataset.tsf',
+            'solar_weekly_dataset.tsf'
+        ]
+    },
+    'Electricity': {
+        'Domain': 'Energy',
+        'Datasets': [
+            'electricity_hourly_dataset.tsf',
+            'electricity_weekly_dataset.tsf'
+        ]
+    },
+    'Car Parts': {
+        'Domain': 'Sales',
+        'Datasets': [
+            'car_parts_dataset_with_missing_values.tsf'
+        ]
+    },
+    'FRED-MD': {
+        'Domain': 'Economics',
+        'Datasets': [
+            'fred_md_dataset.tsf'
+        ]
+    },
+    'San Francisco Traffic': {
+        'Domain': 'Transport',
+        'Datasets': [
+            'traffic_hourly_dataset.tsf',
+            'traffic_weekly_dataset.tsf'
+        ]
+    },
+    'Rideshare': {
+        'Domain': 'Transport',
+        'Datasets': [
+            'rideshare_dataset_with_missing_values.tsf'
+        ]
+    },
+    'Hospital': {
+        'Domain': 'Health',
+        'Datasets': [
+            'hospital_dataset.tsf'
+        ]
+    },
+    'COVID Deaths': {
+        'Domain': 'Nature',
+        'Datasets': [
+            'covid_deaths_dataset.tsf'
+        ]
+    },
+    'Temperature Rain': {
+        'Domain': 'Nature',
+        'Datasets': [
+            'temperature_rain_dataset.tsf'
+        ]
+    },
+    'Sunspot': {
+        'Domain': 'Nature',
+        'Datasets': [
+            'sunspot_dataset.tsf'
+        ]
+    },
+    'Saugeen River Flow': {
+        'Domain': 'Nature',
+        'Datasets': [
+            'saugeen_river_flow_dataset.tsf'
+        ]
+    },
+    'US Births': {
+        'Domain': 'Nature',
+        'Datasets': [
+            'us_births_dataset.tsf'
+        ]
+    },
+    'Solar Power': {
+        'Domain': 'Energy',
+        'Datasets': [
+            'solar_power_dataset.tsf'
+        ]
+    },
+    'Wind Power': {
+        'Domain': 'Energy',
+        'Datasets': [
+            'wind_power_dataset.tsf'
+        ]
+    },
+}
+
+
+def generate_table1_dataframe(DATA_DIR):
+
+    # Get a list of all files in the data directory
+    all_files = os.listdir(DATA_DIR)
+    
+    # Filter files with the '.tsf' extension using list comprehension
+    files_with_extension = [file for file in all_files if file.endswith('.tsf')][:4]
+
+    df_table1 = pd.DataFrame(columns=[
+        'Dataset','# of Series', 'Frequency', 'Forecast_horizon', 'Missing_values', 'Equal_length', 'Min_Length', 'Max_Length', 'Competition'
+    ])
+    df_table1['Missing_values'] = df_table1['Missing_values'].astype(bool)
+    df_table1['Equal_length'] = df_table1['Equal_length'].astype(bool)
+    df_table1['Competition'] = df_table1['Competition'].astype(bool)
+    # Example of usage
+    for f1 in files_with_extension:
+        loaded_data, frequency, forecast_horizon, contain_missing_values, contain_equal_length, competition_dataset = convert_tsf_to_dataframe(str(DATA_DIR) + '/' + f1)
+        loaded_data['len_series'] = loaded_data['series_value'].apply(lambda x: len(x))
+        df_append = pd.DataFrame([{
+            'Dataset': f1.split('.')[0], '# of Series': loaded_data.shape[0],
+            'Frequency': frequency,'Forecast_horizon': forecast_horizon,
+            'Missing_values': contain_missing_values,
+            'Equal_length': contain_equal_length,'Min_Length':loaded_data['len_series'].min(),
+            'Max_Length': loaded_data['len_series'].max(),
+            'Competition': competition_dataset
+        }])
+        df_append = pd.DataFrame([{
+            'Dataset': f1.split('.')[0],
+            '# of Series': loaded_data.shape[0],
+            'Frequency': frequency,
+            'Forecast_horizon': forecast_horizon,
+            'Missing_values': contain_missing_values,
+            'Equal_length': contain_equal_length,
+            'Min_Length': loaded_data['len_series'].min(),
+            'Max_Length': loaded_data['len_series'].max(),
+            'Competition': competition_dataset
+        }])
+        
+        df_table1 = pd.concat([df_table1, df_append], axis=0)
+
+    # Define the path to the CSV file
+    csv_file_path = os.path.join(BASE_DIR, 'output', 'tables', 'table1.csv')
+
+    # Create the results folder if it doesn't exist
+    results_folder = os.path.join(BASE_DIR, 'output', 'tables')
+    if not os.path.exists(results_folder):
+        os.makedirs(results_folder)
+        
+    df_table1.reset_index(drop=True, inplace=True)
+    df_table1.to_csv(csv_file_path, index=False)
+    return True
+
+if __name__== '__main__':
+    generate_table1_dataframe(DATA_DIR=DATA_DIR)
