@@ -1,11 +1,11 @@
-from gluonts.model.deepar import DeepAREstimator
-from gluonts.model.n_beats import NBEATSEstimator
-from gluonts.model.simple_feedforward import SimpleFeedForwardEstimator
-from gluonts.model.transformer import TransformerEstimator
-from gluonts.model.wavenet import WaveNetEstimator
-from gluonts.dataset.common import ListDataset
-from gluonts.dataset.field_names import FieldName
-from gluonts.evaluation.backtest import make_evaluation_predictions
+from gluonts.mx.model.deepar import DeepAREstimator
+# from gluonts.model.n_beats import NBEATSEstimator
+# from gluonts.model.simple_feedforward import SimpleFeedForwardEstimator
+# from gluonts.model.transformer import TransformerEstimator
+# from gluonts.model.wavenet import WaveNetEstimator
+# from gluonts.dataset.common import ListDataset
+# from gluonts.dataset.field_names import FieldName
+# from gluonts.evaluation.backtest import make_evaluation_predictions
 from datetime import datetime
 import csv
 import os
@@ -202,7 +202,7 @@ def get_deep_nn_forecasts(dataset_name, lag, input_file_name, method, external_f
 # Feed-Forward Neural Network
 # get_deep_nn_forecasts("cif_2016_6", 15, "cif_6_dataset.tsf", "feed_forward", 6)
 # get_deep_nn_forecasts("cif_2016_12", 15, "cif_12_dataset.tsf", "feed_forward", 12)
-get_deep_nn_forecasts("nn5_daily", 9, "nn5_daily_dataset_without_missing_values.tsf", "feed_forward")
+# get_deep_nn_forecasts("nn5_daily", 9, "nn5_daily_dataset_without_missing_values.tsf", "feed_forward")
 # get_deep_nn_forecasts("tourism_yearly", 2, "tourism_yearly_dataset.tsf", "feed_forward")
 # get_deep_nn_forecasts("tourism_quarterly", 5, "tourism_quarterly_dataset.tsf", "feed_forward")
 # get_deep_nn_forecasts("tourism_monthly", 15, "tourism_monthly_dataset.tsf", "feed_forward")
@@ -247,7 +247,7 @@ get_deep_nn_forecasts("nn5_daily", 9, "nn5_daily_dataset_without_missing_values.
 # Transformer
 # get_deep_nn_forecasts("cif_2016_6", 15, "cif_6_dataset.tsf", "transformer", 6)
 # get_deep_nn_forecasts("cif_2016_12", 15, "cif_12_dataset.tsf", "transformer", 12)
-get_deep_nn_forecasts("nn5_daily", 9, "nn5_daily_dataset_without_missing_values.tsf", "transformer")
+# get_deep_nn_forecasts("nn5_daily", 9, "nn5_daily_dataset_without_missing_values.tsf", "transformer")
 # get_deep_nn_forecasts("tourism_yearly", 2, "tourism_yearly_dataset.tsf", "transformer")
 # get_deep_nn_forecasts("tourism_quarterly", 5, "tourism_quarterly_dataset.tsf", "transformer")
 # get_deep_nn_forecasts("tourism_monthly", 15, "tourism_monthly_dataset.tsf", "transformer")
@@ -292,7 +292,7 @@ get_deep_nn_forecasts("nn5_daily", 9, "nn5_daily_dataset_without_missing_values.
 # DeepAR
 # get_deep_nn_forecasts("cif_2016_6", 15, "cif_6_dataset.tsf", "deepar", 6)
 # get_deep_nn_forecasts("cif_2016_12", 15, "cif_12_dataset.tsf", "deepar", 12)
-get_deep_nn_forecasts("nn5_daily", 9, "nn5_daily_dataset_without_missing_values.tsf", "deepar")
+# get_deep_nn_forecasts("nn5_daily", 9, "nn5_daily_dataset_without_missing_values.tsf", "deepar")
 # get_deep_nn_forecasts("tourism_yearly", 2, "tourism_yearly_dataset.tsf", "deepar")
 # get_deep_nn_forecasts("tourism_quarterly", 5, "tourism_quarterly_dataset.tsf", "deepar")
 # get_deep_nn_forecasts("tourism_monthly", 15, "tourism_monthly_dataset.tsf", "deepar")
@@ -337,7 +337,7 @@ get_deep_nn_forecasts("nn5_daily", 9, "nn5_daily_dataset_without_missing_values.
 # N-BEATS
 # get_deep_nn_forecasts("cif_2016_6", 15, "cif_6_dataset.tsf", "nbeats", 6)
 # get_deep_nn_forecasts("cif_2016_12", 15, "cif_12_dataset.tsf", "nbeats", 12)
-get_deep_nn_forecasts("nn5_daily", 9, "nn5_daily_dataset_without_missing_values.tsf", "nbeats")
+# get_deep_nn_forecasts("nn5_daily", 9, "nn5_daily_dataset_without_missing_values.tsf", "nbeats")
 # get_deep_nn_forecasts("tourism_yearly", 2, "tourism_yearly_dataset.tsf", "nbeats")
 # get_deep_nn_forecasts("tourism_quarterly", 5, "tourism_quarterly_dataset.tsf", "nbeats")
 # get_deep_nn_forecasts("tourism_monthly", 15, "tourism_monthly_dataset.tsf", "nbeats")
@@ -382,7 +382,7 @@ get_deep_nn_forecasts("nn5_daily", 9, "nn5_daily_dataset_without_missing_values.
 # WaveNet
 # get_deep_nn_forecasts("cif_2016_6", 15, "cif_6_dataset.tsf", "wavenet", 6)
 # get_deep_nn_forecasts("cif_2016_12", 15, "cif_12_dataset.tsf", "wavenet", 12)
-get_deep_nn_forecasts("nn5_daily", 9, "nn5_daily_dataset_without_missing_values.tsf", "wavenet")
+# get_deep_nn_forecasts("nn5_daily", 9, "nn5_daily_dataset_without_missing_values.tsf", "wavenet")
 # get_deep_nn_forecasts("tourism_yearly", 2, "tourism_yearly_dataset.tsf", "wavenet")
 # get_deep_nn_forecasts("tourism_quarterly", 5, "tourism_quarterly_dataset.tsf", "wavenet")
 # get_deep_nn_forecasts("tourism_monthly", 15, "tourism_monthly_dataset.tsf", "wavenet")
