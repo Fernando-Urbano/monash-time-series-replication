@@ -20,11 +20,11 @@ def test_format_table1():
     assert df.shape[0] == 30
     assert df.shape[1] in [9, 10]
     columns = [
-        'Domain', 'No: of Series', 'Min. Length',
+        'Dataset', 'Domain', 'No: of Series', 'Min. Length',
         'Max. Length', 'No: of Freq',
         'Missing', 'Competition', 'Multivariate'
     ]
-    assert sum([1 for c in df.columns if c not in df.columns]) == 0
+    assert sum([1 for c in df.columns if c not in columns]) == 0
 
 
 def test_logic_table1():
