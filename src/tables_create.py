@@ -27,6 +27,17 @@ def convert_tsf_to_dataframe(
     replace_missing_vals_with="NaN",
     value_column_name="series_value",
 ):
+    """
+    Converts a Time Series Forecasting (TSF) file into a pandas DataFrame.
+
+    Parameters:
+    - full_file_path_and_name (str): The complete path and filename of the TSF file to be read.
+    - replace_missing_vals_with (str, optional): The value used to replace missing values in the series. Defaults to "NaN".
+    - value_column_name (str, optional): The name to be used for the column that will contain the series values. Defaults to "series_value".
+
+    Returns:
+    - tuple: A tuple containing the loaded DataFrame, frequency of the dataset, forecast horizon, flags indicating if the dataset contains missing values, if all series are of equal length, and if the dataset is for a competition.
+    """    
     col_names = []
     col_types = []
     all_data = {}
@@ -413,6 +424,25 @@ def generate_single_dataset_info(dataset_name, dataset_information):
         'Competition': None,
         'Multivariate': dataset_information['Multivariate']
     }
+    """
+    Generates statistics for a single dataset based on the dataset information provided.
+
+    This function iterates through the datasets contained within the dataset_information
+    dictionary, computes various statistics such as minimum and maximum series length,
+    and aggregates information like the total number of series and whether the dataset
+    contains missing values or is part of a competition.
+
+    Parameters:
+    - dataset_name (str): The name of the dataset being analyzed.
+    - dataset_information (dict): A dictionary containing metadata about the dataset,
+      including the domain, whether it's multivariate, and the list of dataset file names.
+
+    Returns:
+    - dict: A dictionary containing the computed statistics for the dataset, including
+      the domain, total number of series, minimum and maximum series length, number of
+      frequencies, presence of missing values, whether it's part of a competition, and
+      whether it's multivariate.
+    """    
     if len(dataset_information['Datasets']) > 1:
         if dataset_name not in ['M4']:
             dataset_information['Datasets'] = [d for d in dataset_information['Datasets'] if not bool(re.search('_weekly_', d))]
@@ -432,6 +462,22 @@ def generate_single_dataset_info(dataset_name, dataset_information):
 
 
 def generate_table1_dataframe(print_dataset_name=False):
+    """
+    Generates a DataFrame summarizing the statistics of multiple datasets and saves it to CSV and Excel files.
+
+    This function iterates through each dataset defined in the global `DATASETS_TO_INFO` dictionary,
+    gathering statistics using the `generate_single_dataset_info` function. It handles exceptions
+    during data generation, prints dataset names if requested, and formats the resulting DataFrame
+    before saving it as both CSV and Excel files in a specified directory.
+
+    Parameters:
+    - print_dataset_name (bool, optional): If True, prints the name of each dataset being processed.
+      Defaults to False.
+
+    Returns:
+    - bool: True if the function executes successfully, indicating the DataFrame has been generated
+      and saved.
+    """
     datasets_statistics = {}
     for dataset_name, dataset_info in DATASETS_TO_INFO.items():
         if print_dataset_name:
@@ -460,6 +506,19 @@ def generate_table1_dataframe(print_dataset_name=False):
 
 
 def transform_string_results_to_dict(results_list):
+    """
+    Converts a list of string results into a dictionary.
+
+    Parses each string in the input list, separating the key and value by ':'. Keys are
+    trimmed and added as dictionary keys. Values are converted to floats unless 'NA' is
+    indicated, in which case the value is set to None.
+
+    Parameters:
+    - results_list (list): List of strings formatted as "key: value".
+
+    Returns:
+    - dict: A dictionary with keys and corresponding values derived from the input list.
+    """    
     results_dict = {}
     for result in results_list:
         parts = result.split(':')
@@ -510,6 +569,18 @@ DATABASE_NAMES_EXCEPTIONS = {
 
 
 def get_model_name(name):
+    """
+    Maps a given name to a predefined model name based on matching patterns.
+
+    Args:
+        name (str): The name to match against predefined patterns.
+
+    Returns:
+        str: The matched model name from MODEL_PATTERN_TO_NAME.
+        
+    Raises:
+        Exception: If the name doesn't match any predefined patterns.
+    """   
     for pattern, model in MODEL_PATTERN_TO_NAME.items():
         if re.search(pattern, name):
             return model
@@ -517,6 +588,15 @@ def get_model_name(name):
         raise Exception('Unrecognized model name: add it to "MODEL_PATTERN_TO_NAME" dictionary')
 
 def get_database_name(name):
+    """
+    Extracts and formats the database name from a given string based on known patterns.
+    
+    Args:
+        name (str): The name containing the database identifier.
+    
+    Returns:
+        str: A human-readable, formatted database name.
+    """    
     for pattern in MODEL_PATTERN_TO_NAME.keys():
         if re.search(pattern, name):
             pattern = pattern.replace('[.]', '.')
@@ -530,6 +610,15 @@ def get_database_name(name):
 
 
 def pivot_selected_error_measure_results(selected_error_measure_results):
+    """
+    Pivots error measure results for visualization.
+    
+    Args:
+        selected_error_measure_results (DataFrame): Data with error measures.
+    
+    Returns:
+        DataFrame: Pivoted data on model and database.
+    """    
     selected_error_measure_results = selected_error_measure_results.copy()
     selected_error_measure_results.columns = ['selected_error_measure']
     selected_error_measure_results.reset_index(inplace=True)
@@ -545,6 +634,16 @@ def pivot_selected_error_measure_results(selected_error_measure_results):
 
 
 def generate_table2_dataframe(selected_error_measure='Mean MASE', table_name='table2'):
+    """
+    Generates a DataFrame for a selected error measure and saves it.
+    
+    Args:
+        selected_error_measure (str): The error measure to filter by.
+        table_name (str): Name of the output table file.
+    
+    Returns:
+        DataFrame: Pivoted results for the selected error measure.
+    """    
     fixed_horizon_errors = os.listdir('results/fixed_horizon_errors')
     fixed_horizon_errors = [
         f for f in fixed_horizon_errors
