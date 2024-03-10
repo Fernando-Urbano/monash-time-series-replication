@@ -236,8 +236,9 @@ doit run_fixed_horizon_R_script
 
  - The `output` folder contains tables and figures that are generated from code. The entire folder should be able to be deleted, because the code can be run again, which would again generate all of the contents.
 
-- The `results` is the one in which the results of the models are stored. Inside, we have:
-  - `fixed_horizon_errors`: 
+- The `results` is the folder in which the results of the models are stored. Inside, we have:
+  - `fixed_horizon_errors`: has the error metric for each time-series of the dataset and a joint error metric for the dataset.
+  - ``
 
 # 3. Appendix: Add more Packages to the Virtual Environment
 If needed to add more packages to the environment use the `requirements_py.txt` to add Python packages and `requirements_r.txt` to add R packages.

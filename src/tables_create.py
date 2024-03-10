@@ -1,11 +1,13 @@
 '''
 For Table 1, the script features a function to convert Time Series Forecasting (TSF) files into pandas DataFrames,
 accommodating missing values and varying series lengths.
-It compiles the information of multiple datasets, such as the number of series, the length of series, frequency, and the presence of missing values, among others.
+It compiles the information of multiple datasets, such as the number of series, the length of series, frequency,
+and the presence of missing values, among others.
 This data is then organized into a DataFrame and saved in both CSV and Excel formats.
 
 For Table 2, the script processes the error metric results for different forecasting models across datasets.
-It reads result files, converts them into a structured format, and then pivots the data for easier comparison and visualization.
+It reads result files, converts them into a structured format, and then pivots the data for easier comparison
+and visualization.
 The resulting DataFrame is also saved in CSV and Excel formats.
 '''
 from datetime import datetime
