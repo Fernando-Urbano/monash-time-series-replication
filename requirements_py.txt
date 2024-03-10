@@ -1,13 +1,3 @@
-# Specific package versions are specified here to allow more consistent caching
-# in GitHub Actions. 
-#
-# I derived this file from the output of the following command and then edited it
-# to match the appropriate syntax:
-# conda env export > environment.yml
-#
-# Dependencies from this file can be installed with the following command:
-# pip install -r requirements.txt
-#
 # This file may be used to create an environment using:
 # $ conda create --name <env> --file <this file>
 # platform: win-64

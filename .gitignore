@@ -11,18 +11,11 @@
 # include pdfs as images. Maybe there is a good way to get
 # around this.
 
-Exclude data folder
+# Exclude data folder
 /data/*
 !/data/manual/
 *.tsf
 *.csv
-*_arima*
-*_pooled_reg*
-*_dhr*
-*_ses*
-*_tbats*
-*_ets*
-*_theta*
 */_build/
 
 ###################
@@ -260,8 +253,17 @@ drafts/draft_bp.pdf
 
 *.vrb
 *.csv
-results/*.txt
-results/**/*.txt
+results/summary_statistics/*.txt
+results/fixed_horizon_execution_times/*.txt
+results/fixed_horizon_forecasts/*.txt
+results/fixed_horizon_errors/*mase.txt
+results/fixed_horizon_errors/*mae.txt
+results/fixed_horizon_errors/*rmse.txt
+results/fixed_horizon_errors/*msmape.txt
+results/fixed_horizon_errors/*smape.txt
 output/tables/*.tex
 
-data/manual/cps.csv
+.DS_Store
+
+
+!results/fixed_horizon_errors/bitcoin_arima.txt
