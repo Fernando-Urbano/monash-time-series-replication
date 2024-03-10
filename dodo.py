@@ -19,9 +19,17 @@ BASE_DIR = Path(config.BASE_DIR)
 OUTPUT_DIR = Path(config.OUTPUT_DIR)
 DATA_DIR = Path(config.DATA_DIR)
 
-CHOSEN_MODELS = [
-    # 'arima'
-]
+CHOSEN_MODELS = {
+    'all': False, # All overrides the rest
+    'arima': False,
+    'catboost': False,
+    'ets': False,
+    'pooled_regression': False,
+    'tbats': False,
+    'ses': False,
+    'theta': False,
+    'dhr_arima': False,
+}
 
 
 CHOSEN_DATASETS = [
@@ -50,7 +58,9 @@ def update_chosen_models_and_datasets():
             f.write(f'{dataset}\n')
 
     with open('src/chosen_models.txt', 'w') as f:
-        for model in CHOSEN_MODELS:
+        chosen_models_list = [model for model, value in CHOSEN_MODELS.items() if value]
+        chosen_models_list = ['all'] if 'all' in chosen_models_list else chosen_models_list
+        for model in chosen_models_list:
             f.write(f'{model}\n')
     return True
 
@@ -80,8 +90,9 @@ def task_update_chosen_models_and_datasets():
 def task_run_fixed_horizon_R_script():
     """Run the R script for fixed horizon analysis."""
     def run_if_lists_not_empty(task):
+        chosen_models_list = [model for model, value in CHOSEN_MODELS.items() if value]
         # Return True (up-to-date) if both lists are empty, False (not up-to-date) otherwise
-        if CHOSEN_MODELS == [] or CHOSEN_DATASETS == []:
+        if chosen_models_list == [] or CHOSEN_DATASETS == []:
             return True
         else:
             return False
