@@ -1,8 +1,20 @@
 Monash Time Series Forecasting Replication
 ==================
 
-# About this project
-[TODO]
+# 1. About this Project
+In this project we attempt to replicate results from a 2021 paper on the motivation and creation of the Monash Time Series Forecasting Archive, a project spearheaded by a group time series researchers from Monash University and the University of Sydney.
+
+The archive contains datasets spanning multiple domains (industries) as well as 13 forecasting models, 6 of which are canonical univariate models, and 7 of which are global models that have shown positive results in recent years.
+
+The researchers aimed to generate a repository and paper to showcase and compare the performance of time-series models in different public datasets.
+
+We invite you to take a look at their work as well:
+- [Website](https://forecastingdata.org/)
+- [Paper](https://openreview.net/pdf?id=wEc1mgAjU-)
+- [Repository](https://github.com/rakshitha123/TSForecasting)
+
+# 1.1. Goal
+Our main goal is to replicate Table 1 and Table 2 from the paper in an automated way using `conda` environment and `dodo`, generating a Latex file with a short analysis and challenges found in the process.
 
 # 2. Build the Enviromnet
 Using R and Python together inside conda is sometimes a problem, specially when dealing with older package versions.
