@@ -1,3 +1,19 @@
+'''
+This script, "data_download.py", is designed to automate the downloading and extraction of time series dataset
+files needed for time series forecasting. It defines a dictionary of dataset names and their corresponding
+download URLs, then uses the requests library to fetch the ZIP files from the internet. Upon download,
+it extracts the contents of each ZIP file into a specified directory.
+
+The 'download_and_extract_zip' function is a key component, handling the direct interaction with the web
+resource to retrieve and unpack the data. The script makes use of the 'os' and 'zipfile' libraries to manage
+file paths and ZIP file extraction, ensuring that the files are ready for use in subsequent analysis or processing
+tasks.
+
+When run as the main program, it iterates over the URLs dictionary as an example, creates the necessary data directories
+if they do not exist, and calls the 'download_and_extract_zip' function for each dataset. It provides console
+output to track the progress of these operations, making it a useful standalone utility or as part of a larger
+data preparation workflow.
+'''
 import requests
 import zipfile
 import os
@@ -88,19 +104,13 @@ def download_and_extract_zip(url, destination_dir):
     """    
     # Send a GET request to the URL
     response = requests.get(url)
-    # Raise an exception for bad status codes
     response.raise_for_status()
     
-    # Extract the content of the zip file into memory
     with zipfile.ZipFile(BytesIO(response.content)) as zip_file:
-        # List the contents of the zip file
         file_list = zip_file.namelist()
-        # Extract the first file from the zip file (you can modify this as needed)
         first_file_name = file_list[0]
-        # Extract the file to a temporary directory
         zip_file.extract(first_file_name, destination_dir)
     
-    # Construct the path to the extracted file
     extracted_file_path = os.path.join(destination_dir, first_file_name)
     
     return extracted_file_path

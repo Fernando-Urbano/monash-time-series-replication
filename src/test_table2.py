@@ -1,3 +1,18 @@
+'''
+This script contains a suite of tests for verifying the integrity and correctness of 'table2.csv', a table generated in a previous step of the workflow. The tests ensure that:
+
+- 'table2.csv' exists within the specified output directory.
+- There are no missing values in the 'Dataset' column of the table, each dataset name is a string, and there are no duplicates.
+- All numerical entries in the table are non-negative.
+- Selected key results in the table match expected values within a tolerance level, ensuring the replication's accuracy.
+
+The script uses the pytest framework for testing, which allows for automated, descriptive, and modular testing. The 'test_logic_table2' function checks basic DataFrame integrity,
+'test_content_table2' validates specific content against known results, and 'test_generate_table2' confirms the existence of the file.
+
+When run directly, this script will execute all tests to provide immediate feedback on the data quality and consistency of 'table2.csv', aiding in maintaining the reliability of the data analysis process.
+
+We generally this script with "pytest".
+'''
 import pandas as pd
 import pytest
 import os
