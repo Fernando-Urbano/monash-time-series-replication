@@ -20,7 +20,7 @@ OUTPUT_DIR = Path(config.OUTPUT_DIR)
 DATA_DIR = Path(config.DATA_DIR)
 
 CHOSEN_MODELS = [
-    'arima'
+    # 'arima'
 ]
 
 
@@ -81,7 +81,10 @@ def task_run_fixed_horizon_R_script():
     """Run the R script for fixed horizon analysis."""
     def run_if_lists_not_empty(task):
         # Return True (up-to-date) if both lists are empty, False (not up-to-date) otherwise
-        return not CHOSEN_MODELS and not CHOSEN_DATASETS
+        if CHOSEN_MODELS == [] or CHOSEN_DATASETS == []:
+            return True
+        else:
+            return False
 
     return {
         'actions': ['Rscript src/experiments/fixed_horizon.R'],  # Command to run the R script
