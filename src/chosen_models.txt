@@ -1,1 +1,1 @@
-arima
+all
