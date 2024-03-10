@@ -1,3 +1,13 @@
+'''
+For Table 1, the script features a function to convert Time Series Forecasting (TSF) files into pandas DataFrames,
+accommodating missing values and varying series lengths.
+It compiles the information of multiple datasets, such as the number of series, the length of series, frequency, and the presence of missing values, among others.
+This data is then organized into a DataFrame and saved in both CSV and Excel formats.
+
+For Table 2, the script processes the error metric results for different forecasting models across datasets.
+It reads result files, converts them into a structured format, and then pivots the data for easier comparison and visualization.
+The resulting DataFrame is also saved in CSV and Excel formats.
+'''
 from datetime import datetime
 from distutils.util import strtobool
 
@@ -10,17 +20,6 @@ from pathlib import Path
 BASE_DIR = Path(config.BASE_DIR)
 OUTPUT_DIR = Path(config.OUTPUT_DIR)
 DATA_DIR = Path(config.DATA_DIR)
-
-'''
-This file is taken from https://github.com/rakshitha123/TSForecasting
-Converts the contents in a .tsf file into a dataframe and returns it along with other meta-data of the dataset: 
-frequency, horizon, whether the dataset contains missing values and whether the series have equal lengths
-
-Parameters
-full_file_path_and_name - complete .tsf file path
-replace_missing_vals_with - a term to indicate the missing values in series in the returning dataframe
-value_column_name - Any name that is preferred to have as the name of the column containing series values in the returning dataframe
-'''
 
 def convert_tsf_to_dataframe(
     full_file_path_and_name,

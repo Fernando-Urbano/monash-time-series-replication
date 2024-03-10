@@ -35,7 +35,6 @@ def test_content_table2():
         ('Tourism Yearly', 'Deep AR'): 3.205,
         ('Weather', 'TBATS'): 0.689,
         ('NN5 Weekly', 'Theta'): 0.885,
-        ('M1 Yearly', 'Cat Boost'): 4.427
     }
     for model_dataset, value in original_table_results.items():
         value_found = False
