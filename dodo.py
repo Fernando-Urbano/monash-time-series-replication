@@ -1,5 +1,18 @@
-"""Run or update the project. This file uses the `doit` Python package. It works
-like a Makefile, but is Python-based
+"""
+This script, utilizing the `doit` Python package, orchestrates a series of tasks for a time series analysis project.
+It is structured to automate the entire workflow, from data acquisition and processing to statistical analysis and report generation.
+
+Key functionalities include:
+
+- Downloading time series datasets based on predefined URLs.
+- Updating lists of selected models and datasets for analysis, which can be customized per run.
+- Running statistical analysis scripts, including fixed horizon analysis with an R script.
+- Generating statistical summary tables (Table 1 and Table 2) from the processed data.
+- Transforming these tables into LaTeX format for inclusion in reports.
+- Compiling the final report from LaTeX files, ensuring all results are up-to-date and formatted correctly.
+
+Each task is defined with specific actions, dependencies, and triggers to ensure that only the necessary steps are rerun,
+optimizing the workflow's efficiency. This setup allows for a modular and scalable approach to managing complex data analysis projects, facilitating easy updates and modifications to the analysis pipeline.
 """
 import sys
 sys.path.insert(1, './src/')
@@ -19,6 +32,16 @@ BASE_DIR = Path(config.BASE_DIR)
 OUTPUT_DIR = Path(config.OUTPUT_DIR)
 DATA_DIR = Path(config.DATA_DIR)
 
+"""
+The CHOSEN_MODELS specify which models will run when running doit.
+If 'all' is set to True, all models will run.
+
+The CHOSEN_DATASETS specify which datasets will be used when running doit.
+
+If CHOSEN_MODELS is False for all values or CHOSEN_DATASETS is empty, the models will not run,
+and the table will be generated with the current results.
+"""
+
 CHOSEN_MODELS = {
     'all': False, # All overrides the rest
     'arima': False,
@@ -36,6 +59,9 @@ CHOSEN_DATASETS = [
     'm1_yearly_dataset'
 ]
 
+"""
+The OTHER_ERROR_TABLES are the tables that generate other error metrics for the models.
+"""
 
 
 OTHER_ERROR_TABLES = {
@@ -151,12 +177,39 @@ def task_transform_table1_to_latex():
 
 def task_transform_other_error_tables_to_latex():
     """Generate table1.csv from the downloaded data."""
+    def show_numeric_results(x):
+        if not isinstance(x, (int, float)):
+            return x
+        if x < 1e2:
+            return '{:.3f}'.format(x)
+        elif x < 1e3:
+            return '{:.0f}'.format(x)
+        elif x < 1e6:
+            x = x / 1e3
+            return '{:.1f}K'.format(x)
+        elif x < 1e9:
+            x = x / 1e6
+            return '{:.1f}M'.format(x)
+        elif x < 1e12:
+            x = x / 1e9
+            return '{:.1f}B'.format(x)
+        elif x < 1e15:
+            x = x / 1e12
+            return '{:.1f}T'.format(x)
+        elif x < 1e18:
+            x = x / 1e15
+            return '{:.1f}Qa'.format(x)
+        elif x >= 1e18:
+            x = x / 1e15
+            return '{:.1f}Qi'.format(x)
+        return '{:.3f}'.format(x)
+
     for name in OTHER_ERROR_TABLES.keys():
         yield {
             'name': name,
             'actions': [(
                 upload_table_download_latex,
-                [f'output/tables/{name}.csv', name, lambda x: '{:.3f}'.format(x), lambda x: '{:.2%}'.format(x), True]
+                [f'output/tables/{name}.csv', name, lambda x: show_numeric_results(x), lambda x: '{:.2%}'.format(x), True]
             )],
             "file_dep": [BASE_DIR / 'output' / 'tables' / f'{name}.csv'],
             'targets': [BASE_DIR / 'output' / 'tables' / f'{name}.tex'],

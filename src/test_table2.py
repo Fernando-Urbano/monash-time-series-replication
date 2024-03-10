@@ -1,3 +1,18 @@
+'''
+This script contains a suite of tests for verifying the integrity and correctness of 'table2.csv', a table generated in a previous step of the workflow. The tests ensure that:
+
+- 'table2.csv' exists within the specified output directory.
+- There are no missing values in the 'Dataset' column of the table, each dataset name is a string, and there are no duplicates.
+- All numerical entries in the table are non-negative.
+- Selected key results in the table match expected values within a tolerance level, ensuring the replication's accuracy.
+
+The script uses the pytest framework for testing, which allows for automated, descriptive, and modular testing. The 'test_logic_table2' function checks basic DataFrame integrity,
+'test_content_table2' validates specific content against known results, and 'test_generate_table2' confirms the existence of the file.
+
+When run directly, this script will execute all tests to provide immediate feedback on the data quality and consistency of 'table2.csv', aiding in maintaining the reliability of the data analysis process.
+
+We generally this script with "pytest".
+'''
 import pandas as pd
 import pytest
 import os
@@ -11,11 +26,13 @@ DATA_DIR = config.DATA_DIR
 BASE_DIR = config.BASE_DIR
 
 def test_generate_table2():
+    '''test if table2 exists in the output directory. It already gives an idea if the problem in other tests is due to that'''
     file_path = os.path.join(BASE_DIR, 'output', 'tables', 'table2.csv')
     assert os.path.exists(file_path)
 
 
 def test_logic_table2():
+    '''Test if the numbers make sense'''
     file_path = os.path.join(BASE_DIR, 'output', 'tables', 'table2.csv')
     df = pd.read_csv(file_path)
     assert df['Dataset'].isna().sum() == 0
@@ -25,6 +42,7 @@ def test_logic_table2():
     
     
 def test_content_table2():  
+    '''Test if the numbers are correct within a tolerance level'''
     file_path = os.path.join(BASE_DIR, 'output', 'tables', 'table2.csv')
     df = pd.read_csv(file_path)
     original_table_results = {

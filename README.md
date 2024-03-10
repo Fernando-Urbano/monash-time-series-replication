@@ -1,8 +1,20 @@
 Monash Time Series Forecasting Replication
 ==================
 
-# About this project
-[TODO]
+# 1. About this Project
+In this project we attempt to replicate results from a 2021 paper on the motivation and creation of the Monash Time Series Forecasting Archive, a project spearheaded by a group time series researchers from Monash University and the University of Sydney.
+
+The archive contains datasets spanning multiple domains (industries) as well as 13 forecasting models, 6 of which are canonical univariate models, and 7 of which are global models that have shown positive results in recent years.
+
+The researchers aimed to generate a repository and paper to showcase and compare the performance of time-series models in different public datasets.
+
+We invite you to take a look at their work as well:
+- [Website](https://forecastingdata.org/)
+- [Paper](https://openreview.net/pdf?id=wEc1mgAjU-)
+- [Repository](https://github.com/rakshitha123/TSForecasting)
+
+## 1.1. Goal
+Our main goal is to replicate Table 1 and Table 2 from the paper in an automated way using `conda` environment and `dodo`, generating a Latex file with a short analysis and challenges found in the process.
 
 # 2. Build the Enviromnet
 Using R and Python together inside conda is sometimes a problem, specially when dealing with older package versions.
@@ -167,7 +179,7 @@ If other packages need to be installed and you would like to check their version
 
 Make sure to check the versions of R packages available in conda for other OS systems.
 
-### 2.5. Run dodo
+## 2.5. Run dodo
 Dodo is a similar tool to Makefile optimized for Python use.
 
 In our `dodo.py` file, we have all the tasks to:
@@ -236,10 +248,18 @@ doit run_fixed_horizon_R_script
 
  - The `output` folder contains tables and figures that are generated from code. The entire folder should be able to be deleted, because the code can be run again, which would again generate all of the contents.
 
-- The `results` is the one in which the results of the models are stored. Inside, we have:
-  - `fixed_horizon_errors`: 
+- The `results` is the folder in which the results of the models are stored. Inside, we have:
+  - `fixed_horizon_errors`: has the error metric for each time-series of the dataset and a joint error metric for the dataset.
+  - `fixed_horizon_execution_time`: has the execution time of each model run. It is not tracked in the github repository.
+  - `fixed_horizo_forecasts`: has the forecasts of the time-series to calculate the error metrics. It is not tracked in the github repository.
 
-# 3. Appendix: Add more Packages to the Virtual Environment
+- The `data` folder contains all `.tsf` files that are downloaded online. It is not tracked in the github repository.
+
+- The `reports` contain our main Latex file, containing tables generated and short analysis of the results.
+
+- The `src` contains all the scripts that are run inside `dodo.py` and a jupyter notebook explaining their functions/files and expected results.
+
+# 4. Appendix: Add more Packages to the Virtual Environment
 If needed to add more packages to the environment use the `requirements_py.txt` to add Python packages and `requirements_r.txt` to add R packages.
 
 It is necessary to specify the version used.
