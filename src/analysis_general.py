@@ -192,8 +192,7 @@ def test_stationarity(series):
     - series (Series): The time series to test for stationarity.
 
     Returns:
-    - A dictionary containing the ADF statistic.
-    - This also has the pvalue.
+    - A dictionary containing the ADF statistic and pvalue
     """    
     try:
         series_wout_na = pd.to_numeric(series, errors='coerce').dropna()
@@ -214,6 +213,17 @@ def test_stationarity(series):
 
 
 def test_heterocedasticity(series, stationary=False):
+    """
+    Tests the heterocedasticity of a given time series, optionally after making it stationary.
+
+    Parameters:
+    - series (Series): The time series to test for heterocedasticity.
+    - stationary (bool): Indicates whether the series should be differenced to make it stationary before testing.
+
+    Returns:
+    - A dictionary containing the test results, including the GARCH model's R-squared and p-values for alpha, beta,
+      omega, and whether the series is heteroscedastic.
+    """    
     try:
         series_wout_na = pd.to_numeric(series, errors='coerce').dropna()
         if not stationary:
@@ -246,6 +256,15 @@ def test_heterocedasticity(series, stationary=False):
      
 
 def calc_advanced_statistics(dataset):
+    """
+    Calculates advanced statistics for each series in the dataset, including stationarity and heterocedasticity tests.
+
+    Parameters:
+    - dataset (DataFrame): The dataset to calculate advanced statistics for, grouped by series name.
+
+    Returns:
+    - A DataFrame containing the advanced statistics for each series.
+    """    
     dataset_adv_stats = pd.DataFrame()
     for series_name, series in dataset.groupby('series_name'):
         series = series.series_value
