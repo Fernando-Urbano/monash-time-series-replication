@@ -465,10 +465,10 @@ def generate_table1_dataframe(print_dataset_name=False):
     """
     Generates a DataFrame summarizing the statistics of multiple datasets and saves it to CSV and Excel files.
 
-    This function iterates through each dataset defined in the global `DATASETS_TO_INFO` dictionary,
-    gathering statistics using the `generate_single_dataset_info` function. It handles exceptions
-    during data generation, prints dataset names if requested, and formats the resulting DataFrame
-    before saving it as both CSV and Excel files in a specified directory.
+    Loops through each dataset mentioned in the 'DATASETS_TO_INFO' global dictionary to compile
+    statistics using the 'generate_single_dataset_info' function. Manages exceptions encountered
+    during data gathering, displays dataset names upon request, and arranges the resulting DataFrame.
+    Finally, stores the data as CSV and Excel files in a specified directory.
 
     Parameters:
     - print_dataset_name (bool, optional): If True, prints the name of each dataset being processed.
