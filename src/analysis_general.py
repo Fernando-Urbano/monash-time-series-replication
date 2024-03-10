@@ -42,6 +42,19 @@ ONLY_SELECTED_DATASETS = []
 
 
 def relative_time_func(frequency):
+    """
+    Generates a function to compute relative changes in time based on a specified frequency.
+
+    Parameters:
+    - frequency (str): A string specifying the frequency of the time change. It can be a predefined frequency
+      like 'quarterly' or a custom one like '2_seconds'.
+
+    Returns:
+    - A function that takes an integer value and returns a relativedelta object representing the time change.
+    
+    Raises:
+    - Exception: If the specified frequency is not supported.
+    """    
     if frequency in EASY_FREQUENCY_TO_RELATIVEDELTA:
         def relativedelta_func(value):
             return relativedelta(**{EASY_FREQUENCY_TO_RELATIVEDELTA[frequency]: value})
@@ -80,6 +93,17 @@ def relative_time_func(frequency):
 
 
 def transform_dataset(dataset_raw, frequency):
+    """
+    Transforms a raw dataset by expanding each time series based on the specified frequency, creating
+    a timestamp for each value in the series.
+
+    Parameters:
+    - dataset_raw (DataFrame): The raw dataset containing a 'start_timestamp' and 'series_value' columns.
+    - frequency (str): The frequency at which to generate new timestamps for each series value.
+
+    Yields:
+    - Partial transformed datasets (DataFrame) in chunks of 100 rows.
+    """    
     delta_frequency = relative_time_func(frequency)
     for i in range(0, len(dataset_raw.index), 100):
         partial_dataset_raw = dataset_raw.iloc[i:min(i+100, len(dataset_raw.index))]
