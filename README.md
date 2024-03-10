@@ -167,7 +167,7 @@ If other packages need to be installed and you would like to check their version
 
 Make sure to check the versions of R packages available in conda for other OS systems.
 
-### 2.5. Run dodo
+## 2.5. Run dodo
 Dodo is a similar tool to Makefile optimized for Python use.
 
 In our `dodo.py` file, we have all the tasks to:

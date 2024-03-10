@@ -14,14 +14,13 @@ DATA_DIR = config.DATA_DIR
 
 
 def test_data_download():
+    '''test if files are downloaded'''
     tsf_files = [os.path.relpath(t) for t in list(Path(DATA_DIR).glob('*.tsf'))]
     assert len(tsf_files) == len(URLS.keys())
 
 
 def test_specific_table_download():
-    """
-    Test downloading a specific table from a given URL and extracting it to the 'src' directory.
-    """
+    '''test if it is possible to download a file'''
     test_table = {
         'm1_yearly_dataset.tsf': 'https://zenodo.org/records/4656193/files/m1_yearly_dataset.zip?download=1'
     }
