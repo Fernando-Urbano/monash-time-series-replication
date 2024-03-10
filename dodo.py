@@ -1,5 +1,18 @@
-"""Run or update the project. This file uses the `doit` Python package. It works
-like a Makefile, but is Python-based
+"""
+This script, utilizing the `doit` Python package, orchestrates a series of tasks for a time series analysis project.
+It is structured to automate the entire workflow, from data acquisition and processing to statistical analysis and report generation.
+
+Key functionalities include:
+
+- Downloading time series datasets based on predefined URLs.
+- Updating lists of selected models and datasets for analysis, which can be customized per run.
+- Running statistical analysis scripts, including fixed horizon analysis with an R script.
+- Generating statistical summary tables (Table 1 and Table 2) from the processed data.
+- Transforming these tables into LaTeX format for inclusion in reports.
+- Compiling the final report from LaTeX files, ensuring all results are up-to-date and formatted correctly.
+
+Each task is defined with specific actions, dependencies, and triggers to ensure that only the necessary steps are rerun,
+optimizing the workflow's efficiency. This setup allows for a modular and scalable approach to managing complex data analysis projects, facilitating easy updates and modifications to the analysis pipeline.
 """
 import sys
 sys.path.insert(1, './src/')
@@ -19,6 +32,16 @@ BASE_DIR = Path(config.BASE_DIR)
 OUTPUT_DIR = Path(config.OUTPUT_DIR)
 DATA_DIR = Path(config.DATA_DIR)
 
+"""
+The CHOSEN_MODELS specify which models will run when running doit.
+If 'all' is set to True, all models will run.
+
+The CHOSEN_DATASETS specify which datasets will be used when running doit.
+
+If CHOSEN_MODELS is False for all values or CHOSEN_DATASETS is empty, the models will not run,
+and the table will be generated with the current results.
+"""
+
 CHOSEN_MODELS = {
     'all': False, # All overrides the rest
     'arima': False,
@@ -36,6 +59,9 @@ CHOSEN_DATASETS = [
     'm1_yearly_dataset'
 ]
 
+"""
+The OTHER_ERROR_TABLES are the tables that generate other error metrics for the models.
+"""
 
 
 OTHER_ERROR_TABLES = {
