@@ -1,21 +1,20 @@
-r"""
-You can test out the latex code in the following minimal working
-example document:
+'''
+This script includes functions to convert tables from CSV to LaTeX format.
 
-\documentclass{article}
-\usepackage{booktabs}
-\begin{document}
-First document. This is a simple example, with no 
-extra parameters or packages included.
+The 'convert_table_to_latex' function takes a pandas DataFrame and applies formatting functions
+to float and percentage columns, with options to highlight the minimum value in each row
+and apply specific formatting to selected columns.
 
-\begin{table}
-\centering
-YOUR LATEX TABLE CODE HERE
-%\input{example_table.tex}
-\end{table}
-\end{document}
 
-"""
+The 'upload_table_download_latex' function reads a CSV file into a DataFrame,
+utilizes the 'convert_table_to_latex' function to convert it, and saves the result as a LaTeX file.
+Options for float and percentage formatting are customizable, and users can specify which rows
+to highlight or which columns require specific formatting.
+
+The script is straightforward to use, as demonstrated in the '__main__' section, where it converts
+and saves example tables with minimum values highlighted.
+'''
+
 import pandas as pd
 import numpy as np
 np.random.seed(100)
@@ -24,13 +23,6 @@ import config
 from pathlib import Path
 DATA_DIR = Path(config.DATA_DIR)
 OUTPUT_DIR = Path(config.OUTPUT_DIR)
-
-
-## Suppress scientific notation and limit to 3 decimal places
-# Sets display, but doesn't affect formatting to LaTeX
-# pd.set_option('display.float_format', lambda x: '%.2f' % x)
-# Sets format for printing to LaTeX
-# float_format_func = lambda x: '{:.2f}'.format(x)
 
 
 def convert_table_to_latex(
@@ -116,6 +108,6 @@ def upload_table_download_latex(
 if __name__ == '__main__':
     # Example Generate Table 1
     upload_table_download_latex('output/tables/table_median_smape.csv', 'table_median_smape', highlight_min_row=True)
-    # upload_table_download_latex('output/tables/table2.csv', 'table2', highlight_min_row=True)
-    # upload_table_download_latex('output/tables/table1.csv', 'table1')
+    upload_table_download_latex('output/tables/table2.csv', 'table2', highlight_min_row=True)
+    upload_table_download_latex('output/tables/table1.csv', 'table1')
 
