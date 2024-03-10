@@ -1,3 +1,13 @@
+'''
+This script is dedicated to processing time series data for statistical analysis. 
+It extends raw time series into a detailed format with individual timestamps, enabling deeper analysis.
+The script calculates a variety of summary statistics to describe the central tendency, dispersion, and shape of the data.
+It also performs advanced statistical tests to assess the stationarity and heteroscedasticity of the series,
+which are essential properties for many time series modeling techniques.
+
+The output is a comprehensive set of metrics for each time series, saved in a CSV file for further examination or reporting.
+This automated statistical evaluation aids in the preliminary assessment of time series data, streamlining the data analysis pipeline in forecasting projects.
+'''
 import pandas as pd
 import numpy as np
 import os

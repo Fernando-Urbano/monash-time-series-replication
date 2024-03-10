@@ -26,11 +26,13 @@ DATA_DIR = config.DATA_DIR
 BASE_DIR = config.BASE_DIR
 
 def test_generate_table2():
+    '''test if table2 exists in the output directory. It already gives an idea if the problem in other tests is due to that'''
     file_path = os.path.join(BASE_DIR, 'output', 'tables', 'table2.csv')
     assert os.path.exists(file_path)
 
 
 def test_logic_table2():
+    '''Test if the numbers make sense'''
     file_path = os.path.join(BASE_DIR, 'output', 'tables', 'table2.csv')
     df = pd.read_csv(file_path)
     assert df['Dataset'].isna().sum() == 0
@@ -40,6 +42,7 @@ def test_logic_table2():
     
     
 def test_content_table2():  
+    '''Test if the numbers are correct within a tolerance level'''
     file_path = os.path.join(BASE_DIR, 'output', 'tables', 'table2.csv')
     df = pd.read_csv(file_path)
     original_table_results = {

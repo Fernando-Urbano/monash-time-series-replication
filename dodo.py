@@ -151,12 +151,39 @@ def task_transform_table1_to_latex():
 
 def task_transform_other_error_tables_to_latex():
     """Generate table1.csv from the downloaded data."""
+    def show_numeric_results(x):
+        if not isinstance(x, (int, float)):
+            return x
+        if x < 1e2:
+            return '{:.3f}'.format(x)
+        elif x < 1e3:
+            return '{:.0f}'.format(x)
+        elif x < 1e6:
+            x = x / 1e3
+            return '{:.1f}K'.format(x)
+        elif x < 1e9:
+            x = x / 1e6
+            return '{:.1f}M'.format(x)
+        elif x < 1e12:
+            x = x / 1e9
+            return '{:.1f}B'.format(x)
+        elif x < 1e15:
+            x = x / 1e12
+            return '{:.1f}T'.format(x)
+        elif x < 1e18:
+            x = x / 1e15
+            return '{:.1f}Qa'.format(x)
+        elif x >= 1e18:
+            x = x / 1e15
+            return '{:.1f}Qi'.format(x)
+        return '{:.3f}'.format(x)
+
     for name in OTHER_ERROR_TABLES.keys():
         yield {
             'name': name,
             'actions': [(
                 upload_table_download_latex,
-                [f'output/tables/{name}.csv', name, lambda x: '{:.3f}'.format(x), lambda x: '{:.2%}'.format(x), True]
+                [f'output/tables/{name}.csv', name, lambda x: show_numeric_results(x), lambda x: '{:.2%}'.format(x), True]
             )],
             "file_dep": [BASE_DIR / 'output' / 'tables' / f'{name}.csv'],
             'targets': [BASE_DIR / 'output' / 'tables' / f'{name}.tex'],
