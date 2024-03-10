@@ -20,19 +20,136 @@
 \title{Monash Time-Series Forecasting Archive Replication}
 \author{
     Fernando Urbano\footnote{fernandourbano@uchicago.edu} \and
-    Shrey Jain\footnote{shreyjain@uchicago.edu} \and
     Aben Carrington\footnote{acarrington@uchicago.edu} \and
+    Shrey Jain\footnote{shreyjain@uchicago.edu} \and
     Mukund Maheshwari\footnote{mukundmaheshwari@uchicago.edu}
 }
 \maketitle
 
 \doublespacing
 \begin{abstract}
-The "Monash Time Series Forecasting Archive" significantly enhances research in time series forecasting, unveiling a meticulously selected assortment of 25 datasets across diverse sectors like energy, banking, and tourism.
+In this project we attempt to replicate results from a 2021 paper on the motivation and creation of the Monash Time Series Forecasting Archive, a project spearheaded by a group time series researchers from Monash University and the University of Sydney.
 
-This initiative tackles the pressing need for diverse, comprehensive datasets to benchmark a broad spectrum of forecasting models, spanning from conventional univariate to modern global and multivariate methodologies.
 \end{abstract}
 \end{titlepage}
+
+\section{Paper Importance}
+The Monash Archive is an essential asset to time series researchers as it provides a comprehensive benchmark time series forecasting archive to evaluate the performance of new global and multivariate forecasting algorithms. Specifically, as researchers branch further and further into the machine learning space, the Monash Archive allows them to test the generalized performance of their models against well-tested benchmark models, which is beneficial in addressing the questions of model overfitting and performance. 
+
+The archive contains datasets spanning multiple domains (industries) as well as 13 forecasting models, 6 of which are canonical univariate models, and 7 of which are global models that have shown positive results in recent years. In the following sections we provide a brief description of each of the datasets used, as well as an overview of the important aspects of the models used. 
+
+\section{Data Sources}
+The archive repository contains 25 datasets where each data point is an individual time series, with most being of variable length. The datasets indicated as multivariate in Table 1 are constrained to have time series that are all of the same length so that multivariate forecasting models may be run on them without error. Additionally there are 5 datasets which contain a single very long time series. From these 30 primary datasets the authors have created 58 total datasets, where some are split according to differing model frequencies, and  datasets with missing values are split into two datasets: one with and one without the missing values. It should be noted that global univariate and local univariate can be applied to all datasets in the repository.
+
+We now go into further depth concerning each of the primary datasets:
+
+\subsection{Collections of multiple time series}
+This section describes the benchmark datasets that have a sufficient number of series from a particular
+frequency. The datasets may contain different categories in terms of domain and frequency.
+
+\subsubsection{M1 dataset}
+This dataset is from the M1 forecasting competition held in the year 1982. It contains 1001 time series with 3 different frequencies (monthly, quarterly, yearly) and is one of few belonging to multiple domains.
+
+\subsubsection{M3 dataset}
+This dataset is from the M3 forecasting competition held in the year 2000. It contains 3003 time series with 4 different frequencies (monthly, quarterly, yearly, other) and is one of few belonging to multiple domains.
+
+\subsubsection{M4 dataset}
+This dataset is from the M4 forecasting competition held in the year 2020. It contains 100,000 time series with 6 different frequencies (hourly, daily, weekly, monthly, quarterly, yearly) and is one of few belonging to multiple domains.
+
+\subsubsection{Tourism dataset}
+This dataset originates from a kaggle competition. It contains 1311 tourism related time series with 3 different frequencies (monthly, quarterly, yearly).
+
+\subsubsection{NN5 dataset}
+This dataset is from the NN5 neural forecasting competition held in the year 2008. It contains 111 daily time series of cash withdrawals from ATMs in the U.K. The original dataset contained missing values that were filled in by the authors of the paper using a median substitution method.
+
+\subsubsection{CIF 2016 dataset}
+This dataset is from the Computational Intelligence in Forecasting (CIF) competition held in 2016. It contains 72 monthly time series, where 24 originate from the banking sector and the other 48 are artificially generated. There are two datasets corresponding to different forecast horizons: 6 and 12.
+
+\subsubsection{Kaggle web traffic dataset}
+This dataset is from the Kaggle web traffic forecasting competition held in the year 2017. It contains 145063 daily time series representing the number of hits for a set of pages on Wikipedia from 01/07/2015 to 10/09/2017. The authors also include their own aggregated version of weekly time series. 
+
+\subsubsection{Solar dataset}
+This dataset corresponds to the solar power production in the state of Alabama throughout the year 2006. It contains 137 time series representing the amount of solar power produced every 10 minutes. The authors also include their own aggregated version of weekly time series. 
+
+\subsubsection{Electricity dataset}
+This dataset corresponds to the amount of electricity consumed per hour by 321 clients, collected from 2012 to 2014 by UC Irvine. The authors also include their own aggregated version of weekly time series.
+
+\subsubsection{London smart meters dataset}
+This dataset corresponds to the energy consumption readings of London households in kWh from November 2011 to February 2014. It contains 5560 half-hourly time series. Two versions are included: one with missing values, and one where the missing values are filled in using the last observation carried forward (LOCF) method. 
+
+\subsubsection{Australian electricity demand dataset}
+This dataset corresponds to the electricity demand of 5 Australian states: Victoria, New South Wales, Queensland, Tasmania and South Australia. It contains 5 half-hourly time series.
+
+\subsubsection{Wind farms dataset}
+This dataset contains very long minutely time series representing the wind power production of 339
+wind farms in Australia. It is curated by the authors and is not available elsewhere. Two versions are included: one with missing values, and one where the missing values have been set to zero.
+
+\subsubsection{Car parts dataset}
+This dataset contains 2674 intermittent monthly time series showing car parts sales from January
+1998 to March 2002. Two versions are included: one with missing values, and one where the missing values have been set to zero.
+
+\subsubsection{Dominick dataset}
+This dataset corresponds to the profit of individual stock keeping units (SKUs) from a retailer collected from the online platform of the University of Chicago Booth School of Business Kilts Center. It contains 115704 weekly time series.
+
+\subsubsection{FRED-MD dataset}
+This dataset was extracted from the FRED-MD database and corresponds to  a set of macro-economic indicators from the Federal Reserve Bank. It contains 107 monthly time series starting from  01/01/1959.
+
+\subsubsection{Bitcoin dataset}
+This dataset shows the potential factors influencing bitcoin price (such as transaction values and hash rate). It contains 18 daily time series, 2 of which show the public opinion of bitcoins in the form of tweets and google searches mentioning the keyword, bitcoin. It is curated by the authors and is not available elsewhere. Two versions are included: one with missing values, and one where the missing values are filled in using the LOCF method.
+
+\subsubsection{San Francisco Traffic dataset}
+This dataset corresponds to the road occupancy rates on San Francisco Bay area freeways. It contains 862 hourly time series taken from 2015 to 2016. The authors also include their own aggregated version of weekly time series.
+
+\subsubsection{Melbourne pedestrian counts dataset}
+This dataset contains hourly time series of pedestrian counts captured from 66 sensors in Melbourne from May 2009 to April 30, 2020.
+
+\subsubsection{Rideshare dataset}
+This dataset corresponds to attributes related to Uber and Lyft rideshare services (such as price and distance) for different locations in New York from 26/11/2018 to 18/12/2018. It contains 2304 hourly time series. Two versions are included: one with missing values, and one where the missing values have been set to zero.
+
+\subsubsection{Vehicle trips dataset}
+This dataset corresponds to the number of trips and vehicles belonging to a set of for-hire vehicle (FHV) companies in 2015, extracted from fivethirtyeight. It contains 329 daily time series. Two versions are included: one with missing values, and one where the missing values are filled in using the LOCF method.
+
+\subsubsection{Hospital dataset}
+This dataset corresponds to e patient counts related to medical products from January 2000 to December 2006. It contains 767 monthly time series.
+
+\subsubsection{COVID deaths dataset}
+This dataset represents the total COVID-19 deaths in a set of countries and states from 22/01/2020 to 20/08/2020, extracted from the Johns Hopkins repository. It contains 266 daily time series.
+
+\subsubsection{KDD cup 2018 dataset}
+This dataset originates from a 2018 competition. It contains 270 long hourly time series representing  the air quality levels in 59 stations from 2 cities, Beijing (35 stations) and London (24 stations) from 01/01/2017 to 31/03/2018. It represents the air quality across multiple measurements.
+
+\subsubsection{Weather dataset}
+This dataset contains 3010 daily time series of four weather variables: rain, minimum temperature,
+maximum temperature, and solar radiation, measured at weather stations in Australia.
+
+\subsubsection{Temperature rain dataset}
+This dataset corresponds to the temperature/rainfall observations and forecasts, gathered by the Australian Bureau of Meteorology for 422 weather stations across Australia, between 02/05/2015 and 26/04/2017. It contains 32072 daily time series. Two versions are included: one with missing values, and one where the missing values have been set to zero.
+
+\subsection{Single long time series datasets}
+This section describes the benchmark datasets which have single time series with a large amount of
+data points.
+
+\subsubsection{Sunspot dataset}
+This dataset contains the single daily time series representing the sunspot numbers from 08/01/1818
+to 31/05/2020. Two versions are included: one with missing values, and one where the missing values are filled in using the LOCF method.
+
+\subsubsection{Saugeen river flow dataset}
+This dataset contains a single very long time series representing the daily mean flow of the Saugeen
+River at Walkerton in cubic meters per second from 01/01/1915 to 31/12/1979. The length of the time series is 23,741.
+
+\subsubsection{US Births dataset}
+This dataset contains a single very long daily time series representing the number of births in the US
+from 01/01/1969 to 31/12/1988. The length of the time series is 7,305.
+
+\subsubsection{Solar power dataset}
+This dataset contains a single very long time series representing the solar power production of an
+Australian wind farm recorded every 4 seconds starting from 01/08/2019. The length of the time
+series is 7,397,222.
+
+\subsubsection{Wind power dataset}
+This dataset contains a single very long time series representing the wind power production of an
+Australian wind farm recorded every 4 seconds starting from 01/08/2019. The length of the time
+series is 7,397,147.
 
 \begin{table}[H]
     \caption{Datasets in the current time series forecasting archive}
@@ -42,6 +159,14 @@ This initiative tackles the pressing need for diverse, comprehensive datasets to
     }
     \label{table:table1.tex}
 \end{table}
+
+\section{Models/Evaluation}
+
+\subsection{Models}
+As previously mentioned this project uses 6 traditional univariate models, and 7 global models, covering a representative set of state-of-the-art forecasting models from statistical, machine learning, and deep learning domains, for a total of 13 models.
+
+The 6 traditional models used are Exponential Smoothing (ETS), Auto-Regressive Integrated Moving Average (ARIMA), Simple Exponential Smoothing
+(SES), Theta, Trigonometric Box-Cox ARMA Trend Seasonal (TBATS), and Dynamic Harmonic Regression ARIMA (DHR-ARIMA). As there is extensive literature on each of these models we forego any description here.
 
 \begin{table}[H]
     \caption{Mean MASE results. The best model across each dataset is highlighted in boldface.}
