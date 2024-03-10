@@ -1,6 +1,7 @@
 \documentclass{article}
 \usepackage{graphicx} % Required for inserting images
 \usepackage{indentfirst}
+\usepackage{amsmath}
 
 \title{Summary of the Monash \\ Time Series Forecasting Archive}
 
@@ -136,7 +137,37 @@ series is 7,397,147.
 As previously mentioned this project uses 6 traditional univariate models, and 7 global models, covering a representative set of state-of-the-art forecasting models from statistical, machine learning, and deep learning domains, for a total of 13 models.
 
 The 6 traditional models used are Exponential Smoothing (ETS), Auto-Regressive Integrated Moving Average (ARIMA), Simple Exponential Smoothing
-(SES), Theta, Trigonometric Box-Cox ARMA Trend Seasonal (TBATS), and Dynamic Harmonic Regression ARIMA (DHR-ARIMA). As there is extensive literature on each of these models we forego any description here. These 
+(SES), Theta, Trigonometric Box-Cox ARMA Trend Seasonal (TBATS), and Dynamic Harmonic Regression ARIMA (DHR-ARIMA). The 7 global forecasting models used are a linear Pooled Regression model (PR), a Feed-Forward Neural Network (FFNN), CatBoost, DeepAR, N-BEATS, a WaveNet, and a Transformer method. As there is extensive literature on each of these models we forego any description here. 
+
+We implement the 6 traditional univariate models as well as PR and CatBoost in R using the packages forecast, glmnet, and catboost. The authors of the original paper used R base version 4.0.2 but we use R base version 4.3.2. The other models are implemented in Python using the GluonTS package from AWS. The authors of the original paper used Python 3.7.4 and GluonTS 0.8.0. This presented challenges for us that will be expounded upon later. Since all models are presented as benchmarks for baseline model performance, no hyperparameter tuning is done and the models are presented with their default hyperparameters. 
+
+\subsection{Model Evaluation}
+For evaluating the performance of the models, the authors compared the Mean Absolute Scaled Error (MASE) of each of the models per dataset. This statistic was calculated by using forecasting functions created by the authors of the original paper (and publicly available on github) to calculate the MASE per time series in each of the datasets and then calculating the mean value across the MASE results per dataset. The formula for this is given below $$\text{MASE}=\frac{\sum_{k=M+1}^{M+h} |F_k-Y_k|}{\frac{h}{M-S}\sum_{k=S+1}^{M} |Y_{k+1}-Y_k|}$$
+where $M$ is the number of data points in the training series, $S$ is the seasonality of the dataset, $h$ is the forecast horizon, $F_k$ are the generated forecasts, and $Y_k$ are the actual values. 
+
+The MASE results per model (columns) per dataset (rows) are given in Table 2.
+
+\section{Replication Performance}
+The goal of our replication project was to successfully load the datasets, implement the authors functions with minimal updates, and regenerate Table 1 and Table 2 from the original paper in similar formatting. This proved to be a project primarily rooted in understanding effective package managing and resolving software conflicts related to cross-package version dependencies. We were successfully able to run all the models using R on a significant portion of the datasets but had lingering, unresolvable issues on the GluonTS models and some datasets. We will now briefly describe these successes, failures, and some recommendations, given our current knowledge, for the future of this replication project. 
+
+\subsection{Successes}
+We were successfully able to run the R models on a significant portion of the datasets. 
+
+We used an Anaconda environment and initially encountered problems with package installations from the authors' indicated R package versions resulting from the fact that the authors originally used an R base version of 4.0.2, which was unable to be installed in current versions of Anaconda. We instead used an R base version of 4.3.2 and were able to bypass these restrictions by manually adding the packages in our conda environment through including several "install.packages()" statements in our R forecasting scripts. However, there was an issue in building one of the dependency packages resulting from system incompatibilities with the underlying C and Fortran used to write the packages. We found that in order to successfully build the packages the user must first install cmake through homebrew on their machine. We also found through resolving these issues that it is essential to use the libmamba solver in one's conda environment as opposed to the classic solver. 
+
+Additionally, when we were finally able to run the R models on the datasets, we found that some models took an infeasible amount of time to run on local machines for certain datasets (on the order of 4 hours for a single model on a single dataset). This indicated to us that it would be wiser to run these models on an HPC cluster. However, as non faculty or staff researchers, the University of Chicago will not grant us access to the Midway Clusters and so we were unable to run these datasets in the final product in the interest of time and reproducibility. 
+
+For the datasets that we were successfully able to run, we found near identical results to the authors of the original paper (with a maximum error of $\approx$ 0.001)!
+
+\subsection{Failures}
+We were not as fortunate in running the Python models as we were in running the R models. In addition to our inability to run a few of the datasets, we had several issues related to Python package versioning primarily resulting from Conda's poor ability to run versions of Python and Python packages that are more than 2 years out-of-date (currently, the Python packages the paper's authors used are nearly 3 years out-of-date).
+
+These issues began with a massive update in the GluonTS package between 2021 (version 0.8.0) and today (version 0.14.4) which significantly altered the declarations of model objects. This update made it so that the authors' model functions were declaring functional arguments for the GluonTS model objects that no longer existed in the GluonTS documentation. As GluonTS is primarily based on the complex machine learning libraries PyTorch and MXnet, and none of our group members had the knowledge of these libraries to update the authors' functions, our only option was to attempt to downgrade the version of GluonTS from 0.14.4 to 0.8.0 and resolve any resulting dependency conflicts in the Conda environment. 
+
+Our group member attempting to resolve these issues was working using a homebrew installation of the miniforge distribution of mamba, while the rest of the group was working in the traditional installation of Anaconda3. The miniforge distribution provided much more versatility, however we required, based on the parameters of this project, that any solution be implementable using the conventional installation of Anaconda3. We were able to find a package configuration that passed running "pip check" for dependency conflicts and contained package versions very close to the package requirements of GluonTS version 0.8.0 (which was found on github). However, this configuration required the version of Python to be 3.7.6 (close to the author's version of Python 3.7.4), and the oldest version of Python available given the new anaconda update to Conda version 24.1.2 (which is required to run the R models), was Python 3.8.5. This presented an insurmountable conflict that we were not able to overcome without overhauling the entire project and starting from scratch using an alternate package manager.
+
+\subsection{Recommendations} 
+For attempting this project again in the future, we recommend using either the miniforge distribution of mamba, or an entirely different package manager from Anaconda altogether. In researching our dependency conflicts, we found that the main advantage of the  Miniconda distribution as opposed to the full Anaconda distribution is that Miniconda only ships with the repository management system as well as a limited number of base python packages, whereas Anaconda ships with 150+ python packages as well as several other modules (AWS, JupyterLab, JupyterNotebook, etc.) that are unnecessary for this project. Thus, the limited available versions of python and necessary python packages in Anaconda results from needless incompatibilities with system packages that aren't even used in this project. In light of this information, the best course of action may be to simply use pip as the package manager in a local virtual environment which bypasses Conda altogether, as this would provide the highest degree of versatility in using outdated package versions.
 
 
 \end{document}
