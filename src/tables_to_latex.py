@@ -41,6 +41,20 @@ def convert_table_to_latex(
         specific_columns_func=None,
         pct_columns=None
 ):
+    """
+    Converts a DataFrame into a LaTeX table string.
+
+    Args:
+        df (DataFrame): Input DataFrame to convert.
+        float_format_func (function): Function to format float columns.
+        ptc_format_func (function): Function to format percentage columns.
+        highlight_min_row (bool): Flag to highlight the minimum value in each row.
+        specific_columns_func (dict): Functions specified for specific columns.
+        pct_columns (list): Columns considered as percentage values.
+
+    Returns:
+        str: LaTeX table string.
+    """    
     df = df.copy()
     if pct_columns is None:
         pct_columns = []
@@ -79,6 +93,19 @@ def upload_table_download_latex(
         output_path=OUTPUT_DIR / 'tables',
         pct_columns=None,
     ):
+    """
+    Uploads a table, converts it to LaTeX, and saves the LaTeX file.
+
+    Args:
+        input_path (str): Path to the input CSV file.
+        table_name (str): Name for the output LaTeX table file.
+        float_format_func (function): Function to format float columns.
+        ptc_format_func (function): Function to format percentage columns.
+        highlight_min_row (bool): Flag to highlight the minimum value in each row.
+        specific_columns_func (dict): Functions specified for specific columns.
+        output_path (Path): Path to save the output LaTeX file.
+        pct_columns (list): Columns considered as percentage values.
+    """    
     df = pd.read_csv(input_path)
     latex_table_string = convert_table_to_latex(df, float_format_func, ptc_format_func, highlight_min_row, pct_columns, specific_columns_func)
     path = output_path / f'{table_name}.tex'
