@@ -127,6 +127,17 @@ def transform_dataset(dataset_raw, frequency):
 
 
 def transform_entire_dataset(dataset_raw, frequency):
+    """
+    Transforms the entire raw dataset by expanding each time series based on the specified frequency,
+    creating a timestamp for each value in the series.
+
+    Parameters:
+    - dataset_raw (DataFrame): The raw dataset containing a 'start_timestamp' and 'series_value' columns.
+    - frequency (str): The frequency at which to generate new timestamps for each series value.
+
+    Yields:
+    - The entire transformed dataset (DataFrame).
+    """    
     delta_frequency = relative_time_func(frequency)
     dataset = dataset_raw.copy()
     dataset = (
@@ -149,6 +160,15 @@ def transform_entire_dataset(dataset_raw, frequency):
 
 
 def calc_summary_statistics(dataset):
+    """
+    Calculates summary statistics for each series in the dataset.
+
+    Parameters:
+    - dataset (DataFrame): The dataset to calculate summary statistics for.
+
+    Returns:
+    - A DataFrame containing summary statistics (mean, std, median, q1, q3, skewness, etc.) for each series.
+    """    
     summary_statistics_dataset = (
         dataset
         .assign(series_value=lambda df: df.series_value.astype(float))
@@ -165,6 +185,16 @@ def calc_summary_statistics(dataset):
 
 
 def test_stationarity(series):
+    """
+    Tests the stationarity of a given time series using the Augmented Dickey-Fuller test.
+
+    Parameters:
+    - series (Series): The time series to test for stationarity.
+
+    Returns:
+    - A dictionary containing the ADF statistic.
+    - This also has the pvalue.
+    """    
     try:
         series_wout_na = pd.to_numeric(series, errors='coerce').dropna()
         series_wout_na = series_wout_na.map(lambda x: ((x - series_wout_na.mean()) / series_wout_na.std()))
