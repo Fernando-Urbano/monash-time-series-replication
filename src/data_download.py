@@ -74,6 +74,18 @@ URLS = {
 
 
 def download_and_extract_zip(url, destination_dir):
+    """
+    Downloads a ZIP file from a specified URL and extracts its contents to a destination directory.
+    Currently, the function is set to extract only the first file from the ZIP archive. This behavior
+    can be adjusted by modifying the extraction process in the code.
+
+    Parameters:
+    - url (str): The URL of the ZIP file to be downloaded.
+    - destination_dir (str): The directory where the ZIP file's contents will be extracted.
+
+    Returns:
+    - extracted_file_path (str): The file path of the extracted file.
+    """    
     # Send a GET request to the URL
     response = requests.get(url)
     # Raise an exception for bad status codes
