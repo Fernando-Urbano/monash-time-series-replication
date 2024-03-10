@@ -32,6 +32,28 @@ OTHER_ERROR_TABLES = {
     'table_median_rmse': 'Median RMSE',
 }
 
+CHOSEN_MODELS = [
+    'arima'
+]
+
+
+CHOSEN_DATASETS = [
+    'm1_yearly_dataset'
+]
+
+
+def update_chosen_models_and_datasets():
+    """Update the chosen models and datasets"""
+    with open('src/chosen_datasets.txt', 'w') as f:
+        for dataset in CHOSEN_DATASETS:
+            f.write(f'{dataset}\n')
+
+    with open('src/chosen_models.txt', 'w') as f:
+        for model in CHOSEN_MODELS:
+            f.write(f'{model}\n')
+    return True
+
+
 # fmt: off
 ## Helper functions for automatic execution of Jupyter notebooks
 def jupyter_execute_notebook(notebook):
@@ -62,6 +84,28 @@ def task_download_data():
             'uptodate': [True],  # Force re-download every time if equals to False
             'clean': True,
         }
+
+
+def task_update_chosen_models_and_datasets():
+    """Update the chosen models and datasets"""
+    return {
+        'actions': [update_chosen_models_and_datasets],
+        'targets': ['src/chosen_models.txt', 'src/chosen_datasets.txt'],
+        'uptodate': [False],
+        'clean': True,
+    }
+
+
+def task_run_fixed_horizon_R_script():
+    """Run the R script for fixed horizon analysis."""
+    def run_if_lists_not_empty(task):
+        # Return True (up-to-date) if both lists are empty, False (not up-to-date) otherwise
+        return not CHOSEN_MODELS and not CHOSEN_DATASETS
+
+    return {
+        'actions': ['Rscript src/experiments/fixed_horizon.R'],  # Command to run the R script
+        'uptodate': [run_if_lists_not_empty],
+    }
 
 
 def task_generate_table1():
@@ -151,6 +195,6 @@ def task_compile_latex_docs():
         ],
         "targets": ["./reports/report.pdf"],
         "file_dep": ["./reports/report.tex"],
-        'uptodate': [False],  # Force to generate table1 every time
+        'uptodate': [False],
         "clean": True,
     }
