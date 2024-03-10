@@ -127,6 +127,7 @@ target/
 *.bbl
 *.blg
 *.fdb_latexmk
+*.xlsx
 *.fls
 *.log
 *.out
@@ -255,9 +256,12 @@ src/data/temp\.csv
 
 drafts/draft_bp.pdf
 
+*.pdf
+
 *.vrb
 *.csv
 results/*.txt
 results/**/*.txt
+output/tables/*.tex
 
 data/manual/cps.csv
