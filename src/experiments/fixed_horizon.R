@@ -1,4 +1,3 @@
-# Have to run brew install cmake for successful package installations
 print("Installing packages")
 
 options(repos = c(CRAN = "https://mirror.las.iastate.edu/CRAN/"))

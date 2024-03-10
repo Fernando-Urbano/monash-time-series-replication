@@ -124,12 +124,47 @@ The `install_packages.sh` is a bash script that:
 
 All the installed packages can be found in `requirements_py.txt` and `requirements_r.txt`.
 
-If other packages need to be installed and you would like to check their versioning, refer to the appendix of the README.
+If other packages need to be installed and you would like to check their versioning, refer to the Appendix (in the end of README).
 
 ### 4. Run dodo
 Dodo is a similar tool to Makefile optimized for Python use.
 
+In our `dodo.py` file, we have all the tasks to:
+- Downlaod datasets used to run the models.
+- Define the models and datasets that will run.
+- Run the selected models for the selected datasets
+- Generate Table 1 from the paper
+- Generate Table 2 from the paper
+- Generate other error metrics tables
+- Transform tables to latex
+- Update pdf of the output latex
 
+Before running the `dodo.py`, go to the start of the `dodo.py` and define for which models and datasets you would like to update the results.
+
+```python
+CHOSEN_MODELS = [
+    'arima'
+]
+
+
+CHOSEN_DATASETS = [
+    'm1_yearly_dataset'
+]
+```
+
+If you select `all` for `CHOSEN_MODELS`, all available models will be updated for the selected dataset.
+
+If you select `all` for `CHOSEN_DATASETS`, all available datasets will be updated for the selected models.
+
+If one of the two lists is empty, no model will be update.
+
+In your first trial, we invite you to check with one of the lists empty, in order to ensure that the Latex file is updated.
+
+After setting the lists as wanted, run (from the main folder - not from `src`) inside the command line:
+
+```
+doit
+```
 
 # Add more Packages to the Virtual Environment
 If needed to add more packages to the environment use the `requirements_py.txt` to add Python packages and `requirements_r.txt` to add R packages.
