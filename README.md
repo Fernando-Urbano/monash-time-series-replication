@@ -13,7 +13,7 @@ We invite you to take a look at their work as well:
 - [Paper](https://openreview.net/pdf?id=wEc1mgAjU-)
 - [Repository](https://github.com/rakshitha123/TSForecasting)
 
-# 1.1. Goal
+## 1.1. Goal
 Our main goal is to replicate Table 1 and Table 2 from the paper in an automated way using `conda` environment and `dodo`, generating a Latex file with a short analysis and challenges found in the process.
 
 # 2. Build the Enviromnet
