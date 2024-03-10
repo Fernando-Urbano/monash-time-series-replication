@@ -1,13 +1,37 @@
 # Have to run brew install cmake for successful package installations
+print("Installing packages")
 
 options(repos = c(CRAN = "https://mirror.las.iastate.edu/CRAN/"))
-install.packages("here")
-install.packages("smooth")
-install.packages("tsibble")
-install.packages('remotes')
-remotes::install_url('https://github.com/catboost/catboost/releases/download/v1.2.3/catboost-R-darwin-universal2-1.2.3.tgz', INSTALL_opts = c("--no-multiarch", "--no-test-load")) 
-remotes::install_url('https://github.com/catboost/catboost/releases/download/v1.2.3/catboost-R-windows-x86_64-1.2.3.tgz', INSTALL_opts = c("--no-multiarch", "--no-test-load"))
+if (!requireNamespace("remotes", quietly = TRUE)) {
+    install.packages('remotes')
+}
+if (!requireNamespace("tsibble", quietly = TRUE)) {
+    install.packages("tsibble")
+}
+if (!requireNamespace("smooth", quietly = TRUE)) {
+    install.packages("smooth")
+}
+if (!requireNamespace("here", quietly = TRUE)) {
+    install.packages("here")
+}
+if (!requireNamespace("catboost", quietly = TRUE)) {
+    remotes::install_url('https://github.com/catboost/catboost/releases/download/v1.2.3/catboost-R-darwin-universal2-1.2.3.tgz', INSTALL_opts = c("--no-multiarch", "--no-test-load")) 
+    remotes::install_url('https://github.com/catboost/catboost/releases/download/v1.2.3/catboost-R-windows-x86_64-1.2.3.tgz', INSTALL_opts = c("--no-multiarch", "--no-test-load"))
+}
 library(here)
+
+
+# installed_packages <- rownames(installed.packages())
+
+# # Loop over the list and remove each package make a try catch block to avoid errors
+# for (pkg in installed_packages) {
+#     tryCatch({
+#         remove.packages(pkg)
+#     }, error = function(e) {
+#         print(paste("Error: ", pkg))
+#     })
+# }
+
 
 # Get the path to the directory containing the current script
 current_file_path <- here()
@@ -390,7 +414,7 @@ if ('pooled_regression' %in% chosen_models || 'all' %in% chosen_models){
     }
 }
 
-if if ('catboost' %in% chosen_models || 'all' %in% chosen_models){
+if ('catboost' %in% chosen_models || 'all' %in% chosen_models){
     if ('cif_2016_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
         do_fixed_horizon_global_forecasting("cif_2016", 15, "cif_2016_dataset.tsf", "catboost")
     }
@@ -514,7 +538,7 @@ if ('pooled_regression' %in% chosen_models || 'all' %in% chosen_models){
         do_fixed_horizon_global_forecasting("fred_md", 15, "fred_md_dataset.tsf", "pooled_regression", "series_name", "start_timestamp", 12)
     }
 }
-if if ('catboost' %in% chosen_models || 'all' %in% chosen_models){
+if ('catboost' %in% chosen_models || 'all' %in% chosen_models){
     if ('car_parts_dataset_without_missing_values' %in% chosen_datasets || 'all' %in% chosen_datasets){
         do_fixed_horizon_global_forecasting("car_parts", 15, "car_parts_dataset_without_missing_values.tsf", "catboost", "series_name", "start_timestamp", 12, TRUE)
     }
@@ -648,7 +672,7 @@ if ('pooled_regression' %in% chosen_models || 'all' %in% chosen_models){
         do_fixed_horizon_global_forecasting("dominick", 10, "dominick_dataset.tsf", "pooled_regression", NULL, NULL, 8)
     }
 }
-if if ('catboost' %in% chosen_models || 'all' %in% chosen_models){
+if ('catboost' %in% chosen_models || 'all' %in% chosen_models){
     if ('nn5_weekly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
         do_fixed_horizon_global_forecasting("nn5_weekly", 65, "nn5_weekly_dataset.tsf", "catboost", "series_name", "start_timestamp", 8)
     }
@@ -827,7 +851,7 @@ if ('pooled_regression' %in% chosen_models || 'all' %in% chosen_models){
         do_fixed_horizon_global_forecasting("temperature_rain", 9, "temperature_rain_dataset_without_missing_values.tsf", "pooled_regression", "series_name", "start_timestamp", 30)
     }
 }
-if if ('catboost' %in% chosen_models || 'all' %in% chosen_models){
+if ('catboost' %in% chosen_models || 'all' %in% chosen_models){
     if ('us_births_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
         do_fixed_horizon_global_forecasting("us_births", 9, "us_births_dataset.tsf", "catboost", "series_name", "start_timestamp", 30, TRUE)
     }
@@ -994,7 +1018,7 @@ if ('pooled_regression' %in% chosen_models || 'all' %in% chosen_models){
         do_fixed_horizon_global_forecasting("rideshare", 210, "rideshare_dataset_without_missing_values.tsf", "pooled_regression", "series_name", "start_timestamp", 168)
     }
 }
-if if ('catboost' %in% chosen_models || 'all' %in% chosen_models){
+if ('catboost' %in% chosen_models || 'all' %in% chosen_models){
     if ('traffic_hourly_dataset' %in% chosen_datasets || 'all' %in% chosen_datasets){
         do_fixed_horizon_global_forecasting("traffic_hourly", 30, "traffic_hourly_dataset.tsf", "catboost", "series_name", "start_timestamp", 168)
     }
