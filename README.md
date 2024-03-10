@@ -250,9 +250,16 @@ doit run_fixed_horizon_R_script
 
 - The `results` is the folder in which the results of the models are stored. Inside, we have:
   - `fixed_horizon_errors`: has the error metric for each time-series of the dataset and a joint error metric for the dataset.
-  - ``
+  - `fixed_horizon_execution_time`: has the execution time of each model run. It is not tracked in the github repository.
+  - `fixed_horizo_forecasts`: has the forecasts of the time-series to calculate the error metrics. It is not tracked in the github repository.
 
-# 3. Appendix: Add more Packages to the Virtual Environment
+- The `data` folder contains all `.tsf` files that are downloaded online. It is not tracked in the github repository.
+
+- The `reports` contain our main Latex file, containing tables generated and short analysis of the results.
+
+- The `src` contains all the scripts that are run inside `dodo.py` and a jupyter notebook explaining their functions/files and expected results.
+
+# 4. Appendix: Add more Packages to the Virtual Environment
 If needed to add more packages to the environment use the `requirements_py.txt` to add Python packages and `requirements_r.txt` to add R packages.
 
 It is necessary to specify the version used.
