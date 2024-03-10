@@ -4,34 +4,132 @@ Monash Time Series Forecasting Replication
 # About this project
 [TODO]
 
-# Quick Start
-## 1. Install TexLive
-Note that you must have TexLive installed on your computer and available in your path.
+# Build the Enviromnet
+Using R and Python together inside conda is sometimes a problem, specially when dealing with older package versions.
 
-It can be downloaded in:
+During the creation and updates of the project, we have run into different problems and have found ways to work with both Mac and Windows.
+
+## 1. Install TexLive
+Check that you have installed TexLive. TexLive is useful to generate pdfs from latex files. If it is not currently installed in your computer, you can download it here:
+
 - [Windows installer](https://tug.org/texlive/windows.html#install)
 - [Mac installer](https://tug.org/mactex/mactex-download.html)
 
-## 2. Create virtual environment
-Go to the home directory of the project and type in terminal the following commands:
+## 2. Update Your Version of Conda
+Afterwards, check you version of conda is recent. Some versions from 2023, like `23.7.4`, are not expected to work due to problems with `Rcpp` and `RArmadillo`, which are necessary for running the models.
+
+Run the following to check conda version:
+
+```bash
+conda --version
+```
+
+The output should be your current conda version. We strongly recommend using `24.1.2`, while also believing that even newer versions should not cause a problem.
+
+If your version is `24.1.2`, go to step 3.
+
+Ideally, update conda version to `24.1.2`, run:
+
+```bash
+conda install -n base -c defaults conda=24.1.2
+```
+
+Close and open the terminal, and run the following to check you version:
+
+```bash
+conda --version
+```
+
+If you version is now `24.1.2`, go to step 3.
+
+Your version might still show up as the one that you already had. In this case, run:
+
+```bash
+conda install -n base -c defaults conda=24.1.2 --force-reinstall
+```
+
+Close and open the terminal, and run the following to check you version:
+
+```bash
+conda --version
+```
+
+If you version is now `24.1.2`, go to step 3.
+
+If you version is still another one, we recommend uninstalling `anaconda` and installing it again. Simple tutorials on how to do this can be found here:
+
+- [Uninstall Anaconda](https://docs.anaconda.com/free/anaconda/install/uninstall/)
+- [Install Anaconda](https://www.anaconda.com/download)
+
+After installing it, you must make sure that `conda` shortcut is accessible.
+
+Again, run the following to make sure that your version is the right one:
+
+```bash
+conda --version
+```
+
+## 3. Install CMake
+CMake is a software helpful (and sometimes necessary) to run specific R packages with C and C++ dependencies.
+
+Check if CMake is already installed in your computer. If it is installed, go to step 4.
+
+If not, acess the following link or install it via `brew`:
+
+- [Install CMake](https://cmake.org/download/)
+
+Or:
+
+```bash
+brew install cmake
+```
+
+## 4. Create Conda Virtual Env
+Clone the repository in your local machine, open a terminal in the main folder and run:
 
 ```bash
 conda deactivate
+```
+
+```bash
 conda create -n mtsr -c conda-forge python=3.11.8 r-base=4.3.2
+```
+
+```bash
 conda activate mtsr
 ```
 
-The versions specified of R and Python are the ones that work with most packages for `osx-arm64`. The original project was done using: R: 4.0.2, Python: 3.7.4.
+The versions specified of R and Python are the ones that work best for the anaconda distribution.
 
-### 3. Install Packages
-Inside command line run:
+The original project was created using R: `4.0.2`, Python: `3.7.4`, which is not a possible option, considering recent versions of conda.
+
+Inside command line, run:
+
 ```bash
 chmod +x install_packages.sh
+```
+
+This should make `install_packages` executable. Afterwards, run the following:
+
+```bash
 ./install_packages.sh
 ```
 
+For the following steps, make sure that the `mtsr` virtual environment is current active.
+
+The `install_packages.sh` is a bash script that:
+- In the case of Windows, uses `source ~/.bashrc` in case it exists to ensure the rest of the file executable.
+- iterates and install R packages via `conda forge`.
+- Install Python packages via `pip`.
+
+All the installed packages can be found in `requirements_py.txt` and `requirements_r.txt`.
+
+If other packages need to be installed and you would like to check their versioning, refer to the appendix of the README.
+
 ### 4. Run dodo
-[TODO]
+Dodo is a similar tool to Makefile optimized for Python use.
+
+
 
 # Add more Packages to the Virtual Environment
 If needed to add more packages to the environment use the `requirements_py.txt` to add Python packages and `requirements_r.txt` to add R packages.
