@@ -42,6 +42,19 @@ ONLY_SELECTED_DATASETS = []
 
 
 def relative_time_func(frequency):
+    """
+    Generates a function to compute relative changes in time based on a specified frequency.
+
+    Parameters:
+    - frequency (str): A string specifying the frequency of the time change. It can be a predefined frequency
+      like 'quarterly' or a custom one like '2_seconds'.
+
+    Returns:
+    - A function that takes an integer value and returns a relativedelta object representing the time change.
+    
+    Raises:
+    - Exception: If the specified frequency is not supported.
+    """    
     if frequency in EASY_FREQUENCY_TO_RELATIVEDELTA:
         def relativedelta_func(value):
             return relativedelta(**{EASY_FREQUENCY_TO_RELATIVEDELTA[frequency]: value})
@@ -80,6 +93,17 @@ def relative_time_func(frequency):
 
 
 def transform_dataset(dataset_raw, frequency):
+    """
+    Transforms a raw dataset by expanding each time series based on the specified frequency, creating
+    a timestamp for each value in the series.
+
+    Parameters:
+    - dataset_raw (DataFrame): The raw dataset containing a 'start_timestamp' and 'series_value' columns.
+    - frequency (str): The frequency at which to generate new timestamps for each series value.
+
+    Yields:
+    - Partial transformed datasets (DataFrame) in chunks of 100 rows.
+    """    
     delta_frequency = relative_time_func(frequency)
     for i in range(0, len(dataset_raw.index), 100):
         partial_dataset_raw = dataset_raw.iloc[i:min(i+100, len(dataset_raw.index))]
@@ -103,6 +127,17 @@ def transform_dataset(dataset_raw, frequency):
 
 
 def transform_entire_dataset(dataset_raw, frequency):
+    """
+    Transforms the entire raw dataset by expanding each time series based on the specified frequency,
+    creating a timestamp for each value in the series.
+
+    Parameters:
+    - dataset_raw (DataFrame): The raw dataset containing a 'start_timestamp' and 'series_value' columns.
+    - frequency (str): The frequency at which to generate new timestamps for each series value.
+
+    Yields:
+    - The entire transformed dataset (DataFrame).
+    """    
     delta_frequency = relative_time_func(frequency)
     dataset = dataset_raw.copy()
     dataset = (
@@ -125,6 +160,15 @@ def transform_entire_dataset(dataset_raw, frequency):
 
 
 def calc_summary_statistics(dataset):
+    """
+    Calculates summary statistics for each series in the dataset.
+
+    Parameters:
+    - dataset (DataFrame): The dataset to calculate summary statistics for.
+
+    Returns:
+    - A DataFrame containing summary statistics (mean, std, median, q1, q3, skewness, etc.) for each series.
+    """    
     summary_statistics_dataset = (
         dataset
         .assign(series_value=lambda df: df.series_value.astype(float))
@@ -141,6 +185,15 @@ def calc_summary_statistics(dataset):
 
 
 def test_stationarity(series):
+    """
+    Tests the stationarity of a given time series using the Augmented Dickey-Fuller test.
+
+    Parameters:
+    - series (Series): The time series to test for stationarity.
+
+    Returns:
+    - A dictionary containing the ADF statistic and pvalue
+    """    
     try:
         series_wout_na = pd.to_numeric(series, errors='coerce').dropna()
         series_wout_na = series_wout_na.map(lambda x: ((x - series_wout_na.mean()) / series_wout_na.std()))
@@ -160,6 +213,17 @@ def test_stationarity(series):
 
 
 def test_heterocedasticity(series, stationary=False):
+    """
+    Tests the heterocedasticity of a given time series, optionally after making it stationary.
+
+    Parameters:
+    - series (Series): The time series to test for heterocedasticity.
+    - stationary (bool): Indicates whether the series should be differenced to make it stationary before testing.
+
+    Returns:
+    - A dictionary containing the test results, including the GARCH model's R-squared and p-values for alpha, beta,
+      omega, and whether the series is heteroscedastic.
+    """    
     try:
         series_wout_na = pd.to_numeric(series, errors='coerce').dropna()
         if not stationary:
@@ -192,6 +256,15 @@ def test_heterocedasticity(series, stationary=False):
      
 
 def calc_advanced_statistics(dataset):
+    """
+    Calculates advanced statistics for each series in the dataset, including stationarity and heterocedasticity tests.
+
+    Parameters:
+    - dataset (DataFrame): The dataset to calculate advanced statistics for, grouped by series name.
+
+    Returns:
+    - A DataFrame containing the advanced statistics for each series.
+    """    
     dataset_adv_stats = pd.DataFrame()
     for series_name, series in dataset.groupby('series_name'):
         series = series.series_value
