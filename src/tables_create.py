@@ -681,5 +681,5 @@ def generate_table2_dataframe(selected_error_measure='Mean MASE', table_name='ta
         
 
 if __name__== '__main__':
-    generate_table1_dataframe(print_dataset_name=True)
     generate_table2_dataframe()
+    generate_table1_dataframe(print_dataset_name=True)
