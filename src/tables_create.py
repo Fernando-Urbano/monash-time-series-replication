@@ -282,14 +282,14 @@ DATASETS_TO_INFO = {
         'Multivariate': False
     },
     'KDD Cup 2018': {
-        'Domain': 'Transport',
+        'Domain': 'Nature',
         'Datasets': [
             'kdd_cup_2018_dataset_with_missing_values.tsf'
         ],
         'Multivariate': False
     },
     'Weather': {
-        'Domain': 'Weather',
+        'Domain': 'Nature',
         'Datasets': [
             'weather_dataset.tsf'
         ],
@@ -306,7 +306,8 @@ DATASETS_TO_INFO = {
     'Web Traffic': {
         'Domain': 'Web',
         'Datasets': [
-            'kaggle_web_traffic_dataset_with_missing_values.tsf'
+            'kaggle_web_traffic_dataset_with_missing_values.tsf',
+            'kaggle_web_traffic_weekly_dataset.tsf'
         ],
         'Multivariate': True
     },
@@ -334,7 +335,7 @@ DATASETS_TO_INFO = {
         'Multivariate': True
     },
     'FRED-MD': {
-        'Domain': 'Economics',
+        'Domain': 'Economic',
         'Datasets': [
             'fred_md_dataset.tsf'
         ],
@@ -544,7 +545,7 @@ ORDER_DATASETS = [
     'M3 Monthly', 'M3 Other', 'M4 Yearly', 'M4 Quarterly',
     'M4 Monthly', 'M4 Weekly', 'M4 Daily', 'M4 Hourly', 'Tourism Yearly',
     'Tourism Quarterly', 'Tourism Monthly', 'Aus. Elecdemand', 'Dominick',
-    ' Bitcoin', 'Pedestrians', 'Vehicle Trips', 'Weather', 'NN5 Daily',
+    'Bitcoin', 'Pedestrians', 'Vehicle Trips', 'Weather', 'NN5 Daily',
     'NN5 Weekly', 'Kaggle Daily', 'Kaggle Weekly', 'Solar 10 Mins',
     'Solar Weekly', 'Electricity Hourly', 'Electricity Weekly', 'Carparts',
     'FRED-MD', 'Traffic Hourly', 'Traffic Weekly', 'Rideshare', 'Hospital',
