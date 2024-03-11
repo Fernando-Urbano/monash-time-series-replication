@@ -185,7 +185,7 @@ The MASE results per model (columns) per dataset (rows) are given in Table 2.
     \label{table:table2.tex}
 \end{table}
 
-As extra material, we also create the Tables median and mean MAE, RMSE, sMAPE. Similarly to MASE, sMAPE normalizes errors by the sum of the actual and predicted values, making it scale-invariant in terms of the magnitude of the data. 
+As extra material, we also create the Tables with median and mean MAE, RMSE, sMAPE. Similarly to MASE, sMAPE normalizes errors by the sum of the actual and predicted values, making it scale-invariant in terms of the magnitude of the data. 
 On the other hand, for RMSE and sMAPE, the results are not directly comparable between datasets, but only within each dataset.
 
 \begin{table}[H]
@@ -255,13 +255,16 @@ On the other hand, for RMSE and sMAPE, the results are not directly comparable b
 The goal of our replication project was to successfully load the datasets, implement the authors functions with minimal updates, and regenerate Table 1 and Table 2 from the original paper in similar formatting. This proved to be a project primarily rooted in understanding effective package managing and resolving software conflicts related to cross-package version dependencies. We were successfully able to run all the models using R on a significant portion of the datasets but had lingering, unresolvable issues on the GluonTS models and some datasets. We will now briefly describe these successes, failures, and some recommendations, given our current knowledge, for the future of this replication project. 
 
 \subsection{Successes}
-We were successfully able to run the R models on a significant portion of the datasets. 
+We successfully generated Table 1, having minor differences for 3 cells in comparison with the original model due to (i) Addition of new datasets, (ii) addition of new data inside the time-series.
+
+In Table 2, we were successfully able to run the R models on a significant portion of the datasets. 
 
 We used an Anaconda environment and initially encountered problems with package installations from the authors' indicated R package versions resulting from the fact that the authors originally used an R base version of 4.0.2, which was unable to be installed in current versions of Anaconda. We instead used an R base version of 4.3.2 and were able to bypass these restrictions by manually adding the packages in our conda environment through including several "install.packages()" statements in our R forecasting scripts. However, there was an issue in building one of the dependency packages resulting from system incompatibilities with the underlying C and Fortran used to write the packages. We found that in order to successfully build the packages the user must first install cmake through homebrew on their machine. We also found through resolving these issues that it is essential to use the libmamba solver in one's conda environment as opposed to the classic solver. 
 
 Additionally, when we were finally able to run the R models on the datasets, we found that some models took an infeasible amount of time to run on local machines for certain datasets (on the order of 4 hours for a single model on a single dataset). This indicated to us that it would be wiser to run these models on an HPC cluster. However, as non faculty or staff researchers, the University of Chicago will not grant us access to the Midway Clusters and so we were unable to run these datasets in the final product in the interest of time and reproducibility. 
 
-For the datasets that we were successfully able to run, we found near identical results to the authors of the original paper (with a maximum error of $\approx$ 0.001)!
+For the datasets that we were successfully able to run, we found equal results for over 95\% of the models (perfect precision)!
+
 
 \subsection{Failures}
 We were not as fortunate in running the Python models as we were in running the R models. In addition to our inability to run a few of the datasets, we had several issues related to Python package versioning primarily resulting from Conda's poor ability to run versions of Python and Python packages that are more than 2 years out-of-date (currently, the Python packages the paper's authors used are nearly 3 years out-of-date).

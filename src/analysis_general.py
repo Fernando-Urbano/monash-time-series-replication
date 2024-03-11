@@ -38,7 +38,9 @@ EASY_FREQUENCY_TO_RELATIVEDELTA = {
 }
 
 
-ONLY_SELECTED_DATASETS = []
+ONLY_SELECTED_DATASETS = [
+    'm1_yearly_dataset.tsf'
+]
 
 
 def relative_time_func(frequency):
