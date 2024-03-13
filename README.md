@@ -229,6 +229,49 @@ doit
 
 The command should do every step from downloading the data until updating the pdf.
 
+# 3. Run the Website
+We also provide a website with the results, collaborators and summary of the paper.
+
+Everytime `dodo.py` is run and models are updated, the website information will have the newer information as well.
+
+To run the website in your computer, ensure that you have node installed in your computer and accessible via command prompt line.
+
+If you are working in a Macbook, node is installable via HomeBrew:
+
+```bash
+brew install node
+```
+
+Alternativelly, node is downloadable in: https://nodejs.org/en/download
+
+After, go inside the `mtsr-web` folder.
+
+Considering that your current working directory is the project main folder:
+
+```
+cd mtsr-web
+```
+
+Afterwards, download the packages necessary to run a React App:
+
+```bash
+npm install react-scripts
+```
+
+It should take 2-4 minutes.
+
+Finally, run the website in localhost:
+
+```bash 
+npm start
+```
+
+You might have problems due to localhost specification. If so, try to run again in the command line:
+
+```bash
+HOST=localhost npm start
+```
+
 # 3. General Directory Structure
 For our project, we are using the `doit` Python module as a task runner. It works like `make` and the associated `Makefile`s. To rerun the code, install `doit` (https://pydoit.org/) and execute the command `doit`. Note that doit is very flexible and can be used to run code commands from the command prompt, thus making it suitable for projects that use scripts written in multiple different programming languages.
 

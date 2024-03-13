@@ -23,6 +23,7 @@ from pathlib import Path
 from doit.tools import run_once
 from src.data_download import download_and_extract_zip
 from src.data_download import URLS
+from src.website_update_results import convert_tables_to_json
 from src.tables_create import convert_tsf_to_dataframe
 from src.tables_create import generate_table1_dataframe, generate_table2_dataframe
 from src.tables_to_latex import upload_table_download_latex
@@ -229,6 +230,17 @@ def task_transform_table2_to_latex():
         "file_dep": [BASE_DIR / 'output' / 'tables' / 'table2.csv'],
         'targets': [BASE_DIR / 'output' / 'tables' / 'table2.tex'],
         'uptodate': [False],  # Force to generate table2 every time
+        'clean': True,
+        'verbosity': 0
+    }
+
+
+def task_update_website_results():
+    """Generate table1.csv from the downloaded data."""
+    return {
+        'actions': [convert_tables_to_json],
+        'targets': [BASE_DIR / 'mtsr-web' / 'src' / 'Components' / 'test.json'],
+        'uptodate': [False],
         'clean': True,
         'verbosity': 0
     }

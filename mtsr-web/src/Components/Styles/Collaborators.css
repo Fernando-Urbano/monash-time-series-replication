@@ -1,0 +1,5 @@
+.image-fixed-size {
+    width: 60%;
+    height: 80%;
+    object-fit: cover;
+}
