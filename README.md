@@ -233,7 +233,7 @@ The command should do every step from downloading the data until updating the pd
 We also provide a website with the results, collaborators and summary of the paper.
 
 Everytime `dodo.py` is run and models are updated, the website information will have the newer information as well.
-We track in the github repository the most recent results inside `mtsr-web/src/Components/test.json`.
+We track in the github repository the most recent results inside `docs/src/Components/test.json`.
 
 To run the website in your computer, ensure that you have node installed and accessible via command prompt line.
 
@@ -250,7 +250,7 @@ Afterward, go inside the `mtsr-web` folder.
 Considering that your current working directory is the project main folder:
 
 ```
-cd mtsr-web
+cd docs
 ```
 
 Download the packages necessary to run a React App:

@@ -239,7 +239,7 @@ def task_update_website_results():
     """Generate table1.csv from the downloaded data."""
     return {
         'actions': [convert_tables_to_json],
-        'targets': [BASE_DIR / 'mtsr-web' / 'src' / 'Components' / 'test.json'],
+        'targets': [BASE_DIR / 'docs' / 'src' / 'Components' / 'test.json'],
         'uptodate': [False],
         'clean': True,
         'verbosity': 0

@@ -51,7 +51,7 @@ def convert_tables_to_json():
             error_metric_results[error_metric] = dict_result
         except Exception as e:
             print(f'Error in {table_name}: {str(e)[:100]}')
-        with open(BASE_DIR / 'mtsr-web' / 'src' / 'Components' / 'test.json', 'w') as f:
+        with open(BASE_DIR / 'docs' / 'src' / 'Components' / 'test.json', 'w') as f:
             f.write(str(error_metric_results).replace("'", '"'))
 
 
