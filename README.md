@@ -233,18 +233,19 @@ The command should do every step from downloading the data until updating the pd
 We also provide a website with the results, collaborators and summary of the paper.
 
 Everytime `dodo.py` is run and models are updated, the website information will have the newer information as well.
+We track in the github repository the most recent results inside `mtsr-web/src/Components/test.json`.
 
-To run the website in your computer, ensure that you have node installed in your computer and accessible via command prompt line.
+To run the website in your computer, ensure that you have node installed and accessible via command prompt line.
 
-If you are working in a Macbook, node is installable via HomeBrew:
+If you are working in a Macbook, node can be downloaded via HomeBrew:
 
 ```bash
 brew install node
 ```
 
-Alternativelly, node is downloadable in: https://nodejs.org/en/download
+Alternativelly, node also can be downloaded in: https://nodejs.org/en/download
 
-After, go inside the `mtsr-web` folder.
+Afterward, go inside the `mtsr-web` folder.
 
 Considering that your current working directory is the project main folder:
 
@@ -252,7 +253,7 @@ Considering that your current working directory is the project main folder:
 cd mtsr-web
 ```
 
-Afterwards, download the packages necessary to run a React App:
+Download the packages necessary to run a React App:
 
 ```bash
 npm install react-scripts
@@ -272,7 +273,9 @@ You might have problems due to localhost specification. If so, try to run again 
 HOST=localhost npm start
 ```
 
-# 3. General Directory Structure
+The website should be up and running!
+
+# 4. General Directory Structure
 For our project, we are using the `doit` Python module as a task runner. It works like `make` and the associated `Makefile`s. To rerun the code, install `doit` (https://pydoit.org/) and execute the command `doit`. Note that doit is very flexible and can be used to run code commands from the command prompt, thus making it suitable for projects that use scripts written in multiple different programming languages.
 
 Furthermore, `doit` can be executed specifying which tasks will run. For instance, if you want to just run the models:
@@ -302,7 +305,7 @@ doit run_fixed_horizon_R_script
 
 - The `src` contains all the scripts that are run inside `dodo.py` and a jupyter notebook explaining their functions/files and expected results.
 
-# 4. Appendix: Add more Packages to the Virtual Environment
+# 5. Appendix: Add more Packages to the Virtual Environment
 If needed to add more packages to the environment use the `requirements_py.txt` to add Python packages and `requirements_r.txt` to add R packages.
 
 It is necessary to specify the version used.

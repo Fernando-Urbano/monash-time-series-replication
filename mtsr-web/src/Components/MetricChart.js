@@ -18,7 +18,9 @@ function MetricChart({ data }) {
     datasets: models.map((model, index) => {
       return {
         label: model,
-        data: datasetsNames.map(datasetName => data[model][datasetName] || 0),
+        data: datasetsNames.map(datasetName => {
+          return typeof data[model][datasetName] !== 'undefined' ? data[model][datasetName] : NaN;
+        }),
         borderColor: rainbow(models.length, index),
         // borderColor: getRandomColor(),
         backgroundColor: 'transparent',
